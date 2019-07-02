@@ -1,0 +1,22 @@
+{
+  "name": "pdf.js-parser",
+  "version": "1.0.0",
+  "description": "PDF file parser.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenoitClaveau/pdf.js-parser.git"
+  },
+  "author": "Benoît Claveau <benoit.claveau@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenoitClaveau/pdf.js-parser/issues"
+  },
+  "homepage": "https://github.com/BenoitClaveau/pdf.js-parser#readme",
+  "dependencies": {
+    "canvas": "^2.5.0"
+  }
+}
