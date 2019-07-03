@@ -1,12 +1,18 @@
 const PDFJS = require('./dist/pdf');
 const { promisify } = require("util");
 const fs = require("fs");
+const path = require("path");
+const os = require("os");
 const { pipeline } = require("stream");
+const { exec } = require('child_process');
+const { randomBytes } = require('crypto');
 const NodeCanvasFactory = require('./node-canvas-factory');
 const CanvasGraphicsFactory = require('./canvas-graphics-factory');
-const { createBox } = require('./box');
+const { createBox, centroid } = require('./box');
 const Rect = require("./rect");
 const pipelineAsync = promisify(pipeline);
+const execAsync = promisify(exec);
+const randomName = () => randomBytes(4).readUInt32LE(0);
 
 PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker.min");
 
@@ -24,7 +30,7 @@ class PDFParser {
         const canvasFactory = new NodeCanvasFactory(store);
         const canvasGraphicsFactory = new CanvasGraphicsFactory(store);
 
-        const viewport = page.getViewport({ scale: 1.0 });
+        const viewport = page.getViewport(1.0);
         if (Number.isNaN(viewport.width)) viewport.width = viewport.viewBox[2];
         if (Number.isNaN(viewport.height)) viewport.height = viewport.viewBox[3];
 
@@ -58,6 +64,7 @@ class PDFParser {
             hlines: res.store.hlines,
             vlines: res.store.vlines,
             boxes: res.store.boxes,
+            texts: res.store.texts,
         };
     }
 
@@ -85,16 +92,17 @@ class PDFParser {
                 tx[5] -= fontSize / 2;
             }
 
+            context.font = tx[0] + 'px ' + style.fontFamily;
+
             // adjust for rendered width
             if (textItem.width > 0) {
-                context.font = tx[0] + 'px ' + style.fontFamily;
-
-                var width = context.measureText(textItem.str).width;
-
+                const width = context.measureText(textItem.str).width;
                 if (width > 0) {
                     tx[0] = (textItem.width * viewport.scale) / width;
                 }
             }
+
+            const sw = context.measureText(" ").width;
 
             store.texts.push({
                 ...createBox({
@@ -103,7 +111,8 @@ class PDFParser {
                     w: textItem.width,
                     h: textItem.height
                 }),
-                text: textItem.str
+                text: textItem.str,
+                sw
             });
         }
 
@@ -117,31 +126,33 @@ class PDFParser {
 
     static _mergeTexts(data) {
         const { store } = data;
-        const merged = [];
+        let adjacents = 1;
+        while (adjacents > 0) {
+            adjacents = 0;
+            for (let i = 0; i < store.texts.length; i++) {
+                const text = store.texts[i];
+                if (text.merged) continue;
+                const childrenAdjacent = store.texts.filter((t, j) => {
+                    return text != t && PDFParser.areAdjacentBlocksOnX(text, t, text.sw * 0.85);
+                }).sort((a, b) => a.x - b.x); // important, je retrie pour supprimer le tri par Y et ne prendre en compte que le x.
 
-        for (let i = 0; i < store.texts.length; i++) {
-            const text = store.texts[i];
-            const childrenAdjacent = store.texts.filter((t, j) => {
-                return PDFParser.areAdjacentBlocksOnX(text, t, text.sw * 0.85);
-            }).sort((a, b) => a.x - b.x); // important, je retrie pour supprimer le tri par Y et ne prendre en compte que le x.
+                for (let child of childrenAdjacent) {
+                    text.text += child.text;
+                    text.w = child.x + child.w - text.x;
+                    const bottom = Math.max(text.y + text.h, child.y + child.h);
+                    text.y = Math.min(text.y, child.y);
+                    text.h = bottom - text.y;
+                    text.centroid = centroid(text);
+                    child.merged = true;
+                }
 
-            if (childrenAdjacent.length) {
-                i--; // je refais un petit tour car w à changé et de nouvelles cellules peuvent être adjacentes.
-                merged.push(text);
+                if (childrenAdjacent.length) {
+                    adjacents += childrenAdjacent.length;
+                }
             }
-
-            for (let child of childrenAdjacent) {
-                text.text += child.text; // j'ajoute forcement un espace. La largeur du text est imprécise, je ne peut pas faire mieux.
-                text.w = child.x + child.w - text.x;
-                const bottom = Math.max(text.y + text.h, child.y + child.h);
-                text.y = Math.min(text.y, child.y);
-                text.h = bottom - text.y;
-                text.centroid = centroid(text);
-                child.merged = true;
-            }
+            store.texts = store.texts.filter(e => !e.merged);
         }
 
-        store.texts = store.texts.filter(e => !e.merged);
     }
 
     static _extractLines(data) {
@@ -169,7 +180,7 @@ class PDFParser {
             i--;
         }
 
-        //fusionner à l'horizontal les petits rectangles
+        //fusionner Ã  l'horizontal les petits rectangles
         for (let i = 0; i < smallsV.length; i++) {
             const box = smallsV[i];
             const box2 = smallsV.filter(e => box != e && Rect.collideRectRect(e.x - 5, e.y - 5, e.w + 10, e.h + 10, box.x, box.y, box.w, box.h)).shift();
@@ -258,7 +269,7 @@ class PDFParser {
                 if (!newHBorders.some(e => Rect.equalsRectObj(e, bottom)))
                     newHBorders.push(bottom);
 
-                // je mets à jours les lignes
+                // je mets Ã  jours les lignes
                 for (let vline of vlines)
                     Object.assign(vline, { y: area.y, h: area.h });
             }
@@ -276,7 +287,7 @@ class PDFParser {
         for (let [k, topBorder] of hBorders.entries()) {
             const bottomsBorders = hBorders.filter(e => e.box.centroid.y > topBorder.box.centroid.y && Rect.collideRectRect(e.box.x, topBorder.box.y, e.box.w, e.box.h, topBorder.box.x, topBorder.box.y, topBorder.box.w, topBorder.box.h));
 
-            // j'essaye toutes les possibiltés left et right pour trouver toutes les boites
+            // j'essaye toutes les possibiltÃ©s left et right pour trouver toutes les boites
             for (let begin = 0; begin < topBorder.collides.length - 1; begin++) {
                 for (let end = begin + 1; end < topBorder.collides.length; end++) {
                     const left = topBorder.collides[begin];
@@ -289,21 +300,21 @@ class PDFParser {
                         const rightIndex = bottomBorder.collides.indexOf(right);
                         if (rightIndex == -1) continue;
 
-                        // je recupère les collisions entre left et right
+                        // je recupÃ¨re les collisions entre left et right
                         const inters = bottomBorder.collides.slice(leftIndex + 1, rightIndex);
-                        // Si topBorder au une collision avec une de limite alors une boite (plus petite) sera créée. Il ne faut pas la créer car elle serait trop grande.
+                        // Si topBorder au une collision avec une de limite alors une boite (plus petite) sera crÃ©Ã©e. Il ne faut pas la crÃ©er car elle serait trop grande.
                         const hasInter = inters.some(e => topBorder.collides.some(f => e == f));
                         if (hasInter)
                             continue;
 
                         const b = createBox({
                             y: topBorder.box.centroid.y,
-                            h: bottomBorder.box.y - topBorder.box.y,    // je ne prend pas centroid pour être insensible à box.h
+                            h: bottomBorder.box.y - topBorder.box.y,    // je ne prend pas centroid pour Ãªtre insensible Ã  box.h
                             x: left.centroid.x,
-                            w: right.x - left.x                         // je ne prend pas centroid pour être insensible à left.w
+                            w: right.x - left.x                         // je ne prend pas centroid pour Ãªtre insensible Ã  left.w
                         })
                         boxes.push(b);
-                        break; // je quitte car une boite avec left a été trouvé. C'est la plus petite ! Je ne veux pas trouver de plus grande
+                        break; // je quitte car une boite avec left a Ã©tÃ© trouvÃ©. C'est la plus petite ! Je ne veux pas trouver de plus grande
                     }
                 }
             }
@@ -337,7 +348,7 @@ class PDFParser {
                 continue;
             }
 
-            if (children.length > 1) { // plusieurs enfants. Je calcule la somme des ecarts (vide). S'elle est petite j'ignore la boite. Je la considère comme un cadre.
+            if (children.length > 1) { // plusieurs enfants. Je calcule la somme des ecarts (vide). S'elle est petite j'ignore la boite. Je la considï¿½re comme un cadre.
                 const ecarts = ecart(children.map(e => [e.y, e.y + e.h])).filter(e => e > 0);
                 const total = ecarts.reduce((sum, x) => sum + x, 0);
                 if (total < box.h * 0.3) {
@@ -355,17 +366,17 @@ class PDFParser {
     static _horizontalCollides(data, hline) {
         const { store } = data;
         const collides = store.vlines.filter(e => Rect.collideRectRect(e.x - 1, e.y - 1, e.w + 1, e.h + 1, hline.x - 1, hline.y - 1, hline.w + 1, hline.h + 1));
-        // création de lignes verticales virtuelles pour "fermer" les boites.
+        // crï¿½ation de lignes verticales virtuelles pour "fermer" les boites.
         const left = collides.length ? collides[0] : null
         const right = collides.length ? collides[collides.length - 1] : null;
         if (left && hline.x < left.x - 1) {
-            // box dépasse left, je vais dupliquer left sur la gauche pour créer une ligne verticale.
+            // box dï¿½passe left, je vais dupliquer left sur la gauche pour crï¿½er une ligne verticale.
             const left2 = createBox({ ...left, x: hline.x });
             collides.splice(0, 0, left2);
             store.vlines = [...store.vlines, left2].sort(PDFParser.compareBlockPos);
         }
         if (right && hline.x + hline.w > right.x + right.w + 1) {
-            // box dépasse right, je vais dupliquer right sur la droite pour créer une ligne verticale.
+            // box dï¿½passe right, je vais dupliquer right sur la droite pour crï¿½er une ligne verticale.
             const right2 = createBox({ ...left, x: hline.x + hline.w });
             collides.splice(-1, 0, right2);
             store.vlines = [...store.vlines, right2].sort(PDFParser.compareBlockPos);
@@ -374,14 +385,6 @@ class PDFParser {
             box: hline,
             collides: collides.sort((a, b) => a.x - b.x)
         };
-    }
-
-    static async writeFile(context, filepath) {
-        const stream = context.canvas.createPNGStream();
-        await pipelineAsync(
-            stream,
-            fs.createWriteStream(filepath)
-        );
     }
 
     static compareBlockPos(t1, t2) {
@@ -403,7 +406,7 @@ class PDFParser {
 
     static areAdjacentBlocksOnX(leftCell, rightCell, distance) {
         let DISTANCE_DELTA_Y = 5;
-        // le caractère peut être centré verticalement ex: "-"
+        // le caractï¿½re peut ï¿½tre centrï¿½ verticalement ex: "-"
         if (rightCell.text.length == 1) DISTANCE_DELTA_Y = leftCell.h * 0.75;
 
         if (distance === undefined) distance = this.getSpaceThreshHold(leftCell);
@@ -412,10 +415,24 @@ class PDFParser {
         if (!isInSameLine) return;
 
         const cellDistance = rightCell.x - leftCell.x - leftCell.w;
-        let isDistanceSmallerThanASpace = cellDistance <= distance && cellDistance >= -leftCell.sw; // je garde une marge (sw) car opentype.js n'est pas précis
+        let isDistanceSmallerThanASpace = cellDistance <= distance && cellDistance >= -leftCell.sw; // je garde une marge (sw) car opentype.js n'est pas prï¿½cis
 
         return isDistanceSmallerThanASpace;
     };
+
+    static async writeFile(context, filepath) {
+        const stream = context.canvas.createPNGStream();
+        await pipelineAsync(
+            stream,
+            fs.createWriteStream(filepath)
+        );
+    }
+
+    static async show(context) {
+        const output = path.join(os.tmpdir(), `${randomName()}.png`) //path.join(fs.mkdtempSync(`${os.tmpdir()}/pdf-`), );
+        await PDFParser.writeFile(context, output);
+        await execAsync(`start ${output}`);
+    }
 }
 
 const ecart = (array) => {
@@ -434,4 +451,6 @@ const ecart = (array) => {
 module.exports = PDFJS;
 module.exports.parse = PDFParser.parse;
 module.exports.writeFile = PDFParser.writeFile;
+module.exports.show = PDFParser.show;
 module.exports.registerFont = NodeCanvasFactory.registerFont;
+module.exports.Rect = Rect;
