@@ -1,5 +1,8 @@
 const assert = require('assert');
 const Canvas = require('canvas');
+const ttfInfo = require('fontinfo');
+const fs = require("fs");
+const path = require("path");
 
 class NodeCanvasFactory {
 
@@ -25,17 +28,17 @@ class NodeCanvasFactory {
             beginPath.call(context);
         }
     
-        moveTo(x, y) = () => {
+        context.moveTo = (x, y) => {
             this.store.paths.push({ type: 'moveTo', ...getCoords(x, y) });
             moveTo.call(context, x, y);
         }
     
-        lineTo(x, y) = () => {
+        context.lineTo = (x, y) => {
             this.store.paths.push({ type: 'lineTo', ...getCoords(x, y) });
             lineTo.call(context, x, y);
         }
     
-        closePath() = () => {
+        context.closePath = () => {
             this.store.paths.push({ type: 'close' });
             closePath.call(context);
         }
@@ -74,4 +77,24 @@ class NodeCanvasFactory {
     }
 };
 
-exports = module.exports = NodeCanvasFactory;
+function registerFont(fontPath) {
+    const stats = fs.statSync(fontPath);
+    const files = stats.isDirectory() ? fs.readdirSync(fontPath) : [fontPath];
+    for (let file of files) {
+        try {
+            const filepath = path.join(fontPath, file);
+            const info = ttfInfo(filepath);
+            Canvas.registerFont(filepath, {
+                family: info.name.fontFamily,
+                weight: info["OS/2"].weightClass,
+                style: info.name.fontSubFamily
+            });
+            console.info(info.name.fontFamily)
+        } catch (error) {
+            //console.warn(error)
+        }
+    }
+}
+
+module.exports = NodeCanvasFactory;
+module.exports.registerFont = registerFont;

@@ -20,23 +20,34 @@ class PDFCanvasGraphics extends CanvasGraphics {
     }
 
     stroke() {
-        processPaths();
+        this.process();
         super.stroke();
     }
 
-    [OPS.stroke] {
-        processPaths();
+    [OPS.stroke]() {
+        this.process();
         super.stroke();
     }
 
-    processPaths() {
-        for (let [i, path] of this.store.paths.entries()) {
+    fill() {
+        this.process();
+        super.fill();
+    }
+
+    [OPS.fill]() {
+        this.process();
+        super.fill();
+    }
+    
+    process() {
+        const { paths } = this.store;
+        for (let [i, path] of paths.entries()) {
             switch (path.type) {
                 case 'lineTo':
-                    if (i > 0) this.drawLine(this.paths[i - 1], path);
+                    if (i > 0) this.drawLine(paths[i - 1], path);
                     break;
                 case 'close':
-                    if (i > 0) this.drawLine(this.paths[i - 1], this.paths[0]);
+                    if (i > 0) this.drawLine(paths[i - 1], paths[0]);
                     break;
                 case 'moveTo': break;
                 case 'bezierCurveTo':

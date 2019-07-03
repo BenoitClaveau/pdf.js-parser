@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.2.223';
-var pdfjsBuild = 'a972f546';
+var pdfjsVersion = '2.2.224';
+var pdfjsBuild = '712069c4';
 
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 
@@ -10061,7 +10061,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
 
   return worker.messageHandler.sendWithPromise('GetDocRequest', {
     docId: docId,
-    apiVersion: '2.2.223',
+    apiVersion: '2.2.224',
     source: {
       data: source.data,
       url: source.url,
@@ -10539,7 +10539,7 @@ function () {
       this.pendingCleanup = false;
       var renderingIntent = intent === 'print' ? 'print' : 'display';
       var canvasFactoryInstance = canvasFactory || new _display_utils.DOMCanvasFactory();
-      var canvasGraphicsFactoryInstance = canvasGraphicsFactory || new CanvasFactory();
+      var canvasGraphicsFactoryInstance = canvasGraphicsFactory || new _canvas.CanvasFactory();
       var webGLContext = new _webgl.WebGLContext({
         enable: enableWebGL
       });
@@ -12227,9 +12227,9 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
   return InternalRenderTask;
 }();
 
-var version = '2.2.223';
+var version = '2.2.224';
 exports.version = version;
-var build = 'a972f546';
+var build = '712069c4';
 exports.build = build;
 
 /***/ }),
