@@ -406,7 +406,7 @@ class PDFParser {
 
     static areAdjacentBlocksOnX(leftCell, rightCell, distance) {
         let DISTANCE_DELTA_Y = 5;
-        // le caract�re peut �tre centr� verticalement ex: "-"
+        // le caractére peut être centré verticalement ex: "-"
         if (rightCell.text.length == 1) DISTANCE_DELTA_Y = leftCell.h * 0.75;
 
         if (distance === undefined) distance = this.getSpaceThreshHold(leftCell);
