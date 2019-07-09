@@ -18,6 +18,7 @@
   "homepage": "https://github.com/BenoitClaveau/pdf.js-parser#readme",
   "dependencies": {
     "canvas": "^2.5.0",
+    "fontinfo": "^0.3.0",
     "node-ensure": "0.0.0"
   }
 }
