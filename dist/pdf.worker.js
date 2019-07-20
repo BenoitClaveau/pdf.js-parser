@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.2.224';
-var pdfjsBuild = '712069c4';
+var pdfjsVersion = '2.2.225';
+var pdfjsBuild = '4785f13d';
 
 var pdfjsCoreWorker = __w_pdfjs_require__(1);
 
@@ -252,7 +252,7 @@ var WorkerMessageHandler = {
     var WorkerTasks = [];
     var verbosity = (0, _util.getVerbosityLevel)();
     var apiVersion = docParams.apiVersion;
-    var workerVersion = '2.2.224';
+    var workerVersion = '2.2.225';
 
     if (apiVersion !== workerVersion) {
       throw new Error("The API version \"".concat(apiVersion, "\" does not match ") + "the Worker version \"".concat(workerVersion, "\"."));
@@ -31719,7 +31719,7 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
         transform: null,
         fontName: null
       };
-      var SPACE_FACTOR = 0.3;
+      var SPACE_FACTOR = 0.85;
       var MULTI_SPACE_FACTOR = 1.5;
       var MULTI_SPACE_FACTOR_MAX = 4;
       var self = this;

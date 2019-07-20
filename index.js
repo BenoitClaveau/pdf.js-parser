@@ -14,7 +14,7 @@ const pipelineAsync = promisify(pipeline);
 const execAsync = promisify(exec);
 const randomName = () => randomBytes(4).readUInt32LE(0);
 
-PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker.min");
+PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker");
 
 class PDFParser {
     /**
@@ -113,6 +113,8 @@ class PDFParser {
                 }),
                 text: textItem.str,
                 sw
+                font: context.font,
+                fontSize: tx[0]
             });
         }
 
