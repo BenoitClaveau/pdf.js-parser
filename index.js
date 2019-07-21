@@ -112,7 +112,7 @@ class PDFParser {
                     h: textItem.height
                 }),
                 text: textItem.str,
-                sw
+                sw,
                 font: context.font,
                 fontSize: tx[0]
             });
