@@ -1,6 +1,6 @@
 {
   "name": "pdf.js-parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "PDF Parser with PDF.js.",
   "main": "index.js",
   "scripts": {

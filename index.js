@@ -30,7 +30,7 @@ class PDFParser {
         const canvasFactory = new NodeCanvasFactory(store);
         const canvasGraphicsFactory = new CanvasGraphicsFactory(store);
 
-        const viewport = page.getViewport(1.0);
+        const viewport = page.getViewport({ scale:1.0 });
         if (Number.isNaN(viewport.width)) viewport.width = viewport.viewBox[2];
         if (Number.isNaN(viewport.height)) viewport.height = viewport.viewBox[3];
 
@@ -41,7 +41,7 @@ class PDFParser {
             viewport,
             canvasFactory,
             canvasGraphicsFactory
-        });
+        }).promise;
 
         return {
             context: canvasContext,
@@ -71,7 +71,7 @@ class PDFParser {
     static async _extractTexts(data) {
         const { context, viewport, store, page } = data;
 
-        const textContent = await page.getTextContent({ normalizeWhitespace: true });
+        const textContent = await page.getTextContent({ normalizeWhitespace: true }).promise;
 
         for (let textItem of textContent.items) {
             var tx = PDFJS.Util.transform(
