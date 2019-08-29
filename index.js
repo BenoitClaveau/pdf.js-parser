@@ -71,7 +71,7 @@ class PDFParser {
     static async _extractTexts(data) {
         const { context, viewport, store, page } = data;
 
-        const textContent = await page.getTextContent({ normalizeWhitespace: true }).promise;
+        const textContent = await page.getTextContent({ normalizeWhitespace: true });
 
         for (let textItem of textContent.items) {
             var tx = PDFJS.Util.transform(

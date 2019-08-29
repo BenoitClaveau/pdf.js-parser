@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.2.225';
-var pdfjsBuild = '4785f13d';
+var pdfjsVersion = '2.3.133';
+var pdfjsBuild = 'e44e72bd';
 
 var pdfjsCoreWorker = __w_pdfjs_require__(1);
 
@@ -159,8 +159,6 @@ var _worker_stream = __w_pdfjs_require__(192);
 var _core_utils = __w_pdfjs_require__(154);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -252,7 +250,7 @@ var WorkerMessageHandler = {
     var WorkerTasks = [];
     var verbosity = (0, _util.getVerbosityLevel)();
     var apiVersion = docParams.apiVersion;
-    var workerVersion = '2.2.225';
+    var workerVersion = '2.3.133';
 
     if (apiVersion !== workerVersion) {
       throw new Error("The API version \"".concat(apiVersion, "\" does not match ") + "the Worker version \"".concat(workerVersion, "\"."));
@@ -452,8 +450,8 @@ var WorkerMessageHandler = {
         cancelXHRs = null;
       });
 
-      cancelXHRs = function cancelXHRs() {
-        pdfStream.cancelAllRequests('abort');
+      cancelXHRs = function cancelXHRs(reason) {
+        pdfStream.cancelAllRequests(reason);
       };
 
       return pdfManagerCapability.promise;
@@ -521,7 +519,7 @@ var WorkerMessageHandler = {
       };
       getPdfManager(data, evaluatorOptions).then(function (newPdfManager) {
         if (terminated) {
-          newPdfManager.terminate();
+          newPdfManager.terminate(new _util.AbortException('Worker was terminated.'));
           throw new Error('Worker was terminated');
         }
 
@@ -610,24 +608,27 @@ var WorkerMessageHandler = {
         return page.getAnnotationsData(intent);
       });
     });
-    handler.on('RenderPageRequest', function wphSetupRenderPage(data) {
+    handler.on('GetOperatorList', function wphSetupRenderPage(data, sink) {
       var pageIndex = data.pageIndex;
       pdfManager.getPage(pageIndex).then(function (page) {
-        var task = new WorkerTask('RenderPageRequest: page ' + pageIndex);
+        var task = new WorkerTask("GetOperatorList: page ".concat(pageIndex));
         startWorkerTask(task);
         var start = verbosity >= _util.VerbosityLevel.INFOS ? Date.now() : 0;
         page.getOperatorList({
           handler: handler,
+          sink: sink,
           task: task,
           intent: data.intent,
           renderInteractiveForms: data.renderInteractiveForms
-        }).then(function (operatorList) {
+        }).then(function (operatorListInfo) {
           finishWorkerTask(task);
 
           if (start) {
-            (0, _util.info)("page=".concat(pageIndex + 1, " - getOperatorList: time=") + "".concat(Date.now() - start, "ms, len=").concat(operatorList.totalLength));
+            (0, _util.info)("page=".concat(pageIndex + 1, " - getOperatorList: time=") + "".concat(Date.now() - start, "ms, len=").concat(operatorListInfo.length));
           }
-        }, function (e) {
+
+          sink.close();
+        }, function (reason) {
           finishWorkerTask(task);
 
           if (task.terminated) {
@@ -637,31 +638,7 @@ var WorkerMessageHandler = {
           handler.send('UnsupportedFeature', {
             featureId: _util.UNSUPPORTED_FEATURES.unknown
           });
-          var minimumStackMessage = 'worker.js: while trying to getPage() and getOperatorList()';
-          var wrappedException;
-
-          if (typeof e === 'string') {
-            wrappedException = {
-              message: e,
-              stack: minimumStackMessage
-            };
-          } else if (_typeof(e) === 'object') {
-            wrappedException = {
-              message: e.message || e.toString(),
-              stack: e.stack || minimumStackMessage
-            };
-          } else {
-            wrappedException = {
-              message: 'Unknown exception type: ' + _typeof(e),
-              stack: minimumStackMessage
-            };
-          }
-
-          handler.send('PageError', {
-            pageIndex: pageIndex,
-            error: wrappedException,
-            intent: data.intent
-          });
+          sink.error(reason);
         });
       });
     }, this);
@@ -698,7 +675,6 @@ var WorkerMessageHandler = {
           }
 
           sink.error(reason);
-          throw reason;
         });
       });
     });
@@ -712,12 +688,12 @@ var WorkerMessageHandler = {
       terminated = true;
 
       if (pdfManager) {
-        pdfManager.terminate();
+        pdfManager.terminate(new _util.AbortException('Worker was terminated.'));
         pdfManager = null;
       }
 
       if (cancelXHRs) {
-        cancelXHRs();
+        cancelXHRs(new _util.AbortException('Worker was terminated.'));
       }
 
       (0, _primitives.clearPrimitiveCaches)();
@@ -1428,13 +1404,19 @@ Object.defineProperty(exports, "URL", {
     return _url_polyfill.URL;
   }
 });
-exports.createObjectURL = exports.FormatError = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.PermissionFlag = exports.PasswordResponses = exports.PasswordException = exports.NativeImageDecoding = exports.MissingPDFException = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.UNSUPPORTED_FEATURES = exports.VerbosityLevel = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = void 0;
+exports.createObjectURL = exports.FormatError = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.PermissionFlag = exports.PasswordResponses = exports.PasswordException = exports.NativeImageDecoding = exports.MissingPDFException = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationStateModelType = exports.AnnotationReviewState = exports.AnnotationReplyType = exports.AnnotationMarkedState = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.UNSUPPORTED_FEATURES = exports.VerbosityLevel = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = void 0;
 
 __w_pdfjs_require__(6);
 
 var _streams_polyfill = __w_pdfjs_require__(147);
 
 var _url_polyfill = __w_pdfjs_require__(149);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -1507,6 +1489,29 @@ var AnnotationType = {
   REDACT: 26
 };
 exports.AnnotationType = AnnotationType;
+var AnnotationStateModelType = {
+  MARKED: 'Marked',
+  REVIEW: 'Review'
+};
+exports.AnnotationStateModelType = AnnotationStateModelType;
+var AnnotationMarkedState = {
+  MARKED: 'Marked',
+  UNMARKED: 'Unmarked'
+};
+exports.AnnotationMarkedState = AnnotationMarkedState;
+var AnnotationReviewState = {
+  ACCEPTED: 'Accepted',
+  REJECTED: 'Rejected',
+  CANCELLED: 'Cancelled',
+  COMPLETED: 'Completed',
+  NONE: 'None'
+};
+exports.AnnotationReviewState = AnnotationReviewState;
+var AnnotationReplyType = {
+  GROUP: 'Group',
+  REPLY: 'R'
+};
+exports.AnnotationReplyType = AnnotationReplyType;
 var AnnotationFlag = {
   INVISIBLE: 0x01,
   HIDDEN: 0x02,
@@ -1551,30 +1556,30 @@ var AnnotationBorderStyleType = {
 };
 exports.AnnotationBorderStyleType = AnnotationBorderStyleType;
 var StreamType = {
-  UNKNOWN: 0,
-  FLATE: 1,
-  LZW: 2,
-  DCT: 3,
-  JPX: 4,
-  JBIG: 5,
-  A85: 6,
-  AHX: 7,
-  CCF: 8,
-  RL: 9
+  UNKNOWN: 'UNKNOWN',
+  FLATE: 'FLATE',
+  LZW: 'LZW',
+  DCT: 'DCT',
+  JPX: 'JPX',
+  JBIG: 'JBIG',
+  A85: 'A85',
+  AHX: 'AHX',
+  CCF: 'CCF',
+  RLX: 'RLX'
 };
 exports.StreamType = StreamType;
 var FontType = {
-  UNKNOWN: 0,
-  TYPE1: 1,
-  TYPE1C: 2,
-  CIDFONTTYPE0: 3,
-  CIDFONTTYPE0C: 4,
-  TRUETYPE: 5,
-  CIDFONTTYPE2: 6,
-  TYPE3: 7,
-  OPENTYPE: 8,
-  TYPE0: 9,
-  MMTYPE1: 10
+  UNKNOWN: 'UNKNOWN',
+  TYPE1: 'TYPE1',
+  TYPE1C: 'TYPE1C',
+  CIDFONTTYPE0: 'CIDFONTTYPE0',
+  CIDFONTTYPE0C: 'CIDFONTTYPE0C',
+  TRUETYPE: 'TRUETYPE',
+  CIDFONTTYPE2: 'CIDFONTTYPE2',
+  TYPE3: 'TYPE3',
+  OPENTYPE: 'OPENTYPE',
+  TYPE0: 'TYPE0',
+  MMTYPE1: 'MMTYPE1'
 };
 exports.FontType = FontType;
 var VerbosityLevel = {
@@ -1711,13 +1716,13 @@ function getVerbosityLevel() {
 
 function info(msg) {
   if (verbosity >= VerbosityLevel.INFOS) {
-    console.log('Info: ' + msg);
+    console.log("Info: ".concat(msg));
   }
 }
 
 function warn(msg) {
   if (verbosity >= VerbosityLevel.WARNINGS) {
-    console.log('Warning: ' + msg);
+    console.log("Warning: ".concat(msg));
   }
 }
 
@@ -1732,8 +1737,10 @@ function assert(cond, msg) {
 }
 
 function isSameOrigin(baseUrl, otherUrl) {
+  var base;
+
   try {
-    var base = new _url_polyfill.URL(baseUrl);
+    base = new _url_polyfill.URL(baseUrl);
 
     if (!base.origin || base.origin === 'null') {
       return false;
@@ -1936,26 +1943,23 @@ function arrayByteLength(arr) {
 }
 
 function arraysToBytes(arr) {
-  if (arr.length === 1 && arr[0] instanceof Uint8Array) {
+  var length = arr.length;
+
+  if (length === 1 && arr[0] instanceof Uint8Array) {
     return arr[0];
   }
 
   var resultLength = 0;
-  var i,
-      ii = arr.length;
-  var item, itemLength;
 
-  for (i = 0; i < ii; i++) {
-    item = arr[i];
-    itemLength = arrayByteLength(item);
-    resultLength += itemLength;
+  for (var i = 0; i < length; i++) {
+    resultLength += arrayByteLength(arr[i]);
   }
 
   var pos = 0;
   var data = new Uint8Array(resultLength);
 
-  for (i = 0; i < ii; i++) {
-    item = arr[i];
+  for (var _i = 0; _i < length; _i++) {
+    var item = arr[_i];
 
     if (!(item instanceof Uint8Array)) {
       if (typeof item === 'string') {
@@ -1965,7 +1969,7 @@ function arraysToBytes(arr) {
       }
     }
 
-    itemLength = item.byteLength;
+    var itemLength = item.byteLength;
     data.set(item, pos);
     pos += itemLength;
   }
@@ -2013,108 +2017,124 @@ function isEvalSupported() {
   }
 }
 
-var Util = function UtilClosure() {
-  function Util() {}
+var rgbBuf = ['rgb(', 0, ',', 0, ',', 0, ')'];
 
-  var rgbBuf = ['rgb(', 0, ',', 0, ',', 0, ')'];
+var Util =
+/*#__PURE__*/
+function () {
+  function Util() {
+    _classCallCheck(this, Util);
+  }
 
-  Util.makeCssRgb = function Util_makeCssRgb(r, g, b) {
-    rgbBuf[1] = r;
-    rgbBuf[3] = g;
-    rgbBuf[5] = b;
-    return rgbBuf.join('');
-  };
-
-  Util.transform = function Util_transform(m1, m2) {
-    return [m1[0] * m2[0] + m1[2] * m2[1], m1[1] * m2[0] + m1[3] * m2[1], m1[0] * m2[2] + m1[2] * m2[3], m1[1] * m2[2] + m1[3] * m2[3], m1[0] * m2[4] + m1[2] * m2[5] + m1[4], m1[1] * m2[4] + m1[3] * m2[5] + m1[5]];
-  };
-
-  Util.applyTransform = function Util_applyTransform(p, m) {
-    var xt = p[0] * m[0] + p[1] * m[2] + m[4];
-    var yt = p[0] * m[1] + p[1] * m[3] + m[5];
-    return [xt, yt];
-  };
-
-  Util.applyInverseTransform = function Util_applyInverseTransform(p, m) {
-    var d = m[0] * m[3] - m[1] * m[2];
-    var xt = (p[0] * m[3] - p[1] * m[2] + m[2] * m[5] - m[4] * m[3]) / d;
-    var yt = (-p[0] * m[1] + p[1] * m[0] + m[4] * m[1] - m[5] * m[0]) / d;
-    return [xt, yt];
-  };
-
-  Util.getAxialAlignedBoundingBox = function Util_getAxialAlignedBoundingBox(r, m) {
-    var p1 = Util.applyTransform(r, m);
-    var p2 = Util.applyTransform(r.slice(2, 4), m);
-    var p3 = Util.applyTransform([r[0], r[3]], m);
-    var p4 = Util.applyTransform([r[2], r[1]], m);
-    return [Math.min(p1[0], p2[0], p3[0], p4[0]), Math.min(p1[1], p2[1], p3[1], p4[1]), Math.max(p1[0], p2[0], p3[0], p4[0]), Math.max(p1[1], p2[1], p3[1], p4[1])];
-  };
-
-  Util.inverseTransform = function Util_inverseTransform(m) {
-    var d = m[0] * m[3] - m[1] * m[2];
-    return [m[3] / d, -m[1] / d, -m[2] / d, m[0] / d, (m[2] * m[5] - m[4] * m[3]) / d, (m[4] * m[1] - m[5] * m[0]) / d];
-  };
-
-  Util.apply3dTransform = function Util_apply3dTransform(m, v) {
-    return [m[0] * v[0] + m[1] * v[1] + m[2] * v[2], m[3] * v[0] + m[4] * v[1] + m[5] * v[2], m[6] * v[0] + m[7] * v[1] + m[8] * v[2]];
-  };
-
-  Util.singularValueDecompose2dScale = function Util_singularValueDecompose2dScale(m) {
-    var transpose = [m[0], m[2], m[1], m[3]];
-    var a = m[0] * transpose[0] + m[1] * transpose[2];
-    var b = m[0] * transpose[1] + m[1] * transpose[3];
-    var c = m[2] * transpose[0] + m[3] * transpose[2];
-    var d = m[2] * transpose[1] + m[3] * transpose[3];
-    var first = (a + d) / 2;
-    var second = Math.sqrt((a + d) * (a + d) - 4 * (a * d - c * b)) / 2;
-    var sx = first + second || 1;
-    var sy = first - second || 1;
-    return [Math.sqrt(sx), Math.sqrt(sy)];
-  };
-
-  Util.normalizeRect = function Util_normalizeRect(rect) {
-    var r = rect.slice(0);
-
-    if (rect[0] > rect[2]) {
-      r[0] = rect[2];
-      r[2] = rect[0];
+  _createClass(Util, null, [{
+    key: "makeCssRgb",
+    value: function makeCssRgb(r, g, b) {
+      rgbBuf[1] = r;
+      rgbBuf[3] = g;
+      rgbBuf[5] = b;
+      return rgbBuf.join('');
     }
-
-    if (rect[1] > rect[3]) {
-      r[1] = rect[3];
-      r[3] = rect[1];
+  }, {
+    key: "transform",
+    value: function transform(m1, m2) {
+      return [m1[0] * m2[0] + m1[2] * m2[1], m1[1] * m2[0] + m1[3] * m2[1], m1[0] * m2[2] + m1[2] * m2[3], m1[1] * m2[2] + m1[3] * m2[3], m1[0] * m2[4] + m1[2] * m2[5] + m1[4], m1[1] * m2[4] + m1[3] * m2[5] + m1[5]];
     }
-
-    return r;
-  };
-
-  Util.intersect = function Util_intersect(rect1, rect2) {
-    function compare(a, b) {
-      return a - b;
+  }, {
+    key: "applyTransform",
+    value: function applyTransform(p, m) {
+      var xt = p[0] * m[0] + p[1] * m[2] + m[4];
+      var yt = p[0] * m[1] + p[1] * m[3] + m[5];
+      return [xt, yt];
     }
-
-    var orderedX = [rect1[0], rect1[2], rect2[0], rect2[2]].sort(compare),
-        orderedY = [rect1[1], rect1[3], rect2[1], rect2[3]].sort(compare),
-        result = [];
-    rect1 = Util.normalizeRect(rect1);
-    rect2 = Util.normalizeRect(rect2);
-
-    if (orderedX[0] === rect1[0] && orderedX[1] === rect2[0] || orderedX[0] === rect2[0] && orderedX[1] === rect1[0]) {
-      result[0] = orderedX[1];
-      result[2] = orderedX[2];
-    } else {
-      return false;
+  }, {
+    key: "applyInverseTransform",
+    value: function applyInverseTransform(p, m) {
+      var d = m[0] * m[3] - m[1] * m[2];
+      var xt = (p[0] * m[3] - p[1] * m[2] + m[2] * m[5] - m[4] * m[3]) / d;
+      var yt = (-p[0] * m[1] + p[1] * m[0] + m[4] * m[1] - m[5] * m[0]) / d;
+      return [xt, yt];
     }
-
-    if (orderedY[0] === rect1[1] && orderedY[1] === rect2[1] || orderedY[0] === rect2[1] && orderedY[1] === rect1[1]) {
-      result[1] = orderedY[1];
-      result[3] = orderedY[2];
-    } else {
-      return false;
+  }, {
+    key: "getAxialAlignedBoundingBox",
+    value: function getAxialAlignedBoundingBox(r, m) {
+      var p1 = Util.applyTransform(r, m);
+      var p2 = Util.applyTransform(r.slice(2, 4), m);
+      var p3 = Util.applyTransform([r[0], r[3]], m);
+      var p4 = Util.applyTransform([r[2], r[1]], m);
+      return [Math.min(p1[0], p2[0], p3[0], p4[0]), Math.min(p1[1], p2[1], p3[1], p4[1]), Math.max(p1[0], p2[0], p3[0], p4[0]), Math.max(p1[1], p2[1], p3[1], p4[1])];
     }
+  }, {
+    key: "inverseTransform",
+    value: function inverseTransform(m) {
+      var d = m[0] * m[3] - m[1] * m[2];
+      return [m[3] / d, -m[1] / d, -m[2] / d, m[0] / d, (m[2] * m[5] - m[4] * m[3]) / d, (m[4] * m[1] - m[5] * m[0]) / d];
+    }
+  }, {
+    key: "apply3dTransform",
+    value: function apply3dTransform(m, v) {
+      return [m[0] * v[0] + m[1] * v[1] + m[2] * v[2], m[3] * v[0] + m[4] * v[1] + m[5] * v[2], m[6] * v[0] + m[7] * v[1] + m[8] * v[2]];
+    }
+  }, {
+    key: "singularValueDecompose2dScale",
+    value: function singularValueDecompose2dScale(m) {
+      var transpose = [m[0], m[2], m[1], m[3]];
+      var a = m[0] * transpose[0] + m[1] * transpose[2];
+      var b = m[0] * transpose[1] + m[1] * transpose[3];
+      var c = m[2] * transpose[0] + m[3] * transpose[2];
+      var d = m[2] * transpose[1] + m[3] * transpose[3];
+      var first = (a + d) / 2;
+      var second = Math.sqrt((a + d) * (a + d) - 4 * (a * d - c * b)) / 2;
+      var sx = first + second || 1;
+      var sy = first - second || 1;
+      return [Math.sqrt(sx), Math.sqrt(sy)];
+    }
+  }, {
+    key: "normalizeRect",
+    value: function normalizeRect(rect) {
+      var r = rect.slice(0);
 
-    return result;
-  };
+      if (rect[0] > rect[2]) {
+        r[0] = rect[2];
+        r[2] = rect[0];
+      }
+
+      if (rect[1] > rect[3]) {
+        r[1] = rect[3];
+        r[3] = rect[1];
+      }
+
+      return r;
+    }
+  }, {
+    key: "intersect",
+    value: function intersect(rect1, rect2) {
+      function compare(a, b) {
+        return a - b;
+      }
+
+      var orderedX = [rect1[0], rect1[2], rect2[0], rect2[2]].sort(compare);
+      var orderedY = [rect1[1], rect1[3], rect2[1], rect2[3]].sort(compare);
+      var result = [];
+      rect1 = Util.normalizeRect(rect1);
+      rect2 = Util.normalizeRect(rect2);
+
+      if (orderedX[0] === rect1[0] && orderedX[1] === rect2[0] || orderedX[0] === rect2[0] && orderedX[1] === rect1[0]) {
+        result[0] = orderedX[1];
+        result[2] = orderedX[2];
+      } else {
+        return null;
+      }
+
+      if (orderedY[0] === rect1[1] && orderedY[1] === rect2[1] || orderedY[0] === rect2[1] && orderedY[1] === rect1[1]) {
+        result[1] = orderedY[1];
+        result[3] = orderedY[2];
+      } else {
+        return null;
+      }
+
+      return result;
+    }
+  }]);
 
   return Util;
 }();
@@ -2123,18 +2143,17 @@ exports.Util = Util;
 var PDFStringTranslateTable = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x2D8, 0x2C7, 0x2C6, 0x2D9, 0x2DD, 0x2DB, 0x2DA, 0x2DC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x2022, 0x2020, 0x2021, 0x2026, 0x2014, 0x2013, 0x192, 0x2044, 0x2039, 0x203A, 0x2212, 0x2030, 0x201E, 0x201C, 0x201D, 0x2018, 0x2019, 0x201A, 0x2122, 0xFB01, 0xFB02, 0x141, 0x152, 0x160, 0x178, 0x17D, 0x131, 0x142, 0x153, 0x161, 0x17E, 0, 0x20AC];
 
 function stringToPDFString(str) {
-  var i,
-      n = str.length,
+  var length = str.length,
       strBuf = [];
 
   if (str[0] === '\xFE' && str[1] === '\xFF') {
-    for (i = 2; i < n; i += 2) {
+    for (var i = 2; i < length; i += 2) {
       strBuf.push(String.fromCharCode(str.charCodeAt(i) << 8 | str.charCodeAt(i + 1)));
     }
   } else {
-    for (i = 0; i < n; ++i) {
-      var code = PDFStringTranslateTable[str.charCodeAt(i)];
-      strBuf.push(code ? String.fromCharCode(code) : str.charAt(i));
+    for (var _i2 = 0; _i2 < length; ++_i2) {
+      var code = PDFStringTranslateTable[str.charCodeAt(_i2)];
+      strBuf.push(code ? String.fromCharCode(code) : str.charAt(_i2));
     }
   }
 
@@ -2221,7 +2240,7 @@ var createObjectURL = function createObjectURLClosure() {
       return _url_polyfill.URL.createObjectURL(blob);
     }
 
-    var buffer = 'data:' + contentType + ';base64,';
+    var buffer = "data:".concat(contentType, ";base64,");
 
     for (var i = 0, ii = data.length; i < ii; i += 3) {
       var b1 = data[i] & 0xFF;
@@ -2446,11 +2465,11 @@ if (!globalScope._pdfjsCompatibilityChecked) {
   })();
 
   (function checkStringCodePointAt() {
-    if (String.codePointAt) {
+    if (String.prototype.codePointAt) {
       return;
     }
 
-    String.codePointAt = __w_pdfjs_require__(127);
+    __w_pdfjs_require__(127);
   })();
 
   (function checkStringFromCodePoint() {
@@ -11397,7 +11416,7 @@ function () {
     }
   }, {
     key: "terminate",
-    value: function terminate() {
+    value: function terminate(reason) {
       (0, _util.unreachable)('Abstract method `terminate` called');
     }
   }, {
@@ -11505,7 +11524,7 @@ function (_BasePdfManager) {
     }
   }, {
     key: "terminate",
-    value: function terminate() {}
+    value: function terminate(reason) {}
   }]);
 
   return LocalPdfManager;
@@ -11619,8 +11638,8 @@ function (_BasePdfManager2) {
     }
   }, {
     key: "terminate",
-    value: function terminate() {
-      this.streamManager.abort();
+    value: function terminate(reason) {
+      this.streamManager.abort(reason);
     }
   }]);
 
@@ -11805,7 +11824,10 @@ function () {
         return -1;
       }
 
-      this.ensureByte(pos);
+      if (pos >= this.progressiveDataLength) {
+        this.ensureByte(pos);
+      }
+
       return this.bytes[this.pos++];
     }
   }, {
@@ -11838,7 +11860,9 @@ function () {
       var strEnd = this.end;
 
       if (!length) {
-        this.ensureRange(pos, strEnd);
+        if (strEnd > this.progressiveDataLength) {
+          this.ensureRange(pos, strEnd);
+        }
 
         var _subarray = bytes.subarray(pos, strEnd);
 
@@ -11851,7 +11875,10 @@ function () {
         end = strEnd;
       }
 
-      this.ensureRange(pos, end);
+      if (end > this.progressiveDataLength) {
+        this.ensureRange(pos, end);
+      }
+
       this.pos = end;
       var subarray = bytes.subarray(pos, end);
       return forceClamped ? new Uint8ClampedArray(subarray) : subarray;
@@ -11874,7 +11901,18 @@ function () {
   }, {
     key: "getByteRange",
     value: function getByteRange(begin, end) {
-      this.ensureRange(begin, end);
+      if (begin < 0) {
+        begin = 0;
+      }
+
+      if (end > this.end) {
+        end = this.end;
+      }
+
+      if (end > this.progressiveDataLength) {
+        this.ensureRange(begin, end);
+      }
+
       return this.bytes.subarray(begin, end);
     }
   }, {
@@ -11900,9 +11938,13 @@ function () {
     key: "makeSubStream",
     value: function makeSubStream(start, length, dict) {
       if (length) {
-        this.ensureRange(start, start + length);
+        if (start + length > this.progressiveDataLength) {
+          this.ensureRange(start, start + length);
+        }
       } else {
-        this.ensureByte(start);
+        if (start >= this.progressiveDataLength) {
+          this.ensureByte(start);
+        }
       }
 
       function ChunkedStreamSubstream() {}
@@ -12329,15 +12371,15 @@ function () {
     }
   }, {
     key: "abort",
-    value: function abort() {
+    value: function abort(reason) {
       this.aborted = true;
 
       if (this.pdfNetworkStream) {
-        this.pdfNetworkStream.cancelAllRequests('abort');
+        this.pdfNetworkStream.cancelAllRequests(reason);
       }
 
       for (var requestId in this.promisesByRequest) {
-        this.promisesByRequest[requestId].reject(new Error('Request was aborted'));
+        this.promisesByRequest[requestId].reject(reason);
       }
     }
   }]);
@@ -12594,6 +12636,21 @@ function () {
       return _primitives.Dict.merge(this.xref, value);
     }
   }, {
+    key: "_getBoundingBox",
+    value: function _getBoundingBox(name) {
+      var box = this._getInheritableProperty(name, true);
+
+      if (Array.isArray(box) && box.length === 4) {
+        if (box[2] - box[0] !== 0 && box[3] - box[1] !== 0) {
+          return box;
+        }
+
+        (0, _util.warn)("Empty /".concat(name, " entry."));
+      }
+
+      return null;
+    }
+  }, {
     key: "getContentStream",
     value: function getContentStream() {
       var content = this.content;
@@ -12655,6 +12712,7 @@ function () {
       var _this2 = this;
 
       var handler = _ref2.handler,
+          sink = _ref2.sink,
           task = _ref2.task,
           intent = _ref2.intent,
           renderInteractiveForms = _ref2.renderInteractiveForms;
@@ -12675,7 +12733,7 @@ function () {
         var _ref4 = _slicedToArray(_ref3, 1),
             contentStream = _ref4[0];
 
-        var opList = new _operator_list.OperatorList(intent, handler, _this2.pageIndex);
+        var opList = new _operator_list.OperatorList(intent, sink, _this2.pageIndex);
         handler.send('StartRenderPage', {
           transparency: partialEvaluator.hasBlendModes(_this2.resources),
           pageIndex: _this2.pageIndex,
@@ -12697,7 +12755,9 @@ function () {
 
         if (annotations.length === 0) {
           pageOpList.flush(true);
-          return pageOpList;
+          return {
+            length: pageOpList.totalLength
+          };
         }
 
         var opListPromises = [];
@@ -12756,7 +12816,9 @@ function () {
 
           pageOpList.addOp(_util.OPS.endAnnotations, []);
           pageOpList.flush(true);
-          return pageOpList;
+          return {
+            length: pageOpList.totalLength
+          };
         });
       });
     }
@@ -12825,24 +12887,12 @@ function () {
   }, {
     key: "mediaBox",
     get: function get() {
-      var mediaBox = this._getInheritableProperty('MediaBox', true);
-
-      if (!Array.isArray(mediaBox) || mediaBox.length !== 4) {
-        return (0, _util.shadow)(this, 'mediaBox', LETTER_SIZE_MEDIABOX);
-      }
-
-      return (0, _util.shadow)(this, 'mediaBox', mediaBox);
+      return (0, _util.shadow)(this, 'mediaBox', this._getBoundingBox('MediaBox') || LETTER_SIZE_MEDIABOX);
     }
   }, {
     key: "cropBox",
     get: function get() {
-      var cropBox = this._getInheritableProperty('CropBox', true);
-
-      if (!Array.isArray(cropBox) || cropBox.length !== 4) {
-        return (0, _util.shadow)(this, 'cropBox', this.mediaBox);
-      }
-
-      return (0, _util.shadow)(this, 'cropBox', cropBox);
+      return (0, _util.shadow)(this, 'cropBox', this._getBoundingBox('CropBox') || this.mediaBox);
     }
   }, {
     key: "userUnit",
@@ -12858,16 +12908,23 @@ function () {
   }, {
     key: "view",
     get: function get() {
-      var mediaBox = this.mediaBox,
-          cropBox = this.cropBox;
+      var cropBox = this.cropBox,
+          mediaBox = this.mediaBox;
+      var view;
 
-      if (mediaBox === cropBox) {
-        return (0, _util.shadow)(this, 'view', mediaBox);
+      if (cropBox === mediaBox || (0, _util.isArrayEqual)(cropBox, mediaBox)) {
+        view = mediaBox;
+      } else {
+        var box = _util.Util.intersect(cropBox, mediaBox);
+
+        if (box && box[2] - box[0] !== 0 && box[3] - box[1] !== 0) {
+          view = box;
+        } else {
+          (0, _util.warn)('Empty /CropBox and /MediaBox intersection.');
+        }
       }
 
-      var intersection = _util.Util.intersect(cropBox, mediaBox);
-
-      return (0, _util.shadow)(this, 'view', intersection || mediaBox);
+      return (0, _util.shadow)(this, 'view', view || mediaBox);
     }
   }, {
     key: "rotate",
@@ -12922,22 +12979,10 @@ exports.Page = Page;
 var FINGERPRINT_FIRST_BYTES = 1024;
 var EMPTY_FINGERPRINT = '\x00\x00\x00\x00\x00\x00\x00' + '\x00\x00\x00\x00\x00\x00\x00\x00\x00';
 
-function find(stream, needle, limit, backwards) {
-  var pos = stream.pos;
-  var end = stream.end;
-
-  if (pos + limit > end) {
-    limit = end - pos;
-  }
-
-  var strBuf = [];
-
-  for (var i = 0; i < limit; ++i) {
-    strBuf.push(String.fromCharCode(stream.getByte()));
-  }
-
-  var str = strBuf.join('');
-  stream.pos = pos;
+function find(stream, needle, limit) {
+  var backwards = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  (0, _util.assert)(limit > 0, 'The "limit" must be a positive integer.');
+  var str = (0, _util.bytesToString)(stream.peekBytes(limit));
   var index = backwards ? str.lastIndexOf(needle) : str.indexOf(needle);
 
   if (index === -1) {
@@ -13311,21 +13356,17 @@ function () {
       if (Array.isArray(idArray) && idArray[0] && (0, _util.isString)(idArray[0]) && idArray[0] !== EMPTY_FINGERPRINT) {
         hash = (0, _util.stringToBytes)(idArray[0]);
       } else {
-        if (this.stream.ensureRange) {
-          this.stream.ensureRange(0, Math.min(FINGERPRINT_FIRST_BYTES, this.stream.end));
-        }
-
-        hash = (0, _crypto.calculateMD5)(this.stream.bytes.subarray(0, FINGERPRINT_FIRST_BYTES), 0, FINGERPRINT_FIRST_BYTES);
+        hash = (0, _crypto.calculateMD5)(this.stream.getByteRange(0, FINGERPRINT_FIRST_BYTES), 0, FINGERPRINT_FIRST_BYTES);
       }
 
-      var fingerprint = '';
+      var fingerprintBuf = [];
 
       for (var i = 0, ii = hash.length; i < ii; i++) {
         var hex = hash[i].toString(16);
-        fingerprint += hex.length === 1 ? '0' + hex : hex;
+        fingerprintBuf.push(hex.padStart(2, '0'));
       }
 
-      return (0, _util.shadow)(this, 'fingerprint', fingerprint);
+      return (0, _util.shadow)(this, 'fingerprint', fingerprintBuf.join(''));
     }
   }]);
 
@@ -14549,10 +14590,10 @@ var XRef = function XRefClosure() {
     this.pdfManager = pdfManager;
     this.entries = [];
     this.xrefstms = Object.create(null);
-    this.cache = [];
+    this._cacheMap = new Map();
     this.stats = {
-      streamTypes: [],
-      fontTypes: []
+      streamTypes: Object.create(null),
+      fontTypes: Object.create(null)
     };
   }
 
@@ -15112,21 +15153,21 @@ var XRef = function XRefClosure() {
       return null;
     },
     fetchIfRef: function XRef_fetchIfRef(obj, suppressEncryption) {
-      if (!(0, _primitives.isRef)(obj)) {
-        return obj;
+      if (obj instanceof _primitives.Ref) {
+        return this.fetch(obj, suppressEncryption);
       }
 
-      return this.fetch(obj, suppressEncryption);
+      return obj;
     },
     fetch: function XRef_fetch(ref, suppressEncryption) {
-      if (!(0, _primitives.isRef)(ref)) {
+      if (!(ref instanceof _primitives.Ref)) {
         throw new Error('ref object is not a reference');
       }
 
       var num = ref.num;
 
-      if (num in this.cache) {
-        var cacheEntry = this.cache[num];
+      if (this._cacheMap.has(num)) {
+        var cacheEntry = this._cacheMap.get(num);
 
         if (cacheEntry instanceof _primitives.Dict && !cacheEntry.objId) {
           cacheEntry.objId = ref.toString();
@@ -15138,7 +15179,9 @@ var XRef = function XRefClosure() {
       var xrefEntry = this.getEntry(num);
 
       if (xrefEntry === null) {
-        return this.cache[num] = null;
+        this._cacheMap.set(num, xrefEntry);
+
+        return xrefEntry;
       }
 
       if (xrefEntry.uncompressed) {
@@ -15205,7 +15248,7 @@ var XRef = function XRefClosure() {
       }
 
       if (!(0, _primitives.isStream)(xrefEntry)) {
-        this.cache[num] = xrefEntry;
+        this._cacheMap.set(num, xrefEntry);
       }
 
       return xrefEntry;
@@ -15262,7 +15305,7 @@ var XRef = function XRefClosure() {
         var entry = this.entries[num];
 
         if (entry && entry.offset === tableOffset && entry.gen === i) {
-          this.cache[num] = entries[i];
+          this._cacheMap.set(num, entries[i]);
         }
       }
 
@@ -15282,15 +15325,15 @@ var XRef = function XRefClosure() {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if ((0, _primitives.isRef)(obj)) {
+                if (!(obj instanceof _primitives.Ref)) {
                   _context.next = 2;
                   break;
                 }
 
-                return _context.abrupt("return", obj);
+                return _context.abrupt("return", this.fetchAsync(obj, suppressEncryption));
 
               case 2:
-                return _context.abrupt("return", this.fetchAsync(obj, suppressEncryption));
+                return _context.abrupt("return", obj);
 
               case 3:
               case "end":
@@ -15850,7 +15893,7 @@ function () {
   }, {
     key: "shift",
     value: function shift() {
-      if ((0, _primitives.isCmd)(this.buf2, 'ID')) {
+      if (this.buf2 instanceof _primitives.Cmd && this.buf2.cmd === 'ID') {
         this.buf1 = this.buf2;
         this.buf2 = null;
       } else {
@@ -15874,7 +15917,8 @@ function () {
     }
   }, {
     key: "getObj",
-    value: function getObj(cipherTransform) {
+    value: function getObj() {
+      var cipherTransform = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       var buf1 = this.buf1;
       this.shift();
 
@@ -15942,27 +15986,23 @@ function () {
       }
 
       if (Number.isInteger(buf1)) {
-        var num = buf1;
-
         if (Number.isInteger(this.buf1) && (0, _primitives.isCmd)(this.buf2, 'R')) {
-          var ref = _primitives.Ref.get(num, this.buf1);
+          var ref = _primitives.Ref.get(buf1, this.buf1);
 
           this.shift();
           this.shift();
           return ref;
         }
 
-        return num;
+        return buf1;
       }
 
-      if ((0, _util.isString)(buf1)) {
-        var str = buf1;
-
+      if (typeof buf1 === 'string') {
         if (cipherTransform) {
-          str = cipherTransform.decryptString(str);
+          return cipherTransform.decryptString(buf1);
         }
 
-        return str;
+        return buf1;
       }
 
       return buf1;
@@ -16504,7 +16544,7 @@ function () {
         }
 
         if (name === 'RunLengthDecode' || name === 'RL') {
-          xrefStreamStats[_util.StreamType.RL] = true;
+          xrefStreamStats[_util.StreamType.RLX] = true;
           return new _stream.RunLengthStream(stream, maybeLength);
         }
 
@@ -17210,6 +17250,17 @@ var Stream = function StreamClosure() {
       this.pos -= bytes.length;
       return bytes;
     },
+    getByteRange: function getByteRange(begin, end) {
+      if (begin < 0) {
+        begin = 0;
+      }
+
+      if (end > this.end) {
+        end = this.end;
+      }
+
+      return this.bytes.subarray(begin, end);
+    },
     skip: function Stream_skip(n) {
       if (!n) {
         n = 1;
@@ -17367,6 +17418,9 @@ var DecodeStream = function DecodeStreamClosure() {
       }
 
       return new Stream(this.buffer, start, length, dict);
+    },
+    getByteRange: function getByteRange(begin, end) {
+      (0, _util.unreachable)('Should not call DecodeStream.getByteRange');
     },
     skip: function DecodeStream_skip(n) {
       if (!n) {
@@ -22364,7 +22418,9 @@ var JpegImage = function JpegImageClosure() {
       bitsCount = 0;
       fileMarker = findNextFileMarker(data, offset);
 
-      if (fileMarker && fileMarker.invalid) {
+      if (!fileMarker) {
+        break;
+      } else if (fileMarker.invalid) {
         (0, _util.warn)('decodeScan - unexpected MCU data, current marker is: ' + fileMarker.invalid);
         offset = fileMarker.offset;
       }
@@ -22372,7 +22428,7 @@ var JpegImage = function JpegImageClosure() {
       var marker = fileMarker && fileMarker.marker;
 
       if (!marker || marker <= 0xFF00) {
-        throw new JpegError('marker was not found');
+        throw new JpegError('decodeScan - a valid marker was not found.');
       }
 
       if (marker >= 0xFFD0 && marker <= 0xFFD7) {
@@ -22893,7 +22949,12 @@ var JpegImage = function JpegImageClosure() {
               break;
             }
 
-            throw new JpegError('unknown marker ' + fileMarker.toString(16));
+            if (offset > data.length - 2) {
+              (0, _util.warn)('JpegImage.parse - reached the end of the image data ' + 'without finding an EOI marker (0xFFD9).');
+              break markerLoop;
+            }
+
+            throw new JpegError('JpegImage.parse - unknown marker: ' + fileMarker.toString(16));
         }
 
         fileMarker = readUint16();
@@ -28384,6 +28445,7 @@ var LabCS = function LabCSClosure() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getQuadPoints = getQuadPoints;
 exports.MarkupAnnotation = exports.AnnotationFactory = exports.AnnotationBorderStyle = exports.Annotation = void 0;
 
 var _util = __w_pdfjs_require__(5);
@@ -28543,6 +28605,40 @@ function () {
 }();
 
 exports.AnnotationFactory = AnnotationFactory;
+
+function getQuadPoints(dict, rect) {
+  if (!dict.has('QuadPoints')) {
+    return null;
+  }
+
+  var quadPoints = dict.getArray('QuadPoints');
+
+  if (!Array.isArray(quadPoints) || quadPoints.length % 8 > 0) {
+    return null;
+  }
+
+  var quadPointsLists = [];
+
+  for (var i = 0, ii = quadPoints.length / 8; i < ii; i++) {
+    quadPointsLists.push([]);
+
+    for (var j = i * 8, jj = i * 8 + 8; j < jj; j += 2) {
+      var x = quadPoints[j];
+      var y = quadPoints[j + 1];
+
+      if (x < rect[0] || x > rect[2] || y < rect[1] || y > rect[3]) {
+        return null;
+      }
+
+      quadPointsLists[i].push({
+        x: x,
+        y: y
+      });
+    }
+  }
+
+  return quadPointsLists;
+}
 
 function getTransformMatrix(rect, bbox, matrix) {
   var bounds = _util.Util.getAxialAlignedBoundingBox(bbox, matrix);
@@ -28935,15 +29031,59 @@ function (_Annotation) {
     _this2 = _possibleConstructorReturn(this, _getPrototypeOf(MarkupAnnotation).call(this, parameters));
     var dict = parameters.dict;
 
-    if (!dict.has('C')) {
-      _this2.data.color = null;
+    if (dict.has('IRT')) {
+      var rawIRT = dict.getRaw('IRT');
+      _this2.data.inReplyTo = (0, _primitives.isRef)(rawIRT) ? rawIRT.toString() : null;
+      var rt = dict.get('RT');
+      _this2.data.replyType = (0, _primitives.isName)(rt) ? rt.name : _util.AnnotationReplyType.REPLY;
     }
 
-    _this2.setCreationDate(dict.get('CreationDate'));
+    if (_this2.data.replyType === _util.AnnotationReplyType.GROUP) {
+      var parent = dict.get('IRT');
+      _this2.data.title = (0, _util.stringToPDFString)(parent.get('T') || '');
 
-    _this2.data.creationDate = _this2.creationDate;
-    _this2.data.hasPopup = dict.has('Popup');
-    _this2.data.title = (0, _util.stringToPDFString)(dict.get('T') || '');
+      _this2.setContents(parent.get('Contents'));
+
+      _this2.data.contents = _this2.contents;
+
+      if (!parent.has('CreationDate')) {
+        _this2.data.creationDate = null;
+      } else {
+        _this2.setCreationDate(parent.get('CreationDate'));
+
+        _this2.data.creationDate = _this2.creationDate;
+      }
+
+      if (!parent.has('M')) {
+        _this2.data.modificationDate = null;
+      } else {
+        _this2.setModificationDate(parent.get('M'));
+
+        _this2.data.modificationDate = _this2.modificationDate;
+      }
+
+      _this2.data.hasPopup = parent.has('Popup');
+
+      if (!parent.has('C')) {
+        _this2.data.color = null;
+      } else {
+        _this2.setColor(parent.getArray('C'));
+
+        _this2.data.color = _this2.color;
+      }
+    } else {
+      _this2.data.title = (0, _util.stringToPDFString)(dict.get('T') || '');
+
+      _this2.setCreationDate(dict.get('CreationDate'));
+
+      _this2.data.creationDate = _this2.creationDate;
+      _this2.data.hasPopup = dict.has('Popup');
+
+      if (!dict.has('C')) {
+        _this2.data.color = null;
+      }
+    }
+
     return _this2;
   }
 
@@ -29296,6 +29436,7 @@ function (_MarkupAnnotation) {
 
     var DEFAULT_ICON_SIZE = 22;
     _this7 = _possibleConstructorReturn(this, _getPrototypeOf(TextAnnotation).call(this, parameters));
+    var dict = parameters.dict;
     _this7.data.annotationType = _util.AnnotationType.TEXT;
 
     if (_this7.data.hasAppearance) {
@@ -29303,7 +29444,15 @@ function (_MarkupAnnotation) {
     } else {
       _this7.data.rect[1] = _this7.data.rect[3] - DEFAULT_ICON_SIZE;
       _this7.data.rect[2] = _this7.data.rect[0] + DEFAULT_ICON_SIZE;
-      _this7.data.name = parameters.dict.has('Name') ? parameters.dict.get('Name').name : 'Note';
+      _this7.data.name = dict.has('Name') ? dict.get('Name').name : 'Note';
+    }
+
+    if (dict.has('State')) {
+      _this7.data.state = dict.get('State') || null;
+      _this7.data.stateModel = dict.get('StateModel') || null;
+    } else {
+      _this7.data.state = null;
+      _this7.data.stateModel = null;
     }
 
     return _this7;
@@ -29324,6 +29473,11 @@ function (_Annotation3) {
 
     _this8 = _possibleConstructorReturn(this, _getPrototypeOf(LinkAnnotation).call(this, params));
     _this8.data.annotationType = _util.AnnotationType.LINK;
+    var quadPoints = getQuadPoints(params.dict, _this8.rectangle);
+
+    if (quadPoints) {
+      _this8.data.quadPoints = quadPoints;
+    }
 
     _obj.Catalog.parseDestDictionary({
       destDict: params.dict,
@@ -29359,9 +29513,13 @@ function (_Annotation4) {
 
     var parentSubtype = parentItem.get('Subtype');
     _this9.data.parentType = (0, _primitives.isName)(parentSubtype) ? parentSubtype.name : null;
-    _this9.data.parentId = dict.getRaw('Parent').toString();
-    _this9.data.title = (0, _util.stringToPDFString)(parentItem.get('T') || '');
-    _this9.data.contents = (0, _util.stringToPDFString)(parentItem.get('Contents') || '');
+    var rawParent = dict.getRaw('Parent');
+    _this9.data.parentId = (0, _primitives.isRef)(rawParent) ? rawParent.toString() : null;
+    var rt = parentItem.get('RT');
+
+    if ((0, _primitives.isName)(rt, _util.AnnotationReplyType.GROUP)) {
+      parentItem = parentItem.get('IRT');
+    }
 
     if (!parentItem.has('M')) {
       _this9.data.modificationDate = null;
@@ -29387,6 +29545,8 @@ function (_Annotation4) {
       }
     }
 
+    _this9.data.title = (0, _util.stringToPDFString)(parentItem.get('T') || '');
+    _this9.data.contents = (0, _util.stringToPDFString)(parentItem.get('Contents') || '');
     return _this9;
   }
 
@@ -29578,6 +29738,12 @@ function (_MarkupAnnotation9) {
 
     _this18 = _possibleConstructorReturn(this, _getPrototypeOf(HighlightAnnotation).call(this, parameters));
     _this18.data.annotationType = _util.AnnotationType.HIGHLIGHT;
+    var quadPoints = getQuadPoints(parameters.dict, _this18.rectangle);
+
+    if (quadPoints) {
+      _this18.data.quadPoints = quadPoints;
+    }
+
     return _this18;
   }
 
@@ -29596,6 +29762,12 @@ function (_MarkupAnnotation10) {
 
     _this19 = _possibleConstructorReturn(this, _getPrototypeOf(UnderlineAnnotation).call(this, parameters));
     _this19.data.annotationType = _util.AnnotationType.UNDERLINE;
+    var quadPoints = getQuadPoints(parameters.dict, _this19.rectangle);
+
+    if (quadPoints) {
+      _this19.data.quadPoints = quadPoints;
+    }
+
     return _this19;
   }
 
@@ -29614,6 +29786,12 @@ function (_MarkupAnnotation11) {
 
     _this20 = _possibleConstructorReturn(this, _getPrototypeOf(SquigglyAnnotation).call(this, parameters));
     _this20.data.annotationType = _util.AnnotationType.SQUIGGLY;
+    var quadPoints = getQuadPoints(parameters.dict, _this20.rectangle);
+
+    if (quadPoints) {
+      _this20.data.quadPoints = quadPoints;
+    }
+
     return _this20;
   }
 
@@ -29632,6 +29810,12 @@ function (_MarkupAnnotation12) {
 
     _this21 = _possibleConstructorReturn(this, _getPrototypeOf(StrikeOutAnnotation).call(this, parameters));
     _this21.data.annotationType = _util.AnnotationType.STRIKEOUT;
+    var quadPoints = getQuadPoints(parameters.dict, _this21.rectangle);
+
+    if (quadPoints) {
+      _this21.data.quadPoints = quadPoints;
+    }
+
     return _this21;
   }
 
@@ -30198,12 +30382,12 @@ var OperatorList = function OperatorListClosure() {
   var CHUNK_SIZE = 1000;
   var CHUNK_SIZE_ABOUT = CHUNK_SIZE - 5;
 
-  function OperatorList(intent, messageHandler, pageIndex) {
-    this.messageHandler = messageHandler;
+  function OperatorList(intent, streamSink, pageIndex) {
+    this._streamSink = streamSink;
     this.fnArray = [];
     this.argsArray = [];
 
-    if (messageHandler && intent !== 'oplist') {
+    if (streamSink && intent !== 'oplist') {
       this.optimizer = new QueueOptimizer(this);
     } else {
       this.optimizer = new NullOptimizer(this);
@@ -30214,11 +30398,16 @@ var OperatorList = function OperatorListClosure() {
     this.pageIndex = pageIndex;
     this.intent = intent;
     this.weight = 0;
+    this._resolved = streamSink ? null : Promise.resolve();
   }
 
   OperatorList.prototype = {
     get length() {
       return this.argsArray.length;
+    },
+
+    get ready() {
+      return this._resolved || this._streamSink.ready;
     },
 
     get totalLength() {
@@ -30229,7 +30418,7 @@ var OperatorList = function OperatorListClosure() {
       this.optimizer.push(fn, args);
       this.weight++;
 
-      if (this.messageHandler) {
+      if (this._streamSink) {
         if (this.weight >= CHUNK_SIZE) {
           this.flush();
         } else if (this.weight >= CHUNK_SIZE_ABOUT && (fn === _util.OPS.restore || fn === _util.OPS.endText)) {
@@ -30295,7 +30484,8 @@ var OperatorList = function OperatorListClosure() {
       this.optimizer.flush();
       var length = this.length;
       this._totalLength += length;
-      this.messageHandler.send('RenderPageChunk', {
+
+      this._streamSink.enqueue({
         operatorList: {
           fnArray: this.fnArray,
           argsArray: this.argsArray,
@@ -30304,7 +30494,8 @@ var OperatorList = function OperatorListClosure() {
         },
         pageIndex: this.pageIndex,
         intent: this.intent
-      }, this._transfers);
+      }, 1, this._transfers);
+
       this.dependencies = Object.create(null);
       this.fnArray.length = 0;
       this.argsArray.length = 0;
@@ -30658,7 +30849,13 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
           groupOptions.knockout = group.get('K') || false;
 
           if (group.has('CS')) {
-            colorSpace = _colorspace.ColorSpace.parse(group.get('CS'), this.xref, resources, this.pdfFunctionFactory);
+            colorSpace = group.get('CS');
+
+            if (colorSpace) {
+              colorSpace = _colorspace.ColorSpace.parse(colorSpace, this.xref, resources, this.pdfFunctionFactory);
+            } else {
+              (0, _util.warn)('buildFormXObject - invalid/non-existent Group /CS entry: ' + group.getRaw('CS'));
+            }
           }
         }
 
@@ -30938,6 +31135,10 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
         operatorList.addDependencies(tilingOpList.dependencies);
         operatorList.addOp(fn, tilingPatternIR);
       }, function (reason) {
+        if (reason instanceof _util.AbortException) {
+          return;
+        }
+
         if (_this3.options.ignoreErrors) {
           _this3.handler.send('UnsupportedFeature', {
             featureId: _util.UNSUPPORTED_FEATURES.unknown
@@ -31334,7 +31535,7 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
 
       return new Promise(function promiseBody(resolve, reject) {
         var next = function next(promise) {
-          promise.then(function () {
+          Promise.all([promise, operatorList.ready]).then(function () {
             try {
               promiseBody(resolve, reject);
             } catch (ex) {
@@ -31418,6 +31619,10 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
 
                 resolveXObject();
               })["catch"](function (reason) {
+                if (reason instanceof _util.AbortException) {
+                  return;
+                }
+
                 if (self.options.ignoreErrors) {
                   self.handler.send('UnsupportedFeature', {
                     featureId: _util.UNSUPPORTED_FEATURES.unknown
@@ -31667,6 +31872,10 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
         closePendingRestoreOPS();
         resolve();
       })["catch"](function (reason) {
+        if (reason instanceof _util.AbortException) {
+          return;
+        }
+
         if (_this7.options.ignoreErrors) {
           _this7.handler.send('UnsupportedFeature', {
             featureId: _util.UNSUPPORTED_FEATURES.unknown
@@ -33655,7 +33864,7 @@ var EvaluatorPreprocessor = function EvaluatorPreprocessorClosure() {
       while (true) {
         var obj = this.parser.getObj();
 
-        if ((0, _primitives.isCmd)(obj)) {
+        if (obj instanceof _primitives.Cmd) {
           var cmd = obj.cmd;
           var opSpec = this.opMap[cmd];
 
@@ -33712,7 +33921,7 @@ var EvaluatorPreprocessor = function EvaluatorPreprocessorClosure() {
           return true;
         }
 
-        if ((0, _primitives.isEOF)(obj)) {
+        if (obj === _primitives.EOF) {
           return false;
         }
 
@@ -41564,6 +41773,7 @@ var getGlyphsUnicode = getLookupTableFactory(function (t) {
  t['feicoptic'] = 0x03E5;
  t['female'] = 0x2640;
  t['ff'] = 0xFB00;
+ t['f_f'] = 0xFB00;
  t['ffi'] = 0xFB03;
  t['ffl'] = 0xFB04;
  t['fi'] = 0xFB01;
@@ -48797,6 +49007,14 @@ Shadings.RadialAxial = function RadialAxialClosure() {
     var cs = dict.get('ColorSpace', 'CS');
     cs = _colorspace.ColorSpace.parse(cs, xref, res, pdfFunctionFactory);
     this.cs = cs;
+    var bbox = dict.getArray('BBox');
+
+    if (Array.isArray(bbox) && bbox.length === 4) {
+      this.bbox = _util.Util.normalizeRect(bbox);
+    } else {
+      this.bbox = null;
+    }
+
     var t0 = 0.0,
         t1 = 1.0;
 
@@ -48912,7 +49130,7 @@ Shadings.RadialAxial = function RadialAxialClosure() {
         }
       }
 
-      return ['RadialAxial', type, this.colorStops, p0, p1, r0, r1];
+      return ['RadialAxial', type, this.bbox, this.colorStops, p0, p1, r0, r1];
     }
   };
   return RadialAxial;
@@ -49529,7 +49747,14 @@ Shadings.Mesh = function MeshClosure() {
     this.matrix = matrix;
     this.shadingType = dict.get('ShadingType');
     this.type = 'Pattern';
-    this.bbox = dict.getArray('BBox');
+    var bbox = dict.getArray('BBox');
+
+    if (Array.isArray(bbox) && bbox.length === 4) {
+      this.bbox = _util.Util.normalizeRect(bbox);
+    } else {
+      this.bbox = null;
+    }
+
     var cs = dict.get('ColorSpace', 'CS');
     cs = _colorspace.ColorSpace.parse(cs, xref, res, pdfFunctionFactory);
     this.cs = cs;
@@ -55525,16 +55750,12 @@ function makeReasonSerializable(reason) {
   return new _util.UnknownErrorException(reason.message, reason.toString());
 }
 
-function resolveOrReject(capability, success, reason) {
-  if (success) {
+function resolveOrReject(capability, data) {
+  if (data.success) {
     capability.resolve();
   } else {
-    capability.reject(reason);
+    capability.reject(wrapReason(data.reason));
   }
-}
-
-function finalize(promise) {
-  return Promise.resolve(promise)["catch"](function () {});
 }
 
 function MessageHandler(sourceName, targetName, comObj) {
@@ -55830,7 +56051,7 @@ MessageHandler.prototype = {
 
     var deleteStreamController = function deleteStreamController() {
       Promise.all([_this4.streamControllers[data.streamId].startCall, _this4.streamControllers[data.streamId].pullCall, _this4.streamControllers[data.streamId].cancelCall].map(function (capability) {
-        return capability && finalize(capability.promise);
+        return capability && capability.promise["catch"](function () {});
       })).then(function () {
         delete _this4.streamControllers[data.streamId];
       });
@@ -55838,11 +56059,11 @@ MessageHandler.prototype = {
 
     switch (data.stream) {
       case 'start_complete':
-        resolveOrReject(this.streamControllers[data.streamId].startCall, data.success, wrapReason(data.reason));
+        resolveOrReject(this.streamControllers[data.streamId].startCall, data);
         break;
 
       case 'pull_complete':
-        resolveOrReject(this.streamControllers[data.streamId].pullCall, data.success, wrapReason(data.reason));
+        resolveOrReject(this.streamControllers[data.streamId].pullCall, data);
         break;
 
       case 'pull':
@@ -55901,7 +56122,7 @@ MessageHandler.prototype = {
         break;
 
       case 'cancel_complete':
-        resolveOrReject(this.streamControllers[data.streamId].cancelCall, data.success, wrapReason(data.reason));
+        resolveOrReject(this.streamControllers[data.streamId].cancelCall, data);
         deleteStreamController();
         break;
 

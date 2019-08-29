@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.2.225';
-var pdfjsBuild = '4785f13d';
+var pdfjsVersion = '2.3.133';
+var pdfjsBuild = 'e44e72bd';
 
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 
@@ -262,13 +262,19 @@ Object.defineProperty(exports, "URL", {
     return _url_polyfill.URL;
   }
 });
-exports.createObjectURL = exports.FormatError = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.PermissionFlag = exports.PasswordResponses = exports.PasswordException = exports.NativeImageDecoding = exports.MissingPDFException = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.UNSUPPORTED_FEATURES = exports.VerbosityLevel = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = void 0;
+exports.createObjectURL = exports.FormatError = exports.Util = exports.UnknownErrorException = exports.UnexpectedResponseException = exports.TextRenderingMode = exports.StreamType = exports.PermissionFlag = exports.PasswordResponses = exports.PasswordException = exports.NativeImageDecoding = exports.MissingPDFException = exports.InvalidPDFException = exports.AbortException = exports.CMapCompressionType = exports.ImageKind = exports.FontType = exports.AnnotationType = exports.AnnotationStateModelType = exports.AnnotationReviewState = exports.AnnotationReplyType = exports.AnnotationMarkedState = exports.AnnotationFlag = exports.AnnotationFieldFlag = exports.AnnotationBorderStyleType = exports.UNSUPPORTED_FEATURES = exports.VerbosityLevel = exports.OPS = exports.IDENTITY_MATRIX = exports.FONT_IDENTITY_MATRIX = void 0;
 
 __w_pdfjs_require__(2);
 
 var _streams_polyfill = __w_pdfjs_require__(143);
 
 var _url_polyfill = __w_pdfjs_require__(145);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -341,6 +347,29 @@ var AnnotationType = {
   REDACT: 26
 };
 exports.AnnotationType = AnnotationType;
+var AnnotationStateModelType = {
+  MARKED: 'Marked',
+  REVIEW: 'Review'
+};
+exports.AnnotationStateModelType = AnnotationStateModelType;
+var AnnotationMarkedState = {
+  MARKED: 'Marked',
+  UNMARKED: 'Unmarked'
+};
+exports.AnnotationMarkedState = AnnotationMarkedState;
+var AnnotationReviewState = {
+  ACCEPTED: 'Accepted',
+  REJECTED: 'Rejected',
+  CANCELLED: 'Cancelled',
+  COMPLETED: 'Completed',
+  NONE: 'None'
+};
+exports.AnnotationReviewState = AnnotationReviewState;
+var AnnotationReplyType = {
+  GROUP: 'Group',
+  REPLY: 'R'
+};
+exports.AnnotationReplyType = AnnotationReplyType;
 var AnnotationFlag = {
   INVISIBLE: 0x01,
   HIDDEN: 0x02,
@@ -385,30 +414,30 @@ var AnnotationBorderStyleType = {
 };
 exports.AnnotationBorderStyleType = AnnotationBorderStyleType;
 var StreamType = {
-  UNKNOWN: 0,
-  FLATE: 1,
-  LZW: 2,
-  DCT: 3,
-  JPX: 4,
-  JBIG: 5,
-  A85: 6,
-  AHX: 7,
-  CCF: 8,
-  RL: 9
+  UNKNOWN: 'UNKNOWN',
+  FLATE: 'FLATE',
+  LZW: 'LZW',
+  DCT: 'DCT',
+  JPX: 'JPX',
+  JBIG: 'JBIG',
+  A85: 'A85',
+  AHX: 'AHX',
+  CCF: 'CCF',
+  RLX: 'RLX'
 };
 exports.StreamType = StreamType;
 var FontType = {
-  UNKNOWN: 0,
-  TYPE1: 1,
-  TYPE1C: 2,
-  CIDFONTTYPE0: 3,
-  CIDFONTTYPE0C: 4,
-  TRUETYPE: 5,
-  CIDFONTTYPE2: 6,
-  TYPE3: 7,
-  OPENTYPE: 8,
-  TYPE0: 9,
-  MMTYPE1: 10
+  UNKNOWN: 'UNKNOWN',
+  TYPE1: 'TYPE1',
+  TYPE1C: 'TYPE1C',
+  CIDFONTTYPE0: 'CIDFONTTYPE0',
+  CIDFONTTYPE0C: 'CIDFONTTYPE0C',
+  TRUETYPE: 'TRUETYPE',
+  CIDFONTTYPE2: 'CIDFONTTYPE2',
+  TYPE3: 'TYPE3',
+  OPENTYPE: 'OPENTYPE',
+  TYPE0: 'TYPE0',
+  MMTYPE1: 'MMTYPE1'
 };
 exports.FontType = FontType;
 var VerbosityLevel = {
@@ -545,13 +574,13 @@ function getVerbosityLevel() {
 
 function info(msg) {
   if (verbosity >= VerbosityLevel.INFOS) {
-    console.log('Info: ' + msg);
+    console.log("Info: ".concat(msg));
   }
 }
 
 function warn(msg) {
   if (verbosity >= VerbosityLevel.WARNINGS) {
-    console.log('Warning: ' + msg);
+    console.log("Warning: ".concat(msg));
   }
 }
 
@@ -566,8 +595,10 @@ function assert(cond, msg) {
 }
 
 function isSameOrigin(baseUrl, otherUrl) {
+  var base;
+
   try {
-    var base = new _url_polyfill.URL(baseUrl);
+    base = new _url_polyfill.URL(baseUrl);
 
     if (!base.origin || base.origin === 'null') {
       return false;
@@ -770,26 +801,23 @@ function arrayByteLength(arr) {
 }
 
 function arraysToBytes(arr) {
-  if (arr.length === 1 && arr[0] instanceof Uint8Array) {
+  var length = arr.length;
+
+  if (length === 1 && arr[0] instanceof Uint8Array) {
     return arr[0];
   }
 
   var resultLength = 0;
-  var i,
-      ii = arr.length;
-  var item, itemLength;
 
-  for (i = 0; i < ii; i++) {
-    item = arr[i];
-    itemLength = arrayByteLength(item);
-    resultLength += itemLength;
+  for (var i = 0; i < length; i++) {
+    resultLength += arrayByteLength(arr[i]);
   }
 
   var pos = 0;
   var data = new Uint8Array(resultLength);
 
-  for (i = 0; i < ii; i++) {
-    item = arr[i];
+  for (var _i = 0; _i < length; _i++) {
+    var item = arr[_i];
 
     if (!(item instanceof Uint8Array)) {
       if (typeof item === 'string') {
@@ -799,7 +827,7 @@ function arraysToBytes(arr) {
       }
     }
 
-    itemLength = item.byteLength;
+    var itemLength = item.byteLength;
     data.set(item, pos);
     pos += itemLength;
   }
@@ -847,108 +875,124 @@ function isEvalSupported() {
   }
 }
 
-var Util = function UtilClosure() {
-  function Util() {}
+var rgbBuf = ['rgb(', 0, ',', 0, ',', 0, ')'];
 
-  var rgbBuf = ['rgb(', 0, ',', 0, ',', 0, ')'];
+var Util =
+/*#__PURE__*/
+function () {
+  function Util() {
+    _classCallCheck(this, Util);
+  }
 
-  Util.makeCssRgb = function Util_makeCssRgb(r, g, b) {
-    rgbBuf[1] = r;
-    rgbBuf[3] = g;
-    rgbBuf[5] = b;
-    return rgbBuf.join('');
-  };
-
-  Util.transform = function Util_transform(m1, m2) {
-    return [m1[0] * m2[0] + m1[2] * m2[1], m1[1] * m2[0] + m1[3] * m2[1], m1[0] * m2[2] + m1[2] * m2[3], m1[1] * m2[2] + m1[3] * m2[3], m1[0] * m2[4] + m1[2] * m2[5] + m1[4], m1[1] * m2[4] + m1[3] * m2[5] + m1[5]];
-  };
-
-  Util.applyTransform = function Util_applyTransform(p, m) {
-    var xt = p[0] * m[0] + p[1] * m[2] + m[4];
-    var yt = p[0] * m[1] + p[1] * m[3] + m[5];
-    return [xt, yt];
-  };
-
-  Util.applyInverseTransform = function Util_applyInverseTransform(p, m) {
-    var d = m[0] * m[3] - m[1] * m[2];
-    var xt = (p[0] * m[3] - p[1] * m[2] + m[2] * m[5] - m[4] * m[3]) / d;
-    var yt = (-p[0] * m[1] + p[1] * m[0] + m[4] * m[1] - m[5] * m[0]) / d;
-    return [xt, yt];
-  };
-
-  Util.getAxialAlignedBoundingBox = function Util_getAxialAlignedBoundingBox(r, m) {
-    var p1 = Util.applyTransform(r, m);
-    var p2 = Util.applyTransform(r.slice(2, 4), m);
-    var p3 = Util.applyTransform([r[0], r[3]], m);
-    var p4 = Util.applyTransform([r[2], r[1]], m);
-    return [Math.min(p1[0], p2[0], p3[0], p4[0]), Math.min(p1[1], p2[1], p3[1], p4[1]), Math.max(p1[0], p2[0], p3[0], p4[0]), Math.max(p1[1], p2[1], p3[1], p4[1])];
-  };
-
-  Util.inverseTransform = function Util_inverseTransform(m) {
-    var d = m[0] * m[3] - m[1] * m[2];
-    return [m[3] / d, -m[1] / d, -m[2] / d, m[0] / d, (m[2] * m[5] - m[4] * m[3]) / d, (m[4] * m[1] - m[5] * m[0]) / d];
-  };
-
-  Util.apply3dTransform = function Util_apply3dTransform(m, v) {
-    return [m[0] * v[0] + m[1] * v[1] + m[2] * v[2], m[3] * v[0] + m[4] * v[1] + m[5] * v[2], m[6] * v[0] + m[7] * v[1] + m[8] * v[2]];
-  };
-
-  Util.singularValueDecompose2dScale = function Util_singularValueDecompose2dScale(m) {
-    var transpose = [m[0], m[2], m[1], m[3]];
-    var a = m[0] * transpose[0] + m[1] * transpose[2];
-    var b = m[0] * transpose[1] + m[1] * transpose[3];
-    var c = m[2] * transpose[0] + m[3] * transpose[2];
-    var d = m[2] * transpose[1] + m[3] * transpose[3];
-    var first = (a + d) / 2;
-    var second = Math.sqrt((a + d) * (a + d) - 4 * (a * d - c * b)) / 2;
-    var sx = first + second || 1;
-    var sy = first - second || 1;
-    return [Math.sqrt(sx), Math.sqrt(sy)];
-  };
-
-  Util.normalizeRect = function Util_normalizeRect(rect) {
-    var r = rect.slice(0);
-
-    if (rect[0] > rect[2]) {
-      r[0] = rect[2];
-      r[2] = rect[0];
+  _createClass(Util, null, [{
+    key: "makeCssRgb",
+    value: function makeCssRgb(r, g, b) {
+      rgbBuf[1] = r;
+      rgbBuf[3] = g;
+      rgbBuf[5] = b;
+      return rgbBuf.join('');
     }
-
-    if (rect[1] > rect[3]) {
-      r[1] = rect[3];
-      r[3] = rect[1];
+  }, {
+    key: "transform",
+    value: function transform(m1, m2) {
+      return [m1[0] * m2[0] + m1[2] * m2[1], m1[1] * m2[0] + m1[3] * m2[1], m1[0] * m2[2] + m1[2] * m2[3], m1[1] * m2[2] + m1[3] * m2[3], m1[0] * m2[4] + m1[2] * m2[5] + m1[4], m1[1] * m2[4] + m1[3] * m2[5] + m1[5]];
     }
-
-    return r;
-  };
-
-  Util.intersect = function Util_intersect(rect1, rect2) {
-    function compare(a, b) {
-      return a - b;
+  }, {
+    key: "applyTransform",
+    value: function applyTransform(p, m) {
+      var xt = p[0] * m[0] + p[1] * m[2] + m[4];
+      var yt = p[0] * m[1] + p[1] * m[3] + m[5];
+      return [xt, yt];
     }
-
-    var orderedX = [rect1[0], rect1[2], rect2[0], rect2[2]].sort(compare),
-        orderedY = [rect1[1], rect1[3], rect2[1], rect2[3]].sort(compare),
-        result = [];
-    rect1 = Util.normalizeRect(rect1);
-    rect2 = Util.normalizeRect(rect2);
-
-    if (orderedX[0] === rect1[0] && orderedX[1] === rect2[0] || orderedX[0] === rect2[0] && orderedX[1] === rect1[0]) {
-      result[0] = orderedX[1];
-      result[2] = orderedX[2];
-    } else {
-      return false;
+  }, {
+    key: "applyInverseTransform",
+    value: function applyInverseTransform(p, m) {
+      var d = m[0] * m[3] - m[1] * m[2];
+      var xt = (p[0] * m[3] - p[1] * m[2] + m[2] * m[5] - m[4] * m[3]) / d;
+      var yt = (-p[0] * m[1] + p[1] * m[0] + m[4] * m[1] - m[5] * m[0]) / d;
+      return [xt, yt];
     }
-
-    if (orderedY[0] === rect1[1] && orderedY[1] === rect2[1] || orderedY[0] === rect2[1] && orderedY[1] === rect1[1]) {
-      result[1] = orderedY[1];
-      result[3] = orderedY[2];
-    } else {
-      return false;
+  }, {
+    key: "getAxialAlignedBoundingBox",
+    value: function getAxialAlignedBoundingBox(r, m) {
+      var p1 = Util.applyTransform(r, m);
+      var p2 = Util.applyTransform(r.slice(2, 4), m);
+      var p3 = Util.applyTransform([r[0], r[3]], m);
+      var p4 = Util.applyTransform([r[2], r[1]], m);
+      return [Math.min(p1[0], p2[0], p3[0], p4[0]), Math.min(p1[1], p2[1], p3[1], p4[1]), Math.max(p1[0], p2[0], p3[0], p4[0]), Math.max(p1[1], p2[1], p3[1], p4[1])];
     }
+  }, {
+    key: "inverseTransform",
+    value: function inverseTransform(m) {
+      var d = m[0] * m[3] - m[1] * m[2];
+      return [m[3] / d, -m[1] / d, -m[2] / d, m[0] / d, (m[2] * m[5] - m[4] * m[3]) / d, (m[4] * m[1] - m[5] * m[0]) / d];
+    }
+  }, {
+    key: "apply3dTransform",
+    value: function apply3dTransform(m, v) {
+      return [m[0] * v[0] + m[1] * v[1] + m[2] * v[2], m[3] * v[0] + m[4] * v[1] + m[5] * v[2], m[6] * v[0] + m[7] * v[1] + m[8] * v[2]];
+    }
+  }, {
+    key: "singularValueDecompose2dScale",
+    value: function singularValueDecompose2dScale(m) {
+      var transpose = [m[0], m[2], m[1], m[3]];
+      var a = m[0] * transpose[0] + m[1] * transpose[2];
+      var b = m[0] * transpose[1] + m[1] * transpose[3];
+      var c = m[2] * transpose[0] + m[3] * transpose[2];
+      var d = m[2] * transpose[1] + m[3] * transpose[3];
+      var first = (a + d) / 2;
+      var second = Math.sqrt((a + d) * (a + d) - 4 * (a * d - c * b)) / 2;
+      var sx = first + second || 1;
+      var sy = first - second || 1;
+      return [Math.sqrt(sx), Math.sqrt(sy)];
+    }
+  }, {
+    key: "normalizeRect",
+    value: function normalizeRect(rect) {
+      var r = rect.slice(0);
 
-    return result;
-  };
+      if (rect[0] > rect[2]) {
+        r[0] = rect[2];
+        r[2] = rect[0];
+      }
+
+      if (rect[1] > rect[3]) {
+        r[1] = rect[3];
+        r[3] = rect[1];
+      }
+
+      return r;
+    }
+  }, {
+    key: "intersect",
+    value: function intersect(rect1, rect2) {
+      function compare(a, b) {
+        return a - b;
+      }
+
+      var orderedX = [rect1[0], rect1[2], rect2[0], rect2[2]].sort(compare);
+      var orderedY = [rect1[1], rect1[3], rect2[1], rect2[3]].sort(compare);
+      var result = [];
+      rect1 = Util.normalizeRect(rect1);
+      rect2 = Util.normalizeRect(rect2);
+
+      if (orderedX[0] === rect1[0] && orderedX[1] === rect2[0] || orderedX[0] === rect2[0] && orderedX[1] === rect1[0]) {
+        result[0] = orderedX[1];
+        result[2] = orderedX[2];
+      } else {
+        return null;
+      }
+
+      if (orderedY[0] === rect1[1] && orderedY[1] === rect2[1] || orderedY[0] === rect2[1] && orderedY[1] === rect1[1]) {
+        result[1] = orderedY[1];
+        result[3] = orderedY[2];
+      } else {
+        return null;
+      }
+
+      return result;
+    }
+  }]);
 
   return Util;
 }();
@@ -957,18 +1001,17 @@ exports.Util = Util;
 var PDFStringTranslateTable = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x2D8, 0x2C7, 0x2C6, 0x2D9, 0x2DD, 0x2DB, 0x2DA, 0x2DC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x2022, 0x2020, 0x2021, 0x2026, 0x2014, 0x2013, 0x192, 0x2044, 0x2039, 0x203A, 0x2212, 0x2030, 0x201E, 0x201C, 0x201D, 0x2018, 0x2019, 0x201A, 0x2122, 0xFB01, 0xFB02, 0x141, 0x152, 0x160, 0x178, 0x17D, 0x131, 0x142, 0x153, 0x161, 0x17E, 0, 0x20AC];
 
 function stringToPDFString(str) {
-  var i,
-      n = str.length,
+  var length = str.length,
       strBuf = [];
 
   if (str[0] === '\xFE' && str[1] === '\xFF') {
-    for (i = 2; i < n; i += 2) {
+    for (var i = 2; i < length; i += 2) {
       strBuf.push(String.fromCharCode(str.charCodeAt(i) << 8 | str.charCodeAt(i + 1)));
     }
   } else {
-    for (i = 0; i < n; ++i) {
-      var code = PDFStringTranslateTable[str.charCodeAt(i)];
-      strBuf.push(code ? String.fromCharCode(code) : str.charAt(i));
+    for (var _i2 = 0; _i2 < length; ++_i2) {
+      var code = PDFStringTranslateTable[str.charCodeAt(_i2)];
+      strBuf.push(code ? String.fromCharCode(code) : str.charAt(_i2));
     }
   }
 
@@ -1055,7 +1098,7 @@ var createObjectURL = function createObjectURLClosure() {
       return _url_polyfill.URL.createObjectURL(blob);
     }
 
-    var buffer = 'data:' + contentType + ';base64,';
+    var buffer = "data:".concat(contentType, ";base64,");
 
     for (var i = 0, ii = data.length; i < ii; i += 3) {
       var b1 = data[i] & 0xFF;
@@ -1280,11 +1323,11 @@ if (!globalScope._pdfjsCompatibilityChecked) {
   })();
 
   (function checkStringCodePointAt() {
-    if (String.codePointAt) {
+    if (String.prototype.codePointAt) {
       return;
     }
 
-    String.codePointAt = __w_pdfjs_require__(123);
+    __w_pdfjs_require__(123);
   })();
 
   (function checkStringFromCodePoint() {
@@ -10061,7 +10104,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
 
   return worker.messageHandler.sendWithPromise('GetDocRequest', {
     docId: docId,
-    apiVersion: '2.2.225',
+    apiVersion: '2.3.133',
     source: {
       data: source.data,
       url: source.url,
@@ -10551,7 +10594,6 @@ function () {
       var intentState = this.intentStates[renderingIntent];
 
       if (!intentState.displayReadyCapability) {
-        intentState.receivingOperatorList = true;
         intentState.displayReadyCapability = (0, _util.createPromiseCapability)();
         intentState.operatorList = {
           fnArray: [],
@@ -10560,7 +10602,7 @@ function () {
         };
         stats.time('Page Request');
 
-        this._transport.messageHandler.send('RenderPageRequest', {
+        this._pumpOperatorList({
           pageIndex: this.pageNumber - 1,
           intent: renderingIntent,
           renderInteractiveForms: renderInteractiveForms === true
@@ -10582,6 +10624,11 @@ function () {
 
         if (error) {
           internalRenderTask.capability.reject(error);
+
+          _this5._abortOperatorList({
+            intentState: intentState,
+            reason: error
+          });
         } else {
           internalRenderTask.capability.resolve();
         }
@@ -10654,7 +10701,6 @@ function () {
       if (!intentState.opListReadCapability) {
         opListTask = {};
         opListTask.operatorListChanged = operatorListChanged;
-        intentState.receivingOperatorList = true;
         intentState.opListReadCapability = (0, _util.createPromiseCapability)();
         intentState.renderTasks = [];
         intentState.renderTasks.push(opListTask);
@@ -10666,7 +10712,7 @@ function () {
 
         this._stats.time('Page Request');
 
-        this._transport.messageHandler.send('RenderPageRequest', {
+        this._pumpOperatorList({
           pageIndex: this.pageIndex,
           intent: renderingIntent
         });
@@ -10732,21 +10778,30 @@ function () {
   }, {
     key: "_destroy",
     value: function _destroy() {
+      var _this6 = this;
+
       this.destroyed = true;
       this._transport.pageCache[this.pageIndex] = null;
       var waitOn = [];
       Object.keys(this.intentStates).forEach(function (intent) {
+        var intentState = _this6.intentStates[intent];
+
+        _this6._abortOperatorList({
+          intentState: intentState,
+          reason: new Error('Page was destroyed.'),
+          force: true
+        });
+
         if (intent === 'oplist') {
           return;
         }
 
-        var intentState = this.intentStates[intent];
         intentState.renderTasks.forEach(function (renderTask) {
           var renderCompleted = renderTask.capability.promise["catch"](function () {});
           waitOn.push(renderCompleted);
           renderTask.cancel();
         });
-      }, this);
+      });
       this.objs.clear();
       this.annotationsPromise = null;
       this.pendingCleanup = false;
@@ -10767,7 +10822,7 @@ function () {
 
       if (!this.pendingCleanup || Object.keys(this.intentStates).some(function (intent) {
         var intentState = this.intentStates[intent];
-        return intentState.renderTasks.length !== 0 || intentState.receivingOperatorList;
+        return intentState.renderTasks.length !== 0 || !intentState.operatorList.lastChunk;
       }, this)) {
         return;
       }
@@ -10795,9 +10850,7 @@ function () {
     }
   }, {
     key: "_renderPageChunk",
-    value: function _renderPageChunk(operatorListChunk, intent) {
-      var intentState = this.intentStates[intent];
-
+    value: function _renderPageChunk(operatorListChunk, intentState) {
       for (var i = 0, ii = operatorListChunk.length; i < ii; i++) {
         intentState.operatorList.fnArray.push(operatorListChunk.fnArray[i]);
         intentState.operatorList.argsArray.push(operatorListChunk.argsArray[i]);
@@ -10810,10 +10863,91 @@ function () {
       }
 
       if (operatorListChunk.lastChunk) {
-        intentState.receivingOperatorList = false;
-
         this._tryCleanup();
       }
+    }
+  }, {
+    key: "_pumpOperatorList",
+    value: function _pumpOperatorList(args) {
+      var _this7 = this;
+
+      (0, _util.assert)(args.intent, 'PDFPageProxy._pumpOperatorList: Expected "intent" argument.');
+
+      var readableStream = this._transport.messageHandler.sendWithStream('GetOperatorList', args);
+
+      var reader = readableStream.getReader();
+      var intentState = this.intentStates[args.intent];
+      intentState.streamReader = reader;
+
+      var pump = function pump() {
+        reader.read().then(function (_ref6) {
+          var value = _ref6.value,
+              done = _ref6.done;
+
+          if (done) {
+            intentState.streamReader = null;
+            return;
+          }
+
+          if (_this7._transport.destroyed) {
+            return;
+          }
+
+          _this7._renderPageChunk(value.operatorList, intentState);
+
+          pump();
+        }, function (reason) {
+          intentState.streamReader = null;
+
+          if (_this7._transport.destroyed) {
+            return;
+          }
+
+          if (intentState.operatorList) {
+            intentState.operatorList.lastChunk = true;
+
+            for (var i = 0; i < intentState.renderTasks.length; i++) {
+              intentState.renderTasks[i].operatorListChanged();
+            }
+
+            _this7._tryCleanup();
+          }
+
+          if (intentState.displayReadyCapability) {
+            intentState.displayReadyCapability.reject(reason);
+          } else if (intentState.opListReadCapability) {
+            intentState.opListReadCapability.reject(reason);
+          } else {
+            throw reason;
+          }
+        });
+      };
+
+      pump();
+    }
+  }, {
+    key: "_abortOperatorList",
+    value: function _abortOperatorList(_ref7) {
+      var intentState = _ref7.intentState,
+          reason = _ref7.reason,
+          _ref7$force = _ref7.force,
+          force = _ref7$force === void 0 ? false : _ref7$force;
+      (0, _util.assert)(reason instanceof Error, 'PDFPageProxy._abortOperatorList: Expected "reason" argument.');
+
+      if (!intentState.streamReader) {
+        return;
+      }
+
+      if (!force && intentState.renderTasks.length !== 0) {
+        return;
+      }
+
+      if (reason instanceof _display_utils.RenderingCancelledException) {
+        return;
+      }
+
+      intentState.streamReader.cancel(new _util.AbortException(reason && reason.message));
+      intentState.streamReader = null;
     }
   }, {
     key: "pageNumber",
@@ -10868,7 +11002,7 @@ function () {
   _createClass(LoopbackPort, [{
     key: "postMessage",
     value: function postMessage(obj, transfers) {
-      var _this6 = this;
+      var _this8 = this;
 
       function cloneValue(value) {
         if (_typeof(value) !== 'object' || value === null) {
@@ -10933,9 +11067,9 @@ function () {
       };
 
       this._deferred.then(function () {
-        _this6._listeners.forEach(function (listener) {
+        _this8._listeners.forEach(function (listener) {
           listener.call(this, e);
-        }, _this6);
+        }, _this8);
       });
     }
   }, {
@@ -11021,15 +11155,15 @@ var PDFWorker = function PDFWorkerClosure() {
   /*#__PURE__*/
   function () {
     function PDFWorker() {
-      var _ref6 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          _ref6$name = _ref6.name,
-          name = _ref6$name === void 0 ? null : _ref6$name,
-          _ref6$port = _ref6.port,
-          port = _ref6$port === void 0 ? null : _ref6$port,
-          _ref6$postMessageTran = _ref6.postMessageTransfers,
-          postMessageTransfers = _ref6$postMessageTran === void 0 ? true : _ref6$postMessageTran,
-          _ref6$verbosity = _ref6.verbosity,
-          verbosity = _ref6$verbosity === void 0 ? (0, _util.getVerbosityLevel)() : _ref6$verbosity;
+      var _ref8 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          _ref8$name = _ref8.name,
+          name = _ref8$name === void 0 ? null : _ref8$name,
+          _ref8$port = _ref8.port,
+          port = _ref8$port === void 0 ? null : _ref8$port,
+          _ref8$postMessageTran = _ref8.postMessageTransfers,
+          postMessageTransfers = _ref8$postMessageTran === void 0 ? true : _ref8$postMessageTran,
+          _ref8$verbosity = _ref8.verbosity,
+          verbosity = _ref8$verbosity === void 0 ? (0, _util.getVerbosityLevel)() : _ref8$verbosity;
 
       _classCallCheck(this, PDFWorker);
 
@@ -11070,7 +11204,7 @@ var PDFWorker = function PDFWorkerClosure() {
     }, {
       key: "_initialize",
       value: function _initialize() {
-        var _this7 = this;
+        var _this9 = this;
 
         if (typeof Worker !== 'undefined' && !isWorkerDisabled && !getMainThreadWorkerMessageHandler()) {
           var workerSrc = _getWorkerSrc();
@@ -11088,15 +11222,15 @@ var PDFWorker = function PDFWorkerClosure() {
               messageHandler.destroy();
               worker.terminate();
 
-              if (_this7.destroyed) {
-                _this7._readyCapability.reject(new Error('Worker was destroyed'));
+              if (_this9.destroyed) {
+                _this9._readyCapability.reject(new Error('Worker was destroyed'));
               } else {
-                _this7._setupFakeWorker();
+                _this9._setupFakeWorker();
               }
             };
 
             var onWorkerError = function onWorkerError() {
-              if (!_this7._webWorker) {
+              if (!_this9._webWorker) {
                 terminateEarly();
               }
             };
@@ -11105,27 +11239,27 @@ var PDFWorker = function PDFWorkerClosure() {
             messageHandler.on('test', function (data) {
               worker.removeEventListener('error', onWorkerError);
 
-              if (_this7.destroyed) {
+              if (_this9.destroyed) {
                 terminateEarly();
                 return;
               }
 
               if (data && data.supportTypedArray) {
-                _this7._messageHandler = messageHandler;
-                _this7._port = worker;
-                _this7._webWorker = worker;
+                _this9._messageHandler = messageHandler;
+                _this9._port = worker;
+                _this9._webWorker = worker;
 
                 if (!data.supportTransfers) {
-                  _this7.postMessageTransfers = false;
+                  _this9.postMessageTransfers = false;
                 }
 
-                _this7._readyCapability.resolve();
+                _this9._readyCapability.resolve();
 
                 messageHandler.send('configure', {
-                  verbosity: _this7.verbosity
+                  verbosity: _this9.verbosity
                 });
               } else {
-                _this7._setupFakeWorker();
+                _this9._setupFakeWorker();
 
                 messageHandler.destroy();
                 worker.terminate();
@@ -11134,7 +11268,7 @@ var PDFWorker = function PDFWorkerClosure() {
             messageHandler.on('ready', function (data) {
               worker.removeEventListener('error', onWorkerError);
 
-              if (_this7.destroyed) {
+              if (_this9.destroyed) {
                 terminateEarly();
                 return;
               }
@@ -11142,12 +11276,12 @@ var PDFWorker = function PDFWorkerClosure() {
               try {
                 sendTest();
               } catch (e) {
-                _this7._setupFakeWorker();
+                _this9._setupFakeWorker();
               }
             });
 
             var sendTest = function sendTest() {
-              var testObj = new Uint8Array([_this7.postMessageTransfers ? 255 : 0]);
+              var testObj = new Uint8Array([_this9.postMessageTransfers ? 255 : 0]);
 
               try {
                 messageHandler.send('test', testObj, [testObj.buffer]);
@@ -11170,7 +11304,7 @@ var PDFWorker = function PDFWorkerClosure() {
     }, {
       key: "_setupFakeWorker",
       value: function _setupFakeWorker() {
-        var _this8 = this;
+        var _this10 = this;
 
         if (!isWorkerDisabled) {
           (0, _util.warn)('Setting up fake worker.');
@@ -11178,23 +11312,23 @@ var PDFWorker = function PDFWorkerClosure() {
         }
 
         setupFakeWorkerGlobal().then(function (WorkerMessageHandler) {
-          if (_this8.destroyed) {
-            _this8._readyCapability.reject(new Error('Worker was destroyed'));
+          if (_this10.destroyed) {
+            _this10._readyCapability.reject(new Error('Worker was destroyed'));
 
             return;
           }
 
           var port = new LoopbackPort();
-          _this8._port = port;
+          _this10._port = port;
           var id = 'fake' + nextFakeWorkerId++;
           var workerHandler = new _message_handler.MessageHandler(id + '_worker', id, port);
           WorkerMessageHandler.setup(workerHandler, port);
           var messageHandler = new _message_handler.MessageHandler(id, id + '_worker', port);
-          _this8._messageHandler = messageHandler;
+          _this10._messageHandler = messageHandler;
 
-          _this8._readyCapability.resolve();
+          _this10._readyCapability.resolve();
         })["catch"](function (reason) {
-          _this8._readyCapability.reject(new Error("Setting up fake worker failed: \"".concat(reason.message, "\".")));
+          _this10._readyCapability.reject(new Error("Setting up fake worker failed: \"".concat(reason.message, "\".")));
         });
       }
     }, {
@@ -11293,7 +11427,7 @@ function () {
   _createClass(WorkerTransport, [{
     key: "destroy",
     value: function destroy() {
-      var _this9 = this;
+      var _this11 = this;
 
       if (this.destroyCapability) {
         return this.destroyCapability.promise;
@@ -11317,19 +11451,19 @@ function () {
       var terminated = this.messageHandler.sendWithPromise('Terminate', null);
       waitOn.push(terminated);
       Promise.all(waitOn).then(function () {
-        _this9.fontLoader.clear();
+        _this11.fontLoader.clear();
 
-        if (_this9._networkStream) {
-          _this9._networkStream.cancelAllRequests();
+        if (_this11._networkStream) {
+          _this11._networkStream.cancelAllRequests(new _util.AbortException('Worker was terminated.'));
         }
 
-        if (_this9.messageHandler) {
-          _this9.messageHandler.destroy();
+        if (_this11.messageHandler) {
+          _this11.messageHandler.destroy();
 
-          _this9.messageHandler = null;
+          _this11.messageHandler = null;
         }
 
-        _this9.destroyCapability.resolve();
+        _this11.destroyCapability.resolve();
       }, this.destroyCapability.reject);
       return this.destroyCapability.promise;
     }
@@ -11339,22 +11473,22 @@ function () {
       var messageHandler = this.messageHandler,
           loadingTask = this.loadingTask;
       messageHandler.on('GetReader', function (data, sink) {
-        var _this10 = this;
+        var _this12 = this;
 
         (0, _util.assert)(this._networkStream);
         this._fullReader = this._networkStream.getFullReader();
 
         this._fullReader.onProgress = function (evt) {
-          _this10._lastProgress = {
+          _this12._lastProgress = {
             loaded: evt.loaded,
             total: evt.total
           };
         };
 
         sink.onPull = function () {
-          _this10._fullReader.read().then(function (_ref7) {
-            var value = _ref7.value,
-                done = _ref7.done;
+          _this12._fullReader.read().then(function (_ref9) {
+            var value = _ref9.value,
+                done = _ref9.done;
 
             if (done) {
               sink.close();
@@ -11369,18 +11503,18 @@ function () {
         };
 
         sink.onCancel = function (reason) {
-          _this10._fullReader.cancel(reason);
+          _this12._fullReader.cancel(reason);
         };
       }, this);
       messageHandler.on('ReaderHeadersReady', function (data) {
-        var _this11 = this;
+        var _this13 = this;
 
         var headersCapability = (0, _util.createPromiseCapability)();
         var fullReader = this._fullReader;
         fullReader.headersReady.then(function () {
           if (!fullReader.isStreamingSupported || !fullReader.isRangeSupported) {
-            if (_this11._lastProgress && loadingTask.onProgress) {
-              loadingTask.onProgress(_this11._lastProgress);
+            if (_this13._lastProgress && loadingTask.onProgress) {
+              loadingTask.onProgress(_this13._lastProgress);
             }
 
             fullReader.onProgress = function (evt) {
@@ -11412,9 +11546,9 @@ function () {
         }
 
         sink.onPull = function () {
-          rangeReader.read().then(function (_ref8) {
-            var value = _ref8.value,
-                done = _ref8.done;
+          rangeReader.read().then(function (_ref10) {
+            var value = _ref10.value,
+                done = _ref10.done;
 
             if (done) {
               sink.close();
@@ -11432,20 +11566,20 @@ function () {
           rangeReader.cancel(reason);
         };
       }, this);
-      messageHandler.on('GetDoc', function (_ref9) {
-        var pdfInfo = _ref9.pdfInfo;
+      messageHandler.on('GetDoc', function (_ref11) {
+        var pdfInfo = _ref11.pdfInfo;
         this._numPages = pdfInfo.numPages;
 
         loadingTask._capability.resolve(new PDFDocumentProxy(pdfInfo, this));
       }, this);
       messageHandler.on('PasswordRequest', function (exception) {
-        var _this12 = this;
+        var _this14 = this;
 
         this._passwordCapability = (0, _util.createPromiseCapability)();
 
         if (loadingTask.onPassword) {
           var updatePassword = function updatePassword(password) {
-            _this12._passwordCapability.resolve({
+            _this14._passwordCapability.resolve({
               password: password
             });
           };
@@ -11497,17 +11631,8 @@ function () {
 
         page._startRenderPage(data.transparency, data.intent);
       }, this);
-      messageHandler.on('RenderPageChunk', function (data) {
-        if (this.destroyed) {
-          return;
-        }
-
-        var page = this.pageCache[data.pageIndex];
-
-        page._renderPageChunk(data.operatorList, data.intent);
-      }, this);
       messageHandler.on('commonobj', function (data) {
-        var _this13 = this;
+        var _this15 = this;
 
         if (this.destroyed) {
           return;
@@ -11551,12 +11676,12 @@ function () {
               fontRegistry: fontRegistry
             });
             this.fontLoader.bind(font).then(function () {
-              _this13.commonObjs.resolve(id, font);
+              _this15.commonObjs.resolve(id, font);
             }, function (reason) {
               messageHandler.sendWithPromise('FontFallback', {
                 id: id
               })["finally"](function () {
-                _this13.commonObjs.resolve(id, font);
+                _this15.commonObjs.resolve(id, font);
               });
             });
             break;
@@ -11632,28 +11757,6 @@ function () {
             loaded: data.loaded,
             total: data.total
           });
-        }
-      }, this);
-      messageHandler.on('PageError', function (data) {
-        if (this.destroyed) {
-          return;
-        }
-
-        var page = this.pageCache[data.pageIndex];
-        var intentState = page.intentStates[data.intent];
-
-        if (intentState.displayReadyCapability) {
-          intentState.displayReadyCapability.reject(new Error(data.error));
-        } else {
-          throw new Error(data.error);
-        }
-
-        if (intentState.operatorList) {
-          intentState.operatorList.lastChunk = true;
-
-          for (var i = 0; i < intentState.renderTasks.length; i++) {
-            intentState.renderTasks[i].operatorListChanged();
-          }
         }
       }, this);
       messageHandler.on('UnsupportedFeature', this._onUnsupportedFeature, this);
@@ -11734,8 +11837,8 @@ function () {
     }
   }, {
     key: "_onUnsupportedFeature",
-    value: function _onUnsupportedFeature(_ref10) {
-      var featureId = _ref10.featureId;
+    value: function _onUnsupportedFeature(_ref12) {
+      var featureId = _ref12.featureId;
 
       if (this.destroyed) {
         return;
@@ -11753,7 +11856,7 @@ function () {
   }, {
     key: "getPage",
     value: function getPage(pageNumber) {
-      var _this14 = this;
+      var _this16 = this;
 
       if (!Number.isInteger(pageNumber) || pageNumber <= 0 || pageNumber > this._numPages) {
         return Promise.reject(new Error('Invalid page request'));
@@ -11768,12 +11871,12 @@ function () {
       var promise = this.messageHandler.sendWithPromise('GetPage', {
         pageIndex: pageIndex
       }).then(function (pageInfo) {
-        if (_this14.destroyed) {
+        if (_this16.destroyed) {
           throw new Error('Transport destroyed');
         }
 
-        var page = new PDFPageProxy(pageIndex, pageInfo, _this14, _this14._params.pdfBug);
-        _this14.pageCache[pageIndex] = page;
+        var page = new PDFPageProxy(pageIndex, pageInfo, _this16, _this16._params.pdfBug);
+        _this16.pageCache[pageIndex] = page;
         return page;
       });
       this.pagePromises[pageIndex] = promise;
@@ -11860,13 +11963,13 @@ function () {
   }, {
     key: "getMetadata",
     value: function getMetadata() {
-      var _this15 = this;
+      var _this17 = this;
 
       return this.messageHandler.sendWithPromise('GetMetadata', null).then(function (results) {
         return {
           info: results[0],
           metadata: results[1] ? new _metadata.Metadata(results[1]) : null,
-          contentDispositionFilename: _this15._fullReader ? _this15._fullReader.filename : null
+          contentDispositionFilename: _this17._fullReader ? _this17._fullReader.filename : null
         };
       });
     }
@@ -11878,20 +11981,20 @@ function () {
   }, {
     key: "startCleanup",
     value: function startCleanup() {
-      var _this16 = this;
+      var _this18 = this;
 
       this.messageHandler.sendWithPromise('Cleanup', null).then(function () {
-        for (var i = 0, ii = _this16.pageCache.length; i < ii; i++) {
-          var page = _this16.pageCache[i];
+        for (var i = 0, ii = _this18.pageCache.length; i < ii; i++) {
+          var page = _this18.pageCache[i];
 
           if (page) {
             page.cleanup();
           }
         }
 
-        _this16.commonObjs.clear();
+        _this18.commonObjs.clear();
 
-        _this16.fontLoader.clear();
+        _this18.fontLoader.clear();
       });
     }
   }, {
@@ -12021,20 +12124,20 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
   var InternalRenderTask =
   /*#__PURE__*/
   function () {
-    function InternalRenderTask(_ref11) {
-      var callback = _ref11.callback,
-          params = _ref11.params,
-          objs = _ref11.objs,
-          commonObjs = _ref11.commonObjs,
-          operatorList = _ref11.operatorList,
-          pageNumber = _ref11.pageNumber,
-          canvasFactory = _ref11.canvasFactory,
-          canvasGraphicsFactory = _ref11.canvasGraphicsFactory,
-          webGLContext = _ref11.webGLContext,
-          _ref11$useRequestAnim = _ref11.useRequestAnimationFrame,
-          useRequestAnimationFrame = _ref11$useRequestAnim === void 0 ? false : _ref11$useRequestAnim,
-          _ref11$pdfBug = _ref11.pdfBug,
-          pdfBug = _ref11$pdfBug === void 0 ? false : _ref11$pdfBug;
+    function InternalRenderTask(_ref13) {
+      var callback = _ref13.callback,
+          params = _ref13.params,
+          objs = _ref13.objs,
+          commonObjs = _ref13.commonObjs,
+          operatorList = _ref13.operatorList,
+          pageNumber = _ref13.pageNumber,
+          canvasFactory = _ref13.canvasFactory,
+          canvasGraphicsFactory = _ref13.canvasGraphicsFactory,
+          webGLContext = _ref13.webGLContext,
+          _ref13$useRequestAnim = _ref13.useRequestAnimationFrame,
+          useRequestAnimationFrame = _ref13$useRequestAnim === void 0 ? false : _ref13$useRequestAnim,
+          _ref13$pdfBug = _ref13.pdfBug,
+          pdfBug = _ref13$pdfBug === void 0 ? false : _ref13$pdfBug;
 
       _classCallCheck(this, InternalRenderTask);
 
@@ -12161,11 +12264,11 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
     }, {
       key: "_scheduleNext",
       value: function _scheduleNext() {
-        var _this17 = this;
+        var _this19 = this;
 
         if (this._useRequestAnimationFrame) {
           window.requestAnimationFrame(function () {
-            _this17._nextBound()["catch"](_this17.cancel.bind(_this17));
+            _this19._nextBound()["catch"](_this19.cancel.bind(_this19));
           });
         } else {
           Promise.resolve().then(this._nextBound)["catch"](this.cancel.bind(this));
@@ -12227,9 +12330,9 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
   return InternalRenderTask;
 }();
 
-var version = '2.2.225';
+var version = '2.3.133';
 exports.version = version;
-var build = '4785f13d';
+var build = 'e44e72bd';
 exports.build = build;
 
 /***/ }),
@@ -13324,9 +13427,22 @@ function addLinkAttributes(link) {
   var _ref7 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       url = _ref7.url,
       target = _ref7.target,
-      rel = _ref7.rel;
+      rel = _ref7.rel,
+      _ref7$enabled = _ref7.enabled,
+      enabled = _ref7$enabled === void 0 ? true : _ref7$enabled;
 
-  link.href = link.title = url ? (0, _util.removeNullCharacters)(url) : '';
+  var urlNullRemoved = url ? (0, _util.removeNullCharacters)(url) : '';
+
+  if (enabled) {
+    link.href = link.title = urlNullRemoved;
+  } else {
+    link.href = '';
+    link.title = "Disabled: ".concat(urlNullRemoved);
+
+    link.onclick = function () {
+      return false;
+    };
+  }
 
   if (url) {
     var LinkTargetValues = Object.values(LinkTarget);
@@ -15230,15 +15346,20 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
       consumePath = typeof consumePath !== 'undefined' ? consumePath : true;
       var ctx = this.ctx;
       var strokeColor = this.current.strokeColor;
-      ctx.lineWidth = Math.max(this.getSinglePixelWidth() * MIN_WIDTH_FACTOR, this.current.lineWidth);
       ctx.globalAlpha = this.current.strokeAlpha;
 
       if (strokeColor && strokeColor.hasOwnProperty('type') && strokeColor.type === 'Pattern') {
         ctx.save();
+        var transform = ctx.mozCurrentTransform;
+
+        var scale = _util.Util.singularValueDecompose2dScale(transform)[0];
+
         ctx.strokeStyle = strokeColor.getPattern(ctx, this);
+        ctx.lineWidth = Math.max(this.getSinglePixelWidth() * MIN_WIDTH_FACTOR, this.current.lineWidth * scale);
         ctx.stroke();
         ctx.restore();
       } else {
+        ctx.lineWidth = Math.max(this.getSinglePixelWidth() * MIN_WIDTH_FACTOR, this.current.lineWidth);
         ctx.stroke();
       }
 
@@ -16253,17 +16374,32 @@ exports.TilingPattern = void 0;
 var _util = __w_pdfjs_require__(1);
 
 var ShadingIRs = {};
+
+function applyBoundingBox(ctx, bbox) {
+  if (!bbox || typeof Path2D === 'undefined') {
+    return;
+  }
+
+  var width = bbox[2] - bbox[0];
+  var height = bbox[3] - bbox[1];
+  var region = new Path2D();
+  region.rect(bbox[0], bbox[1], width, height);
+  ctx.clip(region);
+}
+
 ShadingIRs.RadialAxial = {
   fromIR: function RadialAxial_fromIR(raw) {
     var type = raw[1];
-    var colorStops = raw[2];
-    var p0 = raw[3];
-    var p1 = raw[4];
-    var r0 = raw[5];
-    var r1 = raw[6];
+    var bbox = raw[2];
+    var colorStops = raw[3];
+    var p0 = raw[4];
+    var p1 = raw[5];
+    var r0 = raw[6];
+    var r1 = raw[7];
     return {
       type: 'Pattern',
       getPattern: function RadialAxial_getPattern(ctx) {
+        applyBoundingBox(ctx, bbox);
         var grad;
 
         if (type === 'axial') {
@@ -16491,10 +16627,12 @@ ShadingIRs.Mesh = {
     var figures = raw[4];
     var bounds = raw[5];
     var matrix = raw[6];
+    var bbox = raw[7];
     var background = raw[8];
     return {
       type: 'Pattern',
       getPattern: function Mesh_getPattern(ctx, owner, shadingFill) {
+        applyBoundingBox(ctx, bbox);
         var scale;
 
         if (shadingFill) {
@@ -16773,16 +16911,12 @@ function makeReasonSerializable(reason) {
   return new _util.UnknownErrorException(reason.message, reason.toString());
 }
 
-function resolveOrReject(capability, success, reason) {
-  if (success) {
+function resolveOrReject(capability, data) {
+  if (data.success) {
     capability.resolve();
   } else {
-    capability.reject(reason);
+    capability.reject(wrapReason(data.reason));
   }
-}
-
-function finalize(promise) {
-  return Promise.resolve(promise)["catch"](function () {});
 }
 
 function MessageHandler(sourceName, targetName, comObj) {
@@ -17078,7 +17212,7 @@ MessageHandler.prototype = {
 
     var deleteStreamController = function deleteStreamController() {
       Promise.all([_this4.streamControllers[data.streamId].startCall, _this4.streamControllers[data.streamId].pullCall, _this4.streamControllers[data.streamId].cancelCall].map(function (capability) {
-        return capability && finalize(capability.promise);
+        return capability && capability.promise["catch"](function () {});
       })).then(function () {
         delete _this4.streamControllers[data.streamId];
       });
@@ -17086,11 +17220,11 @@ MessageHandler.prototype = {
 
     switch (data.stream) {
       case 'start_complete':
-        resolveOrReject(this.streamControllers[data.streamId].startCall, data.success, wrapReason(data.reason));
+        resolveOrReject(this.streamControllers[data.streamId].startCall, data);
         break;
 
       case 'pull_complete':
-        resolveOrReject(this.streamControllers[data.streamId].pullCall, data.success, wrapReason(data.reason));
+        resolveOrReject(this.streamControllers[data.streamId].pullCall, data);
         break;
 
       case 'pull':
@@ -17149,7 +17283,7 @@ MessageHandler.prototype = {
         break;
 
       case 'cancel_complete':
-        resolveOrReject(this.streamControllers[data.streamId].cancelCall, data.success, wrapReason(data.reason));
+        resolveOrReject(this.streamControllers[data.streamId].cancelCall, data);
         deleteStreamController();
         break;
 
@@ -18842,12 +18976,9 @@ var renderTextLayer = function renderTextLayerClosure() {
     return !NonWhitespaceRegexp.test(str);
   }
 
-  var styleBuf = ['left: ', 0, 'px; top: ', 0, 'px; font-size: ', 0, 'px; font-family: ', '', ';'];
-
   function appendText(task, geom, styles) {
     var textDiv = document.createElement('span');
     var textDivProperties = {
-      style: null,
       angle: 0,
       canvasWidth: 0,
       isWhitespace: false,
@@ -18887,8 +19018,7 @@ var renderTextLayer = function renderTextLayerClosure() {
       fontAscent = (1 + style.descent) * fontAscent;
     }
 
-    var left;
-    var top;
+    var left, top;
 
     if (angle === 0) {
       left = tx[4];
@@ -18898,12 +19028,10 @@ var renderTextLayer = function renderTextLayerClosure() {
       top = tx[5] - fontAscent * Math.cos(angle);
     }
 
-    styleBuf[1] = left;
-    styleBuf[3] = top;
-    styleBuf[5] = fontHeight;
-    styleBuf[7] = style.fontFamily;
-    textDivProperties.style = styleBuf.join('');
-    textDiv.setAttribute('style', textDivProperties.style);
+    textDiv.style.left = "".concat(left, "px");
+    textDiv.style.top = "".concat(top, "px");
+    textDiv.style.fontSize = "".concat(fontHeight, "px");
+    textDiv.style.fontFamily = style.fontFamily;
     textDiv.textContent = geom.str;
 
     if (task._fontInspectorEnabled) {
@@ -19285,7 +19413,7 @@ var renderTextLayer = function renderTextLayerClosure() {
         _this._layoutTextCtx.canvas.height = 0;
         _this._layoutTextCtx = null;
       }
-    });
+    })["catch"](function () {});
   }
 
   TextLayerRenderTask.prototype = {
@@ -19317,30 +19445,32 @@ var renderTextLayer = function renderTextLayerClosure() {
       }
     },
     _layoutText: function _layoutText(textDiv) {
-      var textLayerFrag = this._container;
-
       var textDivProperties = this._textDivProperties.get(textDiv);
 
       if (textDivProperties.isWhitespace) {
         return;
       }
 
-      var fontSize = textDiv.style.fontSize;
-      var fontFamily = textDiv.style.fontFamily;
-
-      if (fontSize !== this._layoutTextLastFontSize || fontFamily !== this._layoutTextLastFontFamily) {
-        this._layoutTextCtx.font = fontSize + ' ' + fontFamily;
-        this._layoutTextLastFontSize = fontSize;
-        this._layoutTextLastFontFamily = fontFamily;
-      }
-
-      var width = this._layoutTextCtx.measureText(textDiv.textContent).width;
-
       var transform = '';
 
-      if (textDivProperties.canvasWidth !== 0 && width > 0) {
-        textDivProperties.scale = textDivProperties.canvasWidth / width;
-        transform = "scaleX(".concat(textDivProperties.scale, ")");
+      if (textDivProperties.canvasWidth !== 0) {
+        var _textDiv$style = textDiv.style,
+            fontSize = _textDiv$style.fontSize,
+            fontFamily = _textDiv$style.fontFamily;
+
+        if (fontSize !== this._layoutTextLastFontSize || fontFamily !== this._layoutTextLastFontFamily) {
+          this._layoutTextCtx.font = "".concat(fontSize, " ").concat(fontFamily);
+          this._layoutTextLastFontSize = fontSize;
+          this._layoutTextLastFontFamily = fontFamily;
+        }
+
+        var _this$_layoutTextCtx$ = this._layoutTextCtx.measureText(textDiv.textContent),
+            width = _this$_layoutTextCtx$.width;
+
+        if (width > 0) {
+          textDivProperties.scale = textDivProperties.canvasWidth / width;
+          transform = "scaleX(".concat(textDivProperties.scale, ")");
+        }
       }
 
       if (textDivProperties.angle !== 0) {
@@ -19348,13 +19478,16 @@ var renderTextLayer = function renderTextLayerClosure() {
       }
 
       if (transform.length > 0) {
-        textDivProperties.originalTransform = transform;
+        if (this._enhanceTextSelection) {
+          textDivProperties.originalTransform = transform;
+        }
+
         textDiv.style.transform = transform;
       }
 
       this._textDivProperties.set(textDiv, textDivProperties);
 
-      textLayerFrag.appendChild(textDiv);
+      this._container.appendChild(textDiv);
     },
     _render: function TextLayer_render(timeout) {
       var _this2 = this;
@@ -19422,55 +19555,65 @@ var renderTextLayer = function renderTextLayerClosure() {
         this._bounds = null;
       }
 
+      var NO_PADDING = '0 0 0 0';
+      var transformBuf = [],
+          paddingBuf = [];
+
       for (var i = 0, ii = this._textDivs.length; i < ii; i++) {
         var div = this._textDivs[i];
 
-        var divProperties = this._textDivProperties.get(div);
+        var divProps = this._textDivProperties.get(div);
 
-        if (divProperties.isWhitespace) {
+        if (divProps.isWhitespace) {
           continue;
         }
 
         if (expandDivs) {
-          var transform = '',
-              padding = '';
+          transformBuf.length = 0;
+          paddingBuf.length = 0;
 
-          if (divProperties.scale !== 1) {
-            transform = 'scaleX(' + divProperties.scale + ')';
+          if (divProps.originalTransform) {
+            transformBuf.push(divProps.originalTransform);
           }
 
-          if (divProperties.angle !== 0) {
-            transform = 'rotate(' + divProperties.angle + 'deg) ' + transform;
+          if (divProps.paddingTop > 0) {
+            paddingBuf.push("".concat(divProps.paddingTop, "px"));
+            transformBuf.push("translateY(".concat(-divProps.paddingTop, "px)"));
+          } else {
+            paddingBuf.push(0);
           }
 
-          if (divProperties.paddingLeft !== 0) {
-            padding += ' padding-left: ' + divProperties.paddingLeft / divProperties.scale + 'px;';
-            transform += ' translateX(' + -divProperties.paddingLeft / divProperties.scale + 'px)';
+          if (divProps.paddingRight > 0) {
+            paddingBuf.push("".concat(divProps.paddingRight / divProps.scale, "px"));
+          } else {
+            paddingBuf.push(0);
           }
 
-          if (divProperties.paddingTop !== 0) {
-            padding += ' padding-top: ' + divProperties.paddingTop + 'px;';
-            transform += ' translateY(' + -divProperties.paddingTop + 'px)';
+          if (divProps.paddingBottom > 0) {
+            paddingBuf.push("".concat(divProps.paddingBottom, "px"));
+          } else {
+            paddingBuf.push(0);
           }
 
-          if (divProperties.paddingRight !== 0) {
-            padding += ' padding-right: ' + divProperties.paddingRight / divProperties.scale + 'px;';
+          if (divProps.paddingLeft > 0) {
+            paddingBuf.push("".concat(divProps.paddingLeft / divProps.scale, "px"));
+            transformBuf.push("translateX(".concat(-divProps.paddingLeft / divProps.scale, "px)"));
+          } else {
+            paddingBuf.push(0);
           }
 
-          if (divProperties.paddingBottom !== 0) {
-            padding += ' padding-bottom: ' + divProperties.paddingBottom + 'px;';
+          var padding = paddingBuf.join(' ');
+
+          if (padding !== NO_PADDING) {
+            div.style.padding = padding;
           }
 
-          if (padding !== '') {
-            div.setAttribute('style', divProperties.style + padding);
-          }
-
-          if (transform !== '') {
-            div.style.transform = transform;
+          if (transformBuf.length) {
+            div.style.transform = transformBuf.join(' ');
           }
         } else {
-          div.style.padding = 0;
-          div.style.transform = divProperties.originalTransform || '';
+          div.style.padding = null;
+          div.style.transform = divProps.originalTransform;
         }
       }
     }
@@ -19781,7 +19924,8 @@ function (_AnnotationElement) {
       (0, _display_utils.addLinkAttributes)(link, {
         url: data.url,
         target: data.newWindow ? _display_utils.LinkTarget.BLANK : linkService.externalLinkTarget,
-        rel: linkService.externalLinkRel
+        rel: linkService.externalLinkRel,
+        enabled: linkService.externalLinkEnabled
       });
 
       if (!data.url) {
@@ -23322,6 +23466,12 @@ function extractFilenameFromHeader(getResponseHeader) {
 
   if (contentDisposition) {
     var filename = (0, _content_disposition.getFilenameFromContentDispositionHeader)(contentDisposition);
+
+    if (filename.includes('%')) {
+      try {
+        filename = decodeURIComponent(filename);
+      } catch (ex) {}
+    }
 
     if (/\.pdf$/i.test(filename)) {
       return filename;
