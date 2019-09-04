@@ -118,7 +118,7 @@ class PDFParser {
             });
         }
 
-
+        store.texts.sort(PDFParser.compareBlockPos);
 
         return {
             context,
@@ -154,6 +154,8 @@ class PDFParser {
             }
             store.texts = store.texts.filter(e => !e.merged);
         }
+
+        store.texts.sort(PDFParser.compareBlockPos);
 
     }
 
