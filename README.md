@@ -7,5 +7,5 @@ PDF.js has been modified to export GraphicsCanvas.
 ```shell
 cd pdf.js
 gulp dist-pre
-copy ./build/dist/build to pdf.js-parser/dist
+copy ./build/dist/build ../pdf.js-parser/dist
 ```
