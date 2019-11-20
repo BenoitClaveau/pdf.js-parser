@@ -25,6 +25,8 @@ class PDFParser {
         const store = {
             paths: [],
             lines: [],
+            vlines: [],
+            hlines: [],
             texts: []
         };
         const canvasFactory = new NodeCanvasFactory(store);
@@ -171,6 +173,8 @@ class PDFParser {
 
         const bigs = store.lines.filter(e => e.w > 10 && e.h > 10);
         const smalls = store.lines.filter(e => bigs.indexOf(e) == -1);
+
+        if (smalls.length > 1000) return; // le nombre de lignes est trop important. Le traitement sera trop long. Je préfère quitter.
 
         const smallsH = smalls.filter(e => e.w >= e.h);
         const smallsV = smalls.filter(e => e.w < e.h);
