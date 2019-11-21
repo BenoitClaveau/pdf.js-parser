@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.4.149';
-var pdfjsBuild = '6ce44341';
+var pdfjsVersion = '2.4.151';
+var pdfjsBuild = '7cea39fa';
 
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 
@@ -10259,7 +10259,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
 
   return worker.messageHandler.sendWithPromise('GetDocRequest', {
     docId: docId,
-    apiVersion: '2.4.149',
+    apiVersion: '2.4.151',
     source: {
       data: source.data,
       url: source.url,
@@ -10754,7 +10754,7 @@ function () {
       }
 
       var canvasFactoryInstance = canvasFactory || new _display_utils.DOMCanvasFactory();
-      var canvasGraphicsFactoryInstance = canvasGraphicsFactory || new CanvasFactory();
+      var canvasGraphicsFactoryInstance = canvasGraphicsFactory || new _canvas.CanvasGraphicsFactory();
       var webGLContext = new _webgl.WebGLContext({
         enable: enableWebGL
       });
@@ -12562,9 +12562,9 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
   return InternalRenderTask;
 }();
 
-var version = '2.4.149';
+var version = '2.4.151';
 exports.version = version;
-var build = '6ce44341';
+var build = '7cea39fa';
 exports.build = build;
 
 /***/ }),
@@ -14469,7 +14469,7 @@ exports.apiCompatibilityParams = Object.freeze(compatibilityParams);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CanvasFactory = exports.CanvasGraphics = void 0;
+exports.CanvasGraphicsFactory = exports.CanvasGraphics = void 0;
 
 var _util = __w_pdfjs_require__(1);
 
@@ -16537,24 +16537,24 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
 
 exports.CanvasGraphics = CanvasGraphics;
 
-var CanvasFactory =
+var CanvasGraphicsFactory =
 /*#__PURE__*/
 function () {
-  function CanvasFactory() {
-    _classCallCheck(this, CanvasFactory);
+  function CanvasGraphicsFactory() {
+    _classCallCheck(this, CanvasGraphicsFactory);
   }
 
-  _createClass(CanvasFactory, [{
+  _createClass(CanvasGraphicsFactory, [{
     key: "create",
     value: function create(canvasCtx, commonObjs, objs, canvasFactory, webGLContext, imageLayer) {
       return new CanvasGraphics(canvasCtx, commonObjs, objs, canvasFactory, webGLContext, imageLayer);
     }
   }]);
 
-  return CanvasFactory;
+  return CanvasGraphicsFactory;
 }();
 
-exports.CanvasFactory = CanvasFactory;
+exports.CanvasGraphicsFactory = CanvasGraphicsFactory;
 
 /***/ }),
 /* 190 */

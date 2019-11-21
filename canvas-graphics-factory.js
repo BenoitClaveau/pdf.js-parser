@@ -1,6 +1,10 @@
 const { CanvasGraphics, OPS } = require("./dist/pdf");
 const { createBox } = require('./box');
 
+/**
+ * Je surchage la factory ajoutée (// PATCH) dans pdf.js
+ * pour utiliser un nouveau canvas PDFCanvasGraphics
+ */
 class CanvasGraphicsFactory {
   
     constructor(store) {

@@ -1,6 +1,6 @@
 {
   "name": "pdf.js-parser",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "PDF Parser with PDF.js.",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/BenoitClaveau/pdf.js-parser#readme",
   "dependencies": {
-    "canvas": "^2.6.0",
-    "fontinfo": "^0.3.0",
+    "canvas": "2.6.1",
+    "fontinfo": "0.3.0",
     "node-ensure": "0.0.0"
   }
 }
