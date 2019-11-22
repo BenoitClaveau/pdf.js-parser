@@ -81,19 +81,16 @@ function registerFont(fontPath) {
     const stats = fs.statSync(fontPath);
     const files = stats.isDirectory() ? fs.readdirSync(fontPath) : [fontPath];
     for (let file of files) {
-        try {
-            const filepath = path.join(fontPath, file);
-            const info = ttfInfo(filepath);
-            Canvas.registerFont(filepath, {
-                family: info.name.fontFamily,
-                weight: info["OS/2"].weightClass,
-                style: info.name.fontSubFamily
-            });
-            console.info(info.name.fontFamily)
-        } catch (error) {
-            //console.warn(error)
-        }
+        const filepath = path.join(fontPath, file);
+        const info = ttfInfo(filepath);
+        Canvas.registerFont(filepath, {
+            family: info.name.fontFamily,
+            weight: info["OS/2"].weightClass,
+            style: info.name.fontSubFamily
+        });
+        // console.info(info.name.fontFamily)
     }
+    console.info("Fonts registration completed.");
 }
 
 module.exports = NodeCanvasFactory;
