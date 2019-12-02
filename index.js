@@ -83,33 +83,20 @@ class PDFParser {
                 [1, 0, 0, -1, 0, 0]
             );
 
-            /*
             var style = textContent.styles[textItem.fontName];
 
             // adjust for font ascent/descent
             var fontSize = Math.sqrt((tx[2] * tx[2]) + (tx[3] * tx[3]));
 
-            if (style.ascent) {
+            if (style.ascent)
                 tx[5] -= fontSize * style.ascent;
-            } else if (style.descent) {
-                tx[5] -= fontSize * (1 + style.descent);
-            } else {
-                tx[5] -= fontSize / 2;
-            }
+
+            if (style.descent)
+                tx[5] -= fontSize * style.descent;
 
             context.font = tx[0] + 'px ' + style.fontFamily;
-
-            // adjust for rendered width
-            if (textItem.width > 0) {
-                const width = context.measureText(textItem.str).width;
-                if (width > 0) {
-                    tx[0] = (textItem.width * viewport.scale) / width;
-                }
-            }
-            */
-
-            const fontSize = tx[3];
-            const sw = context.measureText(" ").width;
+            
+            const { width: sw } = context.measureText(" ");
 
             store.texts.push({
                 ...createBox({
