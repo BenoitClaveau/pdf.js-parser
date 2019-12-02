@@ -14,7 +14,9 @@ const pipelineAsync = promisify(pipeline);
 const execAsync = promisify(exec);
 const randomName = () => randomBytes(4).readUInt32LE(0);
 
-PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker");
+//PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker");
+PDFJS.GlobalWorkerOptions.disableWorker = true;
+PDFJS.GlobalWorkerOptions.workerSrc = undefined;
 
 class PDFParser {
     /**
@@ -81,6 +83,7 @@ class PDFParser {
                 [1, 0, 0, -1, 0, 0]
             );
 
+            /*
             var style = textContent.styles[textItem.fontName];
 
             // adjust for font ascent/descent
@@ -103,7 +106,9 @@ class PDFParser {
                     tx[0] = (textItem.width * viewport.scale) / width;
                 }
             }
+            */
 
+            const fontSize = tx[3];
             const sw = context.measureText(" ").width;
 
             store.texts.push({
@@ -116,7 +121,7 @@ class PDFParser {
                 text: textItem.str,
                 sw,
                 font: context.font,
-                fontSize: tx[0]
+                fontSize
             });
         }
 
