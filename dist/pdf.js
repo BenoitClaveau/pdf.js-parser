@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.4.151';
-var pdfjsBuild = '7cea39fa';
+var pdfjsVersion = '2.4.173';
+var pdfjsBuild = '4e81eb12';
 
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 
@@ -10259,7 +10259,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
 
   return worker.messageHandler.sendWithPromise('GetDocRequest', {
     docId: docId,
-    apiVersion: '2.4.151',
+    apiVersion: '2.4.173',
     source: {
       data: source.data,
       url: source.url,
@@ -12562,9 +12562,9 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
   return InternalRenderTask;
 }();
 
-var version = '2.4.151';
+var version = '2.4.173';
 exports.version = version;
-var build = '7cea39fa';
+var build = '4e81eb12';
 exports.build = build;
 
 /***/ }),

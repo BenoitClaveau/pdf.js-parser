@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.4.151';
-var pdfjsBuild = '7cea39fa';
+var pdfjsVersion = '2.4.173';
+var pdfjsBuild = '4e81eb12';
 
 var pdfjsCoreWorker = __w_pdfjs_require__(1);
 
@@ -231,7 +231,7 @@ var WorkerMessageHandler = {
     var WorkerTasks = [];
     var verbosity = (0, _util.getVerbosityLevel)();
     var apiVersion = docParams.apiVersion;
-    var workerVersion = '2.4.151';
+    var workerVersion = '2.4.173';
 
     if (apiVersion !== workerVersion) {
       throw new Error("The API version \"".concat(apiVersion, "\" does not match ") + "the Worker version \"".concat(workerVersion, "\"."));
@@ -15298,9 +15298,9 @@ var XRef = function XRefClosure() {
 
       var num = ref.num;
 
-      if (this._cacheMap.has(num)) {
-        var cacheEntry = this._cacheMap.get(num);
+      var cacheEntry = this._cacheMap.get(num);
 
+      if (cacheEntry !== undefined) {
         if (cacheEntry instanceof _primitives.Dict && !cacheEntry.objId) {
           cacheEntry.objId = ref.toString();
         }
@@ -15348,14 +15348,6 @@ var XRef = function XRefClosure() {
       var obj1 = parser.getObj();
       var obj2 = parser.getObj();
       var obj3 = parser.getObj();
-
-      if (!Number.isInteger(obj1)) {
-        obj1 = parseInt(obj1, 10);
-      }
-
-      if (!Number.isInteger(obj2)) {
-        obj2 = parseInt(obj2, 10);
-      }
 
       if (obj1 !== num || obj2 !== gen || !(obj3 instanceof _primitives.Cmd)) {
         throw new _core_utils.XRefEntryException("Bad (uncompressed) XRef entry: ".concat(ref));
@@ -15406,38 +15398,43 @@ var XRef = function XRefClosure() {
         xref: this,
         allowStreams: true
       });
-      var i,
-          entries = [],
-          num,
-          nums = [];
+      var nums = new Array(n);
 
-      for (i = 0; i < n; ++i) {
-        num = parser.getObj();
+      for (var i = 0; i < n; ++i) {
+        var num = parser.getObj();
 
         if (!Number.isInteger(num)) {
           throw new _util.FormatError("invalid object number in the ObjStm stream: ".concat(num));
         }
 
-        nums.push(num);
         var offset = parser.getObj();
 
         if (!Number.isInteger(offset)) {
           throw new _util.FormatError("invalid object offset in the ObjStm stream: ".concat(offset));
         }
+
+        nums[i] = num;
       }
 
-      for (i = 0; i < n; ++i) {
-        entries.push(parser.getObj());
+      var entries = new Array(n);
 
-        if ((0, _primitives.isCmd)(parser.buf1, 'endobj')) {
+      for (var _i2 = 0; _i2 < n; ++_i2) {
+        var obj = parser.getObj();
+        entries[_i2] = obj;
+
+        if (parser.buf1 instanceof _primitives.Cmd && parser.buf1.cmd === 'endobj') {
           parser.shift();
         }
 
-        num = nums[i];
-        var entry = this.entries[num];
+        if ((0, _primitives.isStream)(obj)) {
+          continue;
+        }
 
-        if (entry && entry.offset === tableOffset && entry.gen === i) {
-          this._cacheMap.set(num, entries[i]);
+        var _num = nums[_i2],
+            entry = this.entries[_num];
+
+        if (entry && entry.offset === tableOffset && entry.gen === _i2) {
+          this._cacheMap.set(_num, obj);
         }
       }
 
@@ -15569,8 +15566,8 @@ function () {
         var entries = obj.get(this._type);
 
         if (Array.isArray(entries)) {
-          for (var _i2 = 0, _ii = entries.length; _i2 < _ii; _i2 += 2) {
-            dict[xref.fetchIfRef(entries[_i2])] = xref.fetchIfRef(entries[_i2 + 1]);
+          for (var _i3 = 0, _ii = entries.length; _i3 < _ii; _i3 += 2) {
+            dict[xref.fetchIfRef(entries[_i3])] = xref.fetchIfRef(entries[_i3 + 1]);
           }
         }
       }
@@ -15803,8 +15800,8 @@ var ObjectLoader = function () {
         }
       }
     } else if (Array.isArray(node)) {
-      for (var _i3 = 0, _ii2 = node.length; _i3 < _ii2; _i3++) {
-        var value = node[_i3];
+      for (var _i4 = 0, _ii2 = node.length; _i4 < _ii2; _i4++) {
+        var value = node[_i4];
 
         if (mayHaveChildren(value)) {
           nodesToVisit.push(value);
@@ -15857,7 +15854,7 @@ var ObjectLoader = function () {
       }, null, this);
     },
     _walk: function _walk(nodesToVisit) {
-      var nodesToRevisit, pendingRequests, currentNode, baseStreams, foundMissingData, i, ii, stream, _i4, _ii3, node;
+      var nodesToRevisit, pendingRequests, currentNode, baseStreams, foundMissingData, i, ii, stream, _i5, _ii3, node;
 
       return _regenerator["default"].async(function _walk$(_context4) {
         while (1) {
@@ -15947,8 +15944,8 @@ var ObjectLoader = function () {
               return _regenerator["default"].awrap(this.xref.stream.manager.requestRanges(pendingRequests));
 
             case 25:
-              for (_i4 = 0, _ii3 = nodesToRevisit.length; _i4 < _ii3; _i4++) {
-                node = nodesToRevisit[_i4];
+              for (_i5 = 0, _ii3 = nodesToRevisit.length; _i5 < _ii3; _i5++) {
+                node = nodesToRevisit[_i5];
 
                 if (node instanceof _primitives.Ref) {
                   this.refSet.remove(node);
