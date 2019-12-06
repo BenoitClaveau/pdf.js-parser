@@ -1,5 +1,5 @@
 const PDFJS = require('./dist/pdf');
-const { promisify } = require("util");
+const { promisify, inspect } = require("util");
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
@@ -38,17 +38,21 @@ class PDFParser {
         if (Number.isNaN(viewport.width)) viewport.width = viewport.viewBox[2];
         if (Number.isNaN(viewport.height)) viewport.height = viewport.viewBox[3];
 
-        const { context: canvasContext } = canvasFactory.create(viewport.width, viewport.height);
+        const { 
+            context,
+            canvas
+        } = canvasFactory.create(viewport.width, viewport.height);
 
         await page.render({
-            canvasContext,
+            canvasContext: context,
             viewport,
             canvasFactory,
             canvasGraphicsFactory
         }).promise;
 
         return {
-            context: canvasContext,
+            canvas,
+            context,
             viewport,
             store
         }
@@ -62,6 +66,7 @@ class PDFParser {
         await PDFParser._extractLines(data);
         await PDFParser._generateBoxes(data);
         return {
+            canvas: res.canvas,
             context: res.context,
             viewport: res.viewport,
             page,
@@ -73,20 +78,21 @@ class PDFParser {
     }
 
     static async _extractTexts(data) {
-        const { context, viewport, store, page } = data;
+        const { context, canvas, viewport, store, page } = data;
 
         const textContent = await page.getTextContent({ normalizeWhitespace: true });
 
         for (let textItem of textContent.items) {
+
             var tx = PDFJS.Util.transform(
                 PDFJS.Util.transform(viewport.transform, textItem.transform),
                 [1, 0, 0, -1, 0, 0]
             );
 
-            var style = textContent.styles[textItem.fontName];
-
+            const style = textContent.styles[textItem.fontName];
+            
             // adjust for font ascent/descent
-            var fontSize = Math.sqrt((tx[2] * tx[2]) + (tx[3] * tx[3]));
+            const fontSize = Math.sqrt((tx[2] * tx[2]) + (tx[3] * tx[3]));
 
             if (style.ascent)
                 tx[5] -= fontSize * style.ascent;
@@ -94,9 +100,21 @@ class PDFParser {
             if (style.descent)
                 tx[5] -= fontSize * style.descent;
 
-            context.font = tx[0] + 'px ' + style.fontFamily;
+            // context.font = tx[0] + 'px ' + style.fontFamily;
+            // const { width: sw } = context.measureText(" ");
             
-            const { width: sw } = context.measureText(" ");
+            // measureText crash de façon aleatoire.
+            // je le remplace par un calcul de sw faux mais qui s'approche du résultat
+            // il faudra le modifier;
+            let sw = 0.2 * fontSize;
+            try {
+                const font = page.commonObjs._objs[textItem.fontName];
+                const spaceWidth = font.data.widths[32]; // largeur de l'espace
+                sw = Math.round((fontSize * spaceWidth) / viewport.width);
+            } 
+            catch(error) {
+                console.error(inspect(error));
+            }
 
             store.texts.push({
                 ...createBox({
@@ -107,7 +125,7 @@ class PDFParser {
                 }),
                 text: textItem.str,
                 sw,
-                font: context.font,
+                fontFamily: style.fontFamily,
                 fontSize
             });
         }
