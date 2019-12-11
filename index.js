@@ -109,8 +109,10 @@ class PDFParser {
             let sw = 0.2 * fontSize;
             try {
                 const font = page.commonObjs._objs[textItem.fontName];
-                const spaceWidth = font.data.widths[32]; // largeur de l'espace
-                sw = Math.round((fontSize * spaceWidth) / viewport.width);
+                if (font && font.data) {
+                    const spaceWidth = font.data.widths[32]; // largeur de l'espace
+                    sw = Math.round((fontSize * spaceWidth) / viewport.width);
+                }
             } 
             catch(error) {
                 console.error(inspect(error));
