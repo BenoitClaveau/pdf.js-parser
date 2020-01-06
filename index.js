@@ -107,12 +107,22 @@ class PDFParser {
             // je le remplace par un calcul de sw faux mais qui s'approche du résultat
             // il faudra le modifier;
             let sw = 0.2 * fontSize;
+            let font = undefined;
+            let fontName = undefined;
             try {
-                const font = page.commonObjs._objs[textItem.fontName];
+                font = page.commonObjs._objs[textItem.fontName];
                 if (font && font.data) {
-                    const spaceWidth = font.data.widths[32]; // largeur de l'espace
+                    let spaceWidth = font.data.widths[32]; // largeur de l'espace // sinon prendre la premiète lettre;
+                    if (spaceWidth == undefined) {
+                        // je recherche le premier caractère
+                        spaceWidth = font.data.widths.find((e, i) => i >= 48 && i < 90 && e > 0);
+                    }
                     sw = Math.round((fontSize * spaceWidth) / viewport.width);
+                    const fonts = font.data.name.split("+");
+                    if (fonts.length == 2)
+                        fontName = fonts[1];
                 }
+                
             } 
             catch(error) {
                 console.error(inspect(error));
@@ -127,8 +137,10 @@ class PDFParser {
                 }),
                 text: textItem.str,
                 sw,
-                fontFamily: style.fontFamily,
-                fontSize
+                fontFamily,
+                fontSize,
+                font,
+                fontName
             });
         }
 
