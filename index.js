@@ -90,6 +90,7 @@ class PDFParser {
             );
 
             const style = textContent.styles[textItem.fontName];
+            const fontFamily = style.fontFamily;
             
             // adjust for font ascent/descent
             const fontSize = Math.sqrt((tx[2] * tx[2]) + (tx[3] * tx[3]));
