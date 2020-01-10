@@ -1,9 +1,15 @@
+// HACK few hacks to let PDF.js be loaded not as a module in global space.
+// https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2svg.js
+require("./domstubs.js").setStubs(global);
+
 const PDFJS = require('./dist/pdf');
 const { promisify, inspect } = require("util");
+const util = require("util");
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
 const { pipeline } = require("stream");
+const stream = require("stream");
 const { exec } = require('child_process');
 const { randomBytes } = require('crypto');
 const NodeCanvasFactory = require('./node-canvas-factory');
@@ -53,6 +59,23 @@ class PDFParser {
         return {
             canvas,
             context,
+            viewport,
+            store,
+        }
+    }
+
+    static async renderAsSVG(page) {
+        const store = {
+        };
+
+        const viewport = page.getViewport({ scale: 1.0 });
+        const opList = await page.getOperatorList();
+        const svgGfx = new PDFJS.SVGGraphics(page.commonObjs, page.objs);
+        svgGfx.embedFonts = true;
+        const svg = await svgGfx.getSVG(opList, viewport);
+
+        return {
+            svg,
             viewport,
             store
         }
@@ -409,7 +432,7 @@ class PDFParser {
             store.vlines = [...store.vlines, left2].sort(PDFParser.compareBlockPos);
         }
         if (right && hline.x + hline.w > right.x + right.w + 1) {
-            // box d�passe right, je vais dupliquer right sur la droite pour cr�er une ligne verticale.
+            // box dépasse right, je vais dupliquer right sur la droite pour cr�er une ligne verticale.
             const right2 = createBox({ ...left, x: hline.x + hline.w });
             collides.splice(-1, 0, right2);
             store.vlines = [...store.vlines, right2].sort(PDFParser.compareBlockPos);
@@ -480,10 +503,52 @@ const ecart = (array) => {
     }, []);
 }
 
+/*
+https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2svg.js
+*/
+function ReadableSVGStream(options) {
+    if (!(this instanceof ReadableSVGStream)) {
+      return new ReadableSVGStream(options);
+    }
+    stream.Readable.call(this, options);
+    this.serializer = options.svgElement.getSerializer();
+  }
+  util.inherits(ReadableSVGStream, stream.Readable);
+  // Implements https://nodejs.org/api/stream.html#stream_readable_read_size_1
+  ReadableSVGStream.prototype._read = function() {
+    var chunk;
+    while ((chunk = this.serializer.getNext()) !== null) {
+      if (!this.push(chunk)) {
+        return;
+      }
+    }
+    this.push(null);
+  };
+
+const writeSvgToFile = (svgElement, filePath) => {
+    var readableSvgStream = new ReadableSVGStream({
+      svgElement: svgElement,
+    });
+    var writableStream = fs.createWriteStream(filePath);
+    return new Promise(function(resolve, reject) {
+      readableSvgStream.once("error", reject);
+      writableStream.once("error", reject);
+      writableStream.once("finish", resolve);
+      readableSvgStream.pipe(writableStream);
+    }).catch(function(err) {
+      readableSvgStream = null; // Explicitly null because of v8 bug 6512.
+      writableStream.end();
+      throw err;
+    });
+  }
 
 module.exports = PDFJS;
+module.exports.render = PDFParser.render;
+module.exports.renderAsSVG = PDFParser.renderAsSVG;
 module.exports.parse = PDFParser.parse;
 module.exports.writeFile = PDFParser.writeFile;
 module.exports.show = PDFParser.show;
 module.exports.registerFont = NodeCanvasFactory.registerFont;
 module.exports.Rect = Rect;
+module.exports.ReadableSVGStream = ReadableSVGStream;
+module.exports.writeSvgToFile = writeSvgToFile;

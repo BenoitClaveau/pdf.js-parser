@@ -566,6 +566,20 @@ class Rect {
         }
     }
 
+    static insideLineRect = (x1, y1, x2, y2, rx, ry, rw, rh) => {
+        const res =
+            x1 >= rx &&
+            x2 <= rx + rw &&
+            y1 >= ry &&
+            y2 <= ry + rh
+    
+        return res;
+    }
+    
+    static intersectLineRect = (x1, y1, x2, y2, rx, ry, rw, rh) => {
+        return Rect.collideLineRect(x1, y1, x2, y2, rx, ry, rw, rh) || Rect.insideLineRect(x1, y1, x2, y2, rx, ry, rw, rh);
+    }
+
 }
 
 exports = module.exports = Rect;
