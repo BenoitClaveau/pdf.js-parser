@@ -2,7 +2,7 @@
  * @licstart The following is the entire license notice for the
  * Javascript code in this page
  *
- * Copyright 2019 Mozilla Foundation
+ * Copyright 2020 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,44 +123,44 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.4.267';
-var pdfjsBuild = 'bd3eae33';
+var pdfjsVersion = '2.4.341';
+var pdfjsBuild = 'df10a867';
 
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 
-var pdfjsDisplayAPI = __w_pdfjs_require__(184);
+var pdfjsDisplayAPI = __w_pdfjs_require__(185);
 
-var pdfjsDisplayTextLayer = __w_pdfjs_require__(199);
+var pdfjsDisplayTextLayer = __w_pdfjs_require__(200);
 
-var pdfjsDisplayAnnotationLayer = __w_pdfjs_require__(200);
+var pdfjsDisplayAnnotationLayer = __w_pdfjs_require__(201);
 
-var pdfjsDisplayDisplayUtils = __w_pdfjs_require__(188);
+var pdfjsDisplayDisplayUtils = __w_pdfjs_require__(189);
 
-var pdfjsDisplaySVG = __w_pdfjs_require__(201);
+var pdfjsDisplaySVG = __w_pdfjs_require__(202);
 
-var pdfjsDisplayWorkerOptions = __w_pdfjs_require__(193);
+var pdfjsDisplayWorkerOptions = __w_pdfjs_require__(194);
 
-var pdfjsDisplayAPICompatibility = __w_pdfjs_require__(190);
+var pdfjsDisplayAPICompatibility = __w_pdfjs_require__(191);
 
-var pdfjsCanvas = __w_pdfjs_require__(191);
+var pdfjsCanvas = __w_pdfjs_require__(192);
 
 {
   var _require = __w_pdfjs_require__(48),
       isNodeJS = _require.isNodeJS;
 
   if (isNodeJS) {
-    var PDFNodeStream = __w_pdfjs_require__(202).PDFNodeStream;
+    var PDFNodeStream = __w_pdfjs_require__(203).PDFNodeStream;
 
     pdfjsDisplayAPI.setPDFNetworkStreamFactory(function (params) {
       return new PDFNodeStream(params);
     });
   } else {
-    var PDFNetworkStream = __w_pdfjs_require__(205).PDFNetworkStream;
+    var PDFNetworkStream = __w_pdfjs_require__(206).PDFNetworkStream;
 
     var PDFFetchStream;
 
     if (pdfjsDisplayDisplayUtils.isFetchSupported()) {
-      PDFFetchStream = __w_pdfjs_require__(206).PDFFetchStream;
+      PDFFetchStream = __w_pdfjs_require__(207).PDFFetchStream;
     }
 
     pdfjsDisplayAPI.setPDFNetworkStreamFactory(function (params) {
@@ -230,15 +230,10 @@ exports.isBool = isBool;
 exports.isEmptyObj = isEmptyObj;
 exports.isNum = isNum;
 exports.isString = isString;
-exports.isSpace = isSpace;
 exports.isSameOrigin = isSameOrigin;
 exports.createValidAbsoluteUrl = createValidAbsoluteUrl;
 exports.isLittleEndian = isLittleEndian;
 exports.isEvalSupported = isEvalSupported;
-exports.log2 = log2;
-exports.readInt8 = readInt8;
-exports.readUint16 = readUint16;
-exports.readUint32 = readUint32;
 exports.removeNullCharacters = removeNullCharacters;
 exports.setVerbosityLevel = setVerbosityLevel;
 exports.shadow = shadow;
@@ -257,7 +252,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -879,26 +874,6 @@ function string32(value) {
   return String.fromCharCode(value >> 24 & 0xff, value >> 16 & 0xff, value >> 8 & 0xff, value & 0xff);
 }
 
-function log2(x) {
-  if (x <= 0) {
-    return 0;
-  }
-
-  return Math.ceil(Math.log2(x));
-}
-
-function readInt8(data, start) {
-  return data[start] << 24 >> 24;
-}
-
-function readUint16(data, offset) {
-  return data[offset] << 8 | data[offset + 1];
-}
-
-function readUint32(data, offset) {
-  return (data[offset] << 24 | data[offset + 1] << 16 | data[offset + 2] << 8 | data[offset + 3]) >>> 0;
-}
-
 function isLittleEndian() {
   var buffer8 = new Uint8Array(4);
   buffer8[0] = 1;
@@ -1104,10 +1079,6 @@ function isArrayEqual(arr1, arr2) {
   });
 }
 
-function isSpace(ch) {
-  return ch === 0x20 || ch === 0x09 || ch === 0x0d || ch === 0x0a;
-}
-
 function createPromiseCapability() {
   var capability = Object.create(null);
   var isSettled = false;
@@ -1168,7 +1139,7 @@ exports.createObjectURL = createObjectURL;
 "use strict";
 
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked) {
   if (typeof globalThis === "undefined" || globalThis.Math !== Math) {
@@ -1331,7 +1302,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    __w_pdfjs_require__(71);
+    __w_pdfjs_require__(72);
   })();
 
   (function checkObjectAssign() {
@@ -1339,7 +1310,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    __w_pdfjs_require__(93);
+    __w_pdfjs_require__(94);
   })();
 
   (function checkMathLog2() {
@@ -1347,7 +1318,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    Math.log2 = __w_pdfjs_require__(96);
+    Math.log2 = __w_pdfjs_require__(97);
   })();
 
   (function checkNumberIsNaN() {
@@ -1355,7 +1326,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    Number.isNaN = __w_pdfjs_require__(98);
+    Number.isNaN = __w_pdfjs_require__(99);
   })();
 
   (function checkNumberIsInteger() {
@@ -1363,19 +1334,19 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    Number.isInteger = __w_pdfjs_require__(100);
+    Number.isInteger = __w_pdfjs_require__(101);
   })();
 
   (function checkPromise() {
-    if (globalThis.Promise && globalThis.Promise.prototype && globalThis.Promise.prototype["finally"]) {
+    if (globalThis.Promise && globalThis.Promise.allSettled) {
       return;
     }
 
-    globalThis.Promise = __w_pdfjs_require__(103);
+    globalThis.Promise = __w_pdfjs_require__(104);
   })();
 
   (function checkURL() {
-    globalThis.URL = __w_pdfjs_require__(127);
+    globalThis.URL = __w_pdfjs_require__(128);
   })();
 
   (function checkReadableStream() {
@@ -1396,7 +1367,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    globalThis.ReadableStream = __w_pdfjs_require__(134).ReadableStream;
+    globalThis.ReadableStream = __w_pdfjs_require__(135).ReadableStream;
   })();
 
   (function checkWeakMap() {
@@ -1404,7 +1375,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    globalThis.WeakMap = __w_pdfjs_require__(135);
+    globalThis.WeakMap = __w_pdfjs_require__(136);
   })();
 
   (function checkWeakSet() {
@@ -1412,7 +1383,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    globalThis.WeakSet = __w_pdfjs_require__(145);
+    globalThis.WeakSet = __w_pdfjs_require__(146);
   })();
 
   (function checkStringCodePointAt() {
@@ -1420,7 +1391,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    __w_pdfjs_require__(147);
+    __w_pdfjs_require__(148);
   })();
 
   (function checkStringFromCodePoint() {
@@ -1428,7 +1399,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    String.fromCodePoint = __w_pdfjs_require__(149);
+    String.fromCodePoint = __w_pdfjs_require__(150);
   })();
 
   (function checkSymbol() {
@@ -1436,7 +1407,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    __w_pdfjs_require__(151);
+    __w_pdfjs_require__(152);
   })();
 
   (function checkStringPadStart() {
@@ -1444,7 +1415,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    __w_pdfjs_require__(174);
+    __w_pdfjs_require__(175);
   })();
 
   (function checkStringPadEnd() {
@@ -1452,7 +1423,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    __w_pdfjs_require__(179);
+    __w_pdfjs_require__(180);
   })();
 
   (function checkObjectValues() {
@@ -1460,7 +1431,7 @@ if (typeof globalThis === "undefined" || !globalThis._pdfjsCompatibilityChecked)
       return;
     }
 
-    Object.values = __w_pdfjs_require__(181);
+    Object.values = __w_pdfjs_require__(182);
   })();
 }
 
@@ -1562,11 +1533,11 @@ exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnProper
 
 var fails = __w_pdfjs_require__(9);
 module.exports = !fails(function () {
- return Object.defineProperty({}, 'a', {
+ return Object.defineProperty({}, 1, {
   get: function () {
    return 7;
   }
- }).a != 7;
+ })[1] != 7;
 });
 
 /***/ }),
@@ -1933,9 +1904,9 @@ var store = __w_pdfjs_require__(27);
 (module.exports = function (key, value) {
  return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
- version: '3.6.1',
+ version: '3.6.4',
  mode: IS_PURE ? 'pure' : 'global',
- copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+ copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 });
 
 /***/ }),
@@ -2160,7 +2131,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isNodeJS = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var isNodeJS = (typeof process === "undefined" ? "undefined" : _typeof(process)) === "object" && process + "" === "[object process]" && !process.versions["nw"] && !process.versions["electron"];
 exports.isNodeJS = isNodeJS;
@@ -2434,9 +2405,15 @@ module.exports = entryUnbind('Array', 'includes');
 var $ = __w_pdfjs_require__(5);
 var $includes = __w_pdfjs_require__(41).includes;
 var addToUnscopables = __w_pdfjs_require__(66);
+var arrayMethodUsesToLength = __w_pdfjs_require__(71);
+var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', {
+ ACCESSORS: true,
+ 1: 0
+});
 $({
  target: 'Array',
- proto: true
+ proto: true,
+ forced: !USES_TO_LENGTH
 }, {
  includes: function includes(el) {
   return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
@@ -2569,20 +2546,56 @@ module.exports = getBuiltIn('document', 'documentElement');
 /* 71 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(72);
-__w_pdfjs_require__(84);
-var path = __w_pdfjs_require__(38);
-module.exports = path.Array.from;
+var DESCRIPTORS = __w_pdfjs_require__(8);
+var fails = __w_pdfjs_require__(9);
+var has = __w_pdfjs_require__(18);
+var defineProperty = Object.defineProperty;
+var cache = {};
+var thrower = function (it) {
+ throw it;
+};
+module.exports = function (METHOD_NAME, options) {
+ if (has(cache, METHOD_NAME))
+  return cache[METHOD_NAME];
+ if (!options)
+  options = {};
+ var method = [][METHOD_NAME];
+ var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
+ var argument0 = has(options, 0) ? options[0] : thrower;
+ var argument1 = has(options, 1) ? options[1] : undefined;
+ return cache[METHOD_NAME] = !!method && !fails(function () {
+  if (ACCESSORS && !DESCRIPTORS)
+   return true;
+  var O = { length: -1 };
+  if (ACCESSORS)
+   defineProperty(O, 1, {
+    enumerable: true,
+    get: thrower
+   });
+  else
+   O[1] = 1;
+  method.call(O, argument0, argument1);
+ });
+};
 
 /***/ }),
 /* 72 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
+__w_pdfjs_require__(73);
+__w_pdfjs_require__(85);
+var path = __w_pdfjs_require__(38);
+module.exports = path.Array.from;
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
+
 "use strict";
 
-var charAt = __w_pdfjs_require__(73).charAt;
+var charAt = __w_pdfjs_require__(74).charAt;
 var InternalStateModule = __w_pdfjs_require__(28);
-var defineIterator = __w_pdfjs_require__(74);
+var defineIterator = __w_pdfjs_require__(75);
 var STRING_ITERATOR = 'String Iterator';
 var setInternalState = InternalStateModule.set;
 var getInternalState = InternalStateModule.getterFor(STRING_ITERATOR);
@@ -2611,7 +2624,7 @@ defineIterator(String, 'String', function (iterated) {
 });
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var toInteger = __w_pdfjs_require__(43);
@@ -2634,22 +2647,22 @@ module.exports = {
 };
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
-var createIteratorConstructor = __w_pdfjs_require__(75);
-var getPrototypeOf = __w_pdfjs_require__(77);
-var setPrototypeOf = __w_pdfjs_require__(82);
-var setToStringTag = __w_pdfjs_require__(80);
+var createIteratorConstructor = __w_pdfjs_require__(76);
+var getPrototypeOf = __w_pdfjs_require__(78);
+var setPrototypeOf = __w_pdfjs_require__(83);
+var setToStringTag = __w_pdfjs_require__(81);
 var createNonEnumerableProperty = __w_pdfjs_require__(21);
 var redefine = __w_pdfjs_require__(24);
 var wellKnownSymbol = __w_pdfjs_require__(53);
 var IS_PURE = __w_pdfjs_require__(32);
-var Iterators = __w_pdfjs_require__(81);
-var IteratorsCore = __w_pdfjs_require__(76);
+var Iterators = __w_pdfjs_require__(82);
+var IteratorsCore = __w_pdfjs_require__(77);
 var IteratorPrototype = IteratorsCore.IteratorPrototype;
 var BUGGY_SAFARI_ITERATORS = IteratorsCore.BUGGY_SAFARI_ITERATORS;
 var ITERATOR = wellKnownSymbol('iterator');
@@ -2739,16 +2752,16 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
 };
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
-var IteratorPrototype = __w_pdfjs_require__(76).IteratorPrototype;
+var IteratorPrototype = __w_pdfjs_require__(77).IteratorPrototype;
 var create = __w_pdfjs_require__(67);
 var createPropertyDescriptor = __w_pdfjs_require__(11);
-var setToStringTag = __w_pdfjs_require__(80);
-var Iterators = __w_pdfjs_require__(81);
+var setToStringTag = __w_pdfjs_require__(81);
+var Iterators = __w_pdfjs_require__(82);
 var returnThis = function () {
  return this;
 };
@@ -2761,12 +2774,12 @@ module.exports = function (IteratorConstructor, NAME, next) {
 };
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
-var getPrototypeOf = __w_pdfjs_require__(77);
+var getPrototypeOf = __w_pdfjs_require__(78);
 var createNonEnumerableProperty = __w_pdfjs_require__(21);
 var has = __w_pdfjs_require__(18);
 var wellKnownSymbol = __w_pdfjs_require__(53);
@@ -2798,13 +2811,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var has = __w_pdfjs_require__(18);
-var toObject = __w_pdfjs_require__(78);
+var toObject = __w_pdfjs_require__(79);
 var sharedKey = __w_pdfjs_require__(30);
-var CORRECT_PROTOTYPE_GETTER = __w_pdfjs_require__(79);
+var CORRECT_PROTOTYPE_GETTER = __w_pdfjs_require__(80);
 var IE_PROTO = sharedKey('IE_PROTO');
 var ObjectPrototype = Object.prototype;
 module.exports = CORRECT_PROTOTYPE_GETTER ? Object.getPrototypeOf : function (O) {
@@ -2818,7 +2831,7 @@ module.exports = CORRECT_PROTOTYPE_GETTER ? Object.getPrototypeOf : function (O)
 };
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var requireObjectCoercible = __w_pdfjs_require__(15);
@@ -2827,7 +2840,7 @@ module.exports = function (argument) {
 };
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var fails = __w_pdfjs_require__(9);
@@ -2839,7 +2852,7 @@ module.exports = !fails(function () {
 });
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var defineProperty = __w_pdfjs_require__(22).f;
@@ -2856,17 +2869,17 @@ module.exports = function (it, TAG, STATIC) {
 };
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var anObject = __w_pdfjs_require__(23);
-var aPossiblePrototype = __w_pdfjs_require__(83);
+var aPossiblePrototype = __w_pdfjs_require__(84);
 module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
  var CORRECT_SETTER = false;
  var test = {};
@@ -2889,7 +2902,7 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
 }() : undefined);
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var isObject = __w_pdfjs_require__(17);
@@ -2901,12 +2914,12 @@ module.exports = function (it) {
 };
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
-var from = __w_pdfjs_require__(85);
-var checkCorrectnessOfIteration = __w_pdfjs_require__(92);
+var from = __w_pdfjs_require__(86);
+var checkCorrectnessOfIteration = __w_pdfjs_require__(93);
 var INCORRECT_ITERATION = !checkCorrectnessOfIteration(function (iterable) {
  Array.from(iterable);
 });
@@ -2917,27 +2930,27 @@ $({
 }, { from: from });
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var bind = __w_pdfjs_require__(58);
-var toObject = __w_pdfjs_require__(78);
-var callWithSafeIterationClosing = __w_pdfjs_require__(86);
-var isArrayIteratorMethod = __w_pdfjs_require__(87);
+var toObject = __w_pdfjs_require__(79);
+var callWithSafeIterationClosing = __w_pdfjs_require__(87);
+var isArrayIteratorMethod = __w_pdfjs_require__(88);
 var toLength = __w_pdfjs_require__(42);
-var createProperty = __w_pdfjs_require__(88);
-var getIteratorMethod = __w_pdfjs_require__(89);
+var createProperty = __w_pdfjs_require__(89);
+var getIteratorMethod = __w_pdfjs_require__(90);
 module.exports = function from(arrayLike) {
  var O = toObject(arrayLike);
  var C = typeof this == 'function' ? this : Array;
  var argumentsLength = arguments.length;
  var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
  var mapping = mapfn !== undefined;
- var index = 0;
  var iteratorMethod = getIteratorMethod(O);
- var length, result, step, iterator, next;
+ var index = 0;
+ var length, result, step, iterator, next, value;
  if (mapping)
   mapfn = bind(mapfn, argumentsLength > 2 ? arguments[2] : undefined, 2);
  if (iteratorMethod != undefined && !(C == Array && isArrayIteratorMethod(iteratorMethod))) {
@@ -2945,16 +2958,18 @@ module.exports = function from(arrayLike) {
   next = iterator.next;
   result = new C();
   for (; !(step = next.call(iterator)).done; index++) {
-   createProperty(result, index, mapping ? callWithSafeIterationClosing(iterator, mapfn, [
+   value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [
     step.value,
     index
-   ], true) : step.value);
+   ], true) : step.value;
+   createProperty(result, index, value);
   }
  } else {
   length = toLength(O.length);
   result = new C(length);
   for (; length > index; index++) {
-   createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+   value = mapping ? mapfn(O[index], index) : O[index];
+   createProperty(result, index, value);
   }
  }
  result.length = index;
@@ -2962,7 +2977,7 @@ module.exports = function from(arrayLike) {
 };
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var anObject = __w_pdfjs_require__(23);
@@ -2978,11 +2993,11 @@ module.exports = function (iterator, fn, value, ENTRIES) {
 };
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var wellKnownSymbol = __w_pdfjs_require__(53);
-var Iterators = __w_pdfjs_require__(81);
+var Iterators = __w_pdfjs_require__(82);
 var ITERATOR = wellKnownSymbol('iterator');
 var ArrayPrototype = Array.prototype;
 module.exports = function (it) {
@@ -2990,7 +3005,7 @@ module.exports = function (it) {
 };
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -3007,11 +3022,11 @@ module.exports = function (object, key, value) {
 };
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var classof = __w_pdfjs_require__(90);
-var Iterators = __w_pdfjs_require__(81);
+var classof = __w_pdfjs_require__(91);
+var Iterators = __w_pdfjs_require__(82);
 var wellKnownSymbol = __w_pdfjs_require__(53);
 var ITERATOR = wellKnownSymbol('iterator');
 module.exports = function (it) {
@@ -3020,10 +3035,10 @@ module.exports = function (it) {
 };
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(91);
+var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(92);
 var classofRaw = __w_pdfjs_require__(14);
 var wellKnownSymbol = __w_pdfjs_require__(53);
 var TO_STRING_TAG = wellKnownSymbol('toStringTag');
@@ -3042,7 +3057,7 @@ module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
 };
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var wellKnownSymbol = __w_pdfjs_require__(53);
@@ -3052,7 +3067,7 @@ test[TO_STRING_TAG] = 'z';
 module.exports = String(test) === '[object z]';
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var wellKnownSymbol = __w_pdfjs_require__(53);
@@ -3096,19 +3111,19 @@ module.exports = function (exec, SKIP_CLOSING) {
 };
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(94);
+__w_pdfjs_require__(95);
 var path = __w_pdfjs_require__(38);
 module.exports = path.Object.assign;
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
-var assign = __w_pdfjs_require__(95);
+var assign = __w_pdfjs_require__(96);
 $({
  target: 'Object',
  stat: true,
@@ -3116,7 +3131,7 @@ $({
 }, { assign: assign });
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -3126,7 +3141,7 @@ var fails = __w_pdfjs_require__(9);
 var objectKeys = __w_pdfjs_require__(69);
 var getOwnPropertySymbolsModule = __w_pdfjs_require__(46);
 var propertyIsEnumerableModule = __w_pdfjs_require__(10);
-var toObject = __w_pdfjs_require__(78);
+var toObject = __w_pdfjs_require__(79);
 var IndexedObject = __w_pdfjs_require__(13);
 var nativeAssign = Object.assign;
 var defineProperty = Object.defineProperty;
@@ -3172,15 +3187,15 @@ module.exports = !nativeAssign || fails(function () {
 } : nativeAssign;
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(97);
+__w_pdfjs_require__(98);
 var path = __w_pdfjs_require__(38);
 module.exports = path.Math.log2;
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
@@ -3196,15 +3211,15 @@ $({
 });
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(99);
+__w_pdfjs_require__(100);
 var path = __w_pdfjs_require__(38);
 module.exports = path.Number.isNaN;
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
@@ -3218,26 +3233,26 @@ $({
 });
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
 var path = __w_pdfjs_require__(38);
 module.exports = path.Number.isInteger;
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
-var isInteger = __w_pdfjs_require__(102);
+var isInteger = __w_pdfjs_require__(103);
 $({
  target: 'Number',
  stat: true
 }, { isInteger: isInteger });
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var isObject = __w_pdfjs_require__(17);
@@ -3247,48 +3262,48 @@ module.exports = function isInteger(it) {
 };
 
 /***/ }),
-/* 103 */
-/***/ (function(module, exports, __w_pdfjs_require__) {
-
-__w_pdfjs_require__(104);
-__w_pdfjs_require__(72);
-__w_pdfjs_require__(106);
-__w_pdfjs_require__(109);
-__w_pdfjs_require__(125);
-__w_pdfjs_require__(126);
-var path = __w_pdfjs_require__(38);
-module.exports = path.Promise;
-
-/***/ }),
 /* 104 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(91);
-var redefine = __w_pdfjs_require__(24);
-var toString = __w_pdfjs_require__(105);
-if (!TO_STRING_TAG_SUPPORT) {
- redefine(Object.prototype, 'toString', toString, { unsafe: true });
-}
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(73);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(110);
+__w_pdfjs_require__(126);
+__w_pdfjs_require__(127);
+var path = __w_pdfjs_require__(38);
+module.exports = path.Promise;
 
 /***/ }),
 /* 105 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-"use strict";
-
-var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(91);
-var classof = __w_pdfjs_require__(90);
-module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
- return '[object ' + classof(this) + ']';
-};
+var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(92);
+var redefine = __w_pdfjs_require__(24);
+var toString = __w_pdfjs_require__(106);
+if (!TO_STRING_TAG_SUPPORT) {
+ redefine(Object.prototype, 'toString', toString, { unsafe: true });
+}
 
 /***/ }),
 /* 106 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
+"use strict";
+
+var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(92);
+var classof = __w_pdfjs_require__(91);
+module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
+ return '[object ' + classof(this) + ']';
+};
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
+
 var global = __w_pdfjs_require__(6);
-var DOMIterables = __w_pdfjs_require__(107);
-var ArrayIteratorMethods = __w_pdfjs_require__(108);
+var DOMIterables = __w_pdfjs_require__(108);
+var ArrayIteratorMethods = __w_pdfjs_require__(109);
 var createNonEnumerableProperty = __w_pdfjs_require__(21);
 var wellKnownSymbol = __w_pdfjs_require__(53);
 var ITERATOR = wellKnownSymbol('iterator');
@@ -3320,7 +3335,7 @@ for (var COLLECTION_NAME in DOMIterables) {
 }
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -3358,16 +3373,16 @@ module.exports = {
 };
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var toIndexedObject = __w_pdfjs_require__(12);
 var addToUnscopables = __w_pdfjs_require__(66);
-var Iterators = __w_pdfjs_require__(81);
+var Iterators = __w_pdfjs_require__(82);
 var InternalStateModule = __w_pdfjs_require__(28);
-var defineIterator = __w_pdfjs_require__(74);
+var defineIterator = __w_pdfjs_require__(75);
 var ARRAY_ITERATOR = 'Array Iterator';
 var setInternalState = InternalStateModule.set;
 var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR);
@@ -3414,7 +3429,7 @@ addToUnscopables('values');
 addToUnscopables('entries');
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -3423,29 +3438,29 @@ var $ = __w_pdfjs_require__(5);
 var IS_PURE = __w_pdfjs_require__(32);
 var global = __w_pdfjs_require__(6);
 var getBuiltIn = __w_pdfjs_require__(37);
-var NativePromise = __w_pdfjs_require__(110);
+var NativePromise = __w_pdfjs_require__(111);
 var redefine = __w_pdfjs_require__(24);
-var redefineAll = __w_pdfjs_require__(111);
-var setToStringTag = __w_pdfjs_require__(80);
-var setSpecies = __w_pdfjs_require__(112);
+var redefineAll = __w_pdfjs_require__(112);
+var setToStringTag = __w_pdfjs_require__(81);
+var setSpecies = __w_pdfjs_require__(113);
 var isObject = __w_pdfjs_require__(17);
 var aFunction = __w_pdfjs_require__(59);
-var anInstance = __w_pdfjs_require__(113);
+var anInstance = __w_pdfjs_require__(114);
 var classof = __w_pdfjs_require__(14);
 var inspectSource = __w_pdfjs_require__(26);
-var iterate = __w_pdfjs_require__(114);
-var checkCorrectnessOfIteration = __w_pdfjs_require__(92);
-var speciesConstructor = __w_pdfjs_require__(115);
-var task = __w_pdfjs_require__(116).set;
-var microtask = __w_pdfjs_require__(119);
-var promiseResolve = __w_pdfjs_require__(120);
-var hostReportErrors = __w_pdfjs_require__(122);
-var newPromiseCapabilityModule = __w_pdfjs_require__(121);
-var perform = __w_pdfjs_require__(123);
+var iterate = __w_pdfjs_require__(115);
+var checkCorrectnessOfIteration = __w_pdfjs_require__(93);
+var speciesConstructor = __w_pdfjs_require__(116);
+var task = __w_pdfjs_require__(117).set;
+var microtask = __w_pdfjs_require__(120);
+var promiseResolve = __w_pdfjs_require__(121);
+var hostReportErrors = __w_pdfjs_require__(123);
+var newPromiseCapabilityModule = __w_pdfjs_require__(122);
+var perform = __w_pdfjs_require__(124);
 var InternalStateModule = __w_pdfjs_require__(28);
 var isForced = __w_pdfjs_require__(47);
 var wellKnownSymbol = __w_pdfjs_require__(53);
-var V8_VERSION = __w_pdfjs_require__(124);
+var V8_VERSION = __w_pdfjs_require__(125);
 var SPECIES = wellKnownSymbol('species');
 var PROMISE = 'Promise';
 var getInternalState = InternalStateModule.get;
@@ -3793,14 +3808,14 @@ $({
 });
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var global = __w_pdfjs_require__(6);
 module.exports = global.Promise;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var redefine = __w_pdfjs_require__(24);
@@ -3811,7 +3826,7 @@ module.exports = function (target, src, options) {
 };
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -3835,7 +3850,7 @@ module.exports = function (CONSTRUCTOR_NAME) {
 };
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name) {
@@ -3846,15 +3861,15 @@ module.exports = function (it, Constructor, name) {
 };
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var anObject = __w_pdfjs_require__(23);
-var isArrayIteratorMethod = __w_pdfjs_require__(87);
+var isArrayIteratorMethod = __w_pdfjs_require__(88);
 var toLength = __w_pdfjs_require__(42);
 var bind = __w_pdfjs_require__(58);
-var getIteratorMethod = __w_pdfjs_require__(89);
-var callWithSafeIterationClosing = __w_pdfjs_require__(86);
+var getIteratorMethod = __w_pdfjs_require__(90);
+var callWithSafeIterationClosing = __w_pdfjs_require__(87);
 var Result = function (stopped, result) {
  this.stopped = stopped;
  this.result = result;
@@ -3891,7 +3906,7 @@ iterate.stop = function (result) {
 };
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var anObject = __w_pdfjs_require__(23);
@@ -3905,7 +3920,7 @@ module.exports = function (O, defaultConstructor) {
 };
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var global = __w_pdfjs_require__(6);
@@ -3914,7 +3929,7 @@ var classof = __w_pdfjs_require__(14);
 var bind = __w_pdfjs_require__(58);
 var html = __w_pdfjs_require__(70);
 var createElement = __w_pdfjs_require__(20);
-var IS_IOS = __w_pdfjs_require__(117);
+var IS_IOS = __w_pdfjs_require__(118);
 var location = global.location;
 var set = global.setImmediate;
 var clear = global.clearImmediate;
@@ -3993,28 +4008,28 @@ module.exports = {
 };
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var userAgent = __w_pdfjs_require__(118);
+var userAgent = __w_pdfjs_require__(119);
 module.exports = /(iphone|ipod|ipad).*applewebkit/i.test(userAgent);
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var getBuiltIn = __w_pdfjs_require__(37);
 module.exports = getBuiltIn('navigator', 'userAgent') || '';
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var global = __w_pdfjs_require__(6);
 var getOwnPropertyDescriptor = __w_pdfjs_require__(7).f;
 var classof = __w_pdfjs_require__(14);
-var macrotask = __w_pdfjs_require__(116).set;
-var IS_IOS = __w_pdfjs_require__(117);
+var macrotask = __w_pdfjs_require__(117).set;
+var IS_IOS = __w_pdfjs_require__(118);
 var MutationObserver = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
@@ -4082,12 +4097,12 @@ module.exports = queueMicrotask || function (fn) {
 };
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var anObject = __w_pdfjs_require__(23);
 var isObject = __w_pdfjs_require__(17);
-var newPromiseCapability = __w_pdfjs_require__(121);
+var newPromiseCapability = __w_pdfjs_require__(122);
 module.exports = function (C, x) {
  anObject(C);
  if (isObject(x) && x.constructor === C)
@@ -4099,7 +4114,7 @@ module.exports = function (C, x) {
 };
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -4121,7 +4136,7 @@ module.exports.f = function (C) {
 };
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var global = __w_pdfjs_require__(6);
@@ -4133,7 +4148,7 @@ module.exports = function (a, b) {
 };
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -4151,11 +4166,11 @@ module.exports = function (exec) {
 };
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var global = __w_pdfjs_require__(6);
-var userAgent = __w_pdfjs_require__(118);
+var userAgent = __w_pdfjs_require__(119);
 var process = global.process;
 var versions = process && process.versions;
 var v8 = versions && versions.v8;
@@ -4174,16 +4189,16 @@ if (v8) {
 module.exports = version && +version;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
 var aFunction = __w_pdfjs_require__(59);
-var newPromiseCapabilityModule = __w_pdfjs_require__(121);
-var perform = __w_pdfjs_require__(123);
-var iterate = __w_pdfjs_require__(114);
+var newPromiseCapabilityModule = __w_pdfjs_require__(122);
+var perform = __w_pdfjs_require__(124);
+var iterate = __w_pdfjs_require__(115);
 $({
  target: 'Promise',
  stat: true
@@ -4232,18 +4247,18 @@ $({
 });
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
 var IS_PURE = __w_pdfjs_require__(32);
-var NativePromise = __w_pdfjs_require__(110);
+var NativePromise = __w_pdfjs_require__(111);
 var fails = __w_pdfjs_require__(9);
 var getBuiltIn = __w_pdfjs_require__(37);
-var speciesConstructor = __w_pdfjs_require__(115);
-var promiseResolve = __w_pdfjs_require__(120);
+var speciesConstructor = __w_pdfjs_require__(116);
+var promiseResolve = __w_pdfjs_require__(121);
 var redefine = __w_pdfjs_require__(24);
 var NON_GENERIC = !!NativePromise && fails(function () {
  NativePromise.prototype['finally'].call({
@@ -4277,36 +4292,36 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 }
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(128);
-__w_pdfjs_require__(133);
-__w_pdfjs_require__(131);
+__w_pdfjs_require__(129);
+__w_pdfjs_require__(134);
+__w_pdfjs_require__(132);
 var path = __w_pdfjs_require__(38);
 module.exports = path.URL;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
-__w_pdfjs_require__(72);
+__w_pdfjs_require__(73);
 var $ = __w_pdfjs_require__(5);
 var DESCRIPTORS = __w_pdfjs_require__(8);
-var USE_NATIVE_URL = __w_pdfjs_require__(129);
+var USE_NATIVE_URL = __w_pdfjs_require__(130);
 var global = __w_pdfjs_require__(6);
 var defineProperties = __w_pdfjs_require__(68);
 var redefine = __w_pdfjs_require__(24);
-var anInstance = __w_pdfjs_require__(113);
+var anInstance = __w_pdfjs_require__(114);
 var has = __w_pdfjs_require__(18);
-var assign = __w_pdfjs_require__(95);
-var arrayFrom = __w_pdfjs_require__(85);
-var codeAt = __w_pdfjs_require__(73).codeAt;
-var toASCII = __w_pdfjs_require__(130);
-var setToStringTag = __w_pdfjs_require__(80);
-var URLSearchParamsModule = __w_pdfjs_require__(131);
+var assign = __w_pdfjs_require__(96);
+var arrayFrom = __w_pdfjs_require__(86);
+var codeAt = __w_pdfjs_require__(74).codeAt;
+var toASCII = __w_pdfjs_require__(131);
+var setToStringTag = __w_pdfjs_require__(81);
+var URLSearchParamsModule = __w_pdfjs_require__(132);
 var InternalStateModule = __w_pdfjs_require__(28);
 var NativeURL = global.URL;
 var URLSearchParams = URLSearchParamsModule.URLSearchParams;
@@ -5297,7 +5312,7 @@ $({
 }, { URL: URLConstructor });
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var fails = __w_pdfjs_require__(9);
@@ -5317,7 +5332,7 @@ module.exports = !fails(function () {
 });
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -5441,30 +5456,30 @@ module.exports = function (input) {
 };
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
-__w_pdfjs_require__(108);
+__w_pdfjs_require__(109);
 var $ = __w_pdfjs_require__(5);
 var getBuiltIn = __w_pdfjs_require__(37);
-var USE_NATIVE_URL = __w_pdfjs_require__(129);
+var USE_NATIVE_URL = __w_pdfjs_require__(130);
 var redefine = __w_pdfjs_require__(24);
-var redefineAll = __w_pdfjs_require__(111);
-var setToStringTag = __w_pdfjs_require__(80);
-var createIteratorConstructor = __w_pdfjs_require__(75);
+var redefineAll = __w_pdfjs_require__(112);
+var setToStringTag = __w_pdfjs_require__(81);
+var createIteratorConstructor = __w_pdfjs_require__(76);
 var InternalStateModule = __w_pdfjs_require__(28);
-var anInstance = __w_pdfjs_require__(113);
+var anInstance = __w_pdfjs_require__(114);
 var hasOwn = __w_pdfjs_require__(18);
 var bind = __w_pdfjs_require__(58);
-var classof = __w_pdfjs_require__(90);
+var classof = __w_pdfjs_require__(91);
 var anObject = __w_pdfjs_require__(23);
 var isObject = __w_pdfjs_require__(17);
 var create = __w_pdfjs_require__(67);
 var createPropertyDescriptor = __w_pdfjs_require__(11);
-var getIterator = __w_pdfjs_require__(132);
-var getIteratorMethod = __w_pdfjs_require__(89);
+var getIterator = __w_pdfjs_require__(133);
+var getIteratorMethod = __w_pdfjs_require__(90);
 var wellKnownSymbol = __w_pdfjs_require__(53);
 var $fetch = getBuiltIn('fetch');
 var Headers = getBuiltIn('Headers');
@@ -5776,11 +5791,11 @@ module.exports = {
 };
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var anObject = __w_pdfjs_require__(23);
-var getIteratorMethod = __w_pdfjs_require__(89);
+var getIteratorMethod = __w_pdfjs_require__(90);
 module.exports = function (it) {
  var iteratorMethod = getIteratorMethod(it);
  if (typeof iteratorMethod != 'function') {
@@ -5790,7 +5805,7 @@ module.exports = function (it) {
 };
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -5807,2924 +5822,2927 @@ $({
 });
 
 /***/ }),
-/* 134 */
-/***/ (function(__webpack_module__, __webpack_exports__, __w_pdfjs_require__) {
+/* 135 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
 
-"use strict";
-__w_pdfjs_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __w_pdfjs_require__.d(__webpack_exports__, "ByteLengthQueuingStrategy", function() { return ByteLengthQueuingStrategy; });
-/* harmony export (binding) */ __w_pdfjs_require__.d(__webpack_exports__, "CountQueuingStrategy", function() { return CountQueuingStrategy; });
-/* harmony export (binding) */ __w_pdfjs_require__.d(__webpack_exports__, "ReadableStream", function() { return ReadableStream; });
-/* harmony export (binding) */ __w_pdfjs_require__.d(__webpack_exports__, "TransformStream", function() { return TransformStream; });
-/* harmony export (binding) */ __w_pdfjs_require__.d(__webpack_exports__, "WritableStream", function() { return WritableStream; });
-var SymbolPolyfill = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? Symbol : function (description) {
- return "Symbol(" + description + ")";
-};
-function noop() {
-}
-var NumberIsNaN = Number.isNaN || function (x) {
- return x !== x;
-};
-var rethrowAssertionErrorRejection = noop;
-function typeIsObject(x) {
- return typeof x === 'object' && x !== null || typeof x === 'function';
-}
-function createArrayFromList(elements) {
- return elements.slice();
-}
-function ArrayBufferCopy(dest, destOffset, src, srcOffset, n) {
- new Uint8Array(dest).set(new Uint8Array(src, srcOffset, n), destOffset);
-}
-function IsFiniteNonNegativeNumber(v) {
- if (IsNonNegativeNumber(v) === false) {
-  return false;
- }
- if (v === Infinity) {
-  return false;
- }
- return true;
-}
-function IsNonNegativeNumber(v) {
- if (typeof v !== 'number') {
-  return false;
- }
- if (NumberIsNaN(v)) {
-  return false;
- }
- if (v < 0) {
-  return false;
- }
- return true;
-}
-function Call(F, V, args) {
- if (typeof F !== 'function') {
-  throw new TypeError('Argument is not a function');
- }
- return Function.prototype.apply.call(F, V, args);
-}
-function CreateAlgorithmFromUnderlyingMethod(underlyingObject, methodName, algoArgCount, extraArgs) {
- var method = underlyingObject[methodName];
- if (method !== undefined) {
-  if (typeof method !== 'function') {
-   throw new TypeError(method + " is not a method");
-  }
-  switch (algoArgCount) {
-  case 0: {
-    return function () {
-     return PromiseCall(method, underlyingObject, extraArgs);
-    };
-   }
-  case 1: {
-    return function (arg) {
-     var fullArgs = [arg].concat(extraArgs);
-     return PromiseCall(method, underlyingObject, fullArgs);
-    };
-   }
-  }
- }
- return function () {
-  return promiseResolvedWith(undefined);
+(function (global, factory) {
+  true ? factory(exports) : undefined;
+}(this, function (exports) {
+ 'use strict';
+ var SymbolPolyfill = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? Symbol : function (description) {
+  return "Symbol(" + description + ")";
  };
-}
-function InvokeOrNoop(O, P, args) {
- var method = O[P];
- if (method === undefined) {
-  return undefined;
+ function noop() {
  }
- return Call(method, O, args);
-}
-function PromiseCall(F, V, args) {
- try {
-  return promiseResolvedWith(Call(F, V, args));
- } catch (value) {
-  return promiseRejectedWith(value);
+ var NumberIsNaN = Number.isNaN || function (x) {
+  return x !== x;
+ };
+ var rethrowAssertionErrorRejection = noop;
+ function typeIsObject(x) {
+  return typeof x === 'object' && x !== null || typeof x === 'function';
  }
-}
-function TransferArrayBuffer(O) {
- return O;
-}
-function IsDetachedBuffer(O) {
- return false;
-}
-function ValidateAndNormalizeHighWaterMark(highWaterMark) {
- highWaterMark = Number(highWaterMark);
- if (NumberIsNaN(highWaterMark) || highWaterMark < 0) {
-  throw new RangeError('highWaterMark property of a queuing strategy must be non-negative and non-NaN');
+ function createArrayFromList(elements) {
+  return elements.slice();
  }
- return highWaterMark;
-}
-function MakeSizeAlgorithmFromSizeFunction(size) {
- if (size === undefined) {
+ function ArrayBufferCopy(dest, destOffset, src, srcOffset, n) {
+  new Uint8Array(dest).set(new Uint8Array(src, srcOffset, n), destOffset);
+ }
+ function IsFiniteNonNegativeNumber(v) {
+  if (IsNonNegativeNumber(v) === false) {
+   return false;
+  }
+  if (v === Infinity) {
+   return false;
+  }
+  return true;
+ }
+ function IsNonNegativeNumber(v) {
+  if (typeof v !== 'number') {
+   return false;
+  }
+  if (NumberIsNaN(v)) {
+   return false;
+  }
+  if (v < 0) {
+   return false;
+  }
+  return true;
+ }
+ function Call(F, V, args) {
+  if (typeof F !== 'function') {
+   throw new TypeError('Argument is not a function');
+  }
+  return Function.prototype.apply.call(F, V, args);
+ }
+ function CreateAlgorithmFromUnderlyingMethod(underlyingObject, methodName, algoArgCount, extraArgs) {
+  var method = underlyingObject[methodName];
+  if (method !== undefined) {
+   if (typeof method !== 'function') {
+    throw new TypeError(method + " is not a method");
+   }
+   switch (algoArgCount) {
+   case 0: {
+     return function () {
+      return PromiseCall(method, underlyingObject, extraArgs);
+     };
+    }
+   case 1: {
+     return function (arg) {
+      var fullArgs = [arg].concat(extraArgs);
+      return PromiseCall(method, underlyingObject, fullArgs);
+     };
+    }
+   }
+  }
   return function () {
-   return 1;
+   return promiseResolvedWith(undefined);
   };
  }
- if (typeof size !== 'function') {
-  throw new TypeError('size property of a queuing strategy must be a function');
+ function InvokeOrNoop(O, P, args) {
+  var method = O[P];
+  if (method === undefined) {
+   return undefined;
+  }
+  return Call(method, O, args);
  }
- return function (chunk) {
-  return size(chunk);
- };
-}
-var originalPromise = Promise;
-var originalPromiseThen = Promise.prototype.then;
-var originalPromiseResolve = Promise.resolve.bind(originalPromise);
-var originalPromiseReject = Promise.reject.bind(originalPromise);
-function newPromise(executor) {
- return new originalPromise(executor);
-}
-function promiseResolvedWith(value) {
- return originalPromiseResolve(value);
-}
-function promiseRejectedWith(reason) {
- return originalPromiseReject(reason);
-}
-function PerformPromiseThen(promise, onFulfilled, onRejected) {
- return originalPromiseThen.call(promise, onFulfilled, onRejected);
-}
-function uponPromise(promise, onFulfilled, onRejected) {
- PerformPromiseThen(PerformPromiseThen(promise, onFulfilled, onRejected), undefined, rethrowAssertionErrorRejection);
-}
-function uponFulfillment(promise, onFulfilled) {
- uponPromise(promise, onFulfilled);
-}
-function uponRejection(promise, onRejected) {
- uponPromise(promise, undefined, onRejected);
-}
-function transformPromiseWith(promise, fulfillmentHandler, rejectionHandler) {
- return PerformPromiseThen(promise, fulfillmentHandler, rejectionHandler);
-}
-function setPromiseIsHandledToTrue(promise) {
- PerformPromiseThen(promise, undefined, rethrowAssertionErrorRejection);
-}
-var QUEUE_MAX_ARRAY_SIZE = 16384;
-var SimpleQueue = function () {
- function SimpleQueue() {
-  this._cursor = 0;
-  this._size = 0;
-  this._front = {
-   _elements: [],
-   _next: undefined
+ function PromiseCall(F, V, args) {
+  try {
+   return promiseResolvedWith(Call(F, V, args));
+  } catch (value) {
+   return promiseRejectedWith(value);
+  }
+ }
+ function TransferArrayBuffer(O) {
+  return O;
+ }
+ function IsDetachedBuffer(O) {
+  return false;
+ }
+ function ValidateAndNormalizeHighWaterMark(highWaterMark) {
+  highWaterMark = Number(highWaterMark);
+  if (NumberIsNaN(highWaterMark) || highWaterMark < 0) {
+   throw new RangeError('highWaterMark property of a queuing strategy must be non-negative and non-NaN');
+  }
+  return highWaterMark;
+ }
+ function MakeSizeAlgorithmFromSizeFunction(size) {
+  if (size === undefined) {
+   return function () {
+    return 1;
+   };
+  }
+  if (typeof size !== 'function') {
+   throw new TypeError('size property of a queuing strategy must be a function');
+  }
+  return function (chunk) {
+   return size(chunk);
   };
-  this._back = this._front;
-  this._cursor = 0;
-  this._size = 0;
  }
- Object.defineProperty(SimpleQueue.prototype, "length", {
-  get: function () {
-   return this._size;
-  },
-  enumerable: true,
-  configurable: true
- });
- SimpleQueue.prototype.push = function (element) {
-  var oldBack = this._back;
-  var newBack = oldBack;
-  if (oldBack._elements.length === QUEUE_MAX_ARRAY_SIZE - 1) {
-   newBack = {
+ var originalPromise = Promise;
+ var originalPromiseThen = Promise.prototype.then;
+ var originalPromiseResolve = Promise.resolve.bind(originalPromise);
+ var originalPromiseReject = Promise.reject.bind(originalPromise);
+ function newPromise(executor) {
+  return new originalPromise(executor);
+ }
+ function promiseResolvedWith(value) {
+  return originalPromiseResolve(value);
+ }
+ function promiseRejectedWith(reason) {
+  return originalPromiseReject(reason);
+ }
+ function PerformPromiseThen(promise, onFulfilled, onRejected) {
+  return originalPromiseThen.call(promise, onFulfilled, onRejected);
+ }
+ function uponPromise(promise, onFulfilled, onRejected) {
+  PerformPromiseThen(PerformPromiseThen(promise, onFulfilled, onRejected), undefined, rethrowAssertionErrorRejection);
+ }
+ function uponFulfillment(promise, onFulfilled) {
+  uponPromise(promise, onFulfilled);
+ }
+ function uponRejection(promise, onRejected) {
+  uponPromise(promise, undefined, onRejected);
+ }
+ function transformPromiseWith(promise, fulfillmentHandler, rejectionHandler) {
+  return PerformPromiseThen(promise, fulfillmentHandler, rejectionHandler);
+ }
+ function setPromiseIsHandledToTrue(promise) {
+  PerformPromiseThen(promise, undefined, rethrowAssertionErrorRejection);
+ }
+ var QUEUE_MAX_ARRAY_SIZE = 16384;
+ var SimpleQueue = function () {
+  function SimpleQueue() {
+   this._cursor = 0;
+   this._size = 0;
+   this._front = {
     _elements: [],
     _next: undefined
    };
+   this._back = this._front;
+   this._cursor = 0;
+   this._size = 0;
   }
-  oldBack._elements.push(element);
-  if (newBack !== oldBack) {
-   this._back = newBack;
-   oldBack._next = newBack;
-  }
-  ++this._size;
- };
- SimpleQueue.prototype.shift = function () {
-  var oldFront = this._front;
-  var newFront = oldFront;
-  var oldCursor = this._cursor;
-  var newCursor = oldCursor + 1;
-  var elements = oldFront._elements;
-  var element = elements[oldCursor];
-  if (newCursor === QUEUE_MAX_ARRAY_SIZE) {
-   newFront = oldFront._next;
-   newCursor = 0;
-  }
-  --this._size;
-  this._cursor = newCursor;
-  if (oldFront !== newFront) {
-   this._front = newFront;
-  }
-  elements[oldCursor] = undefined;
-  return element;
- };
- SimpleQueue.prototype.forEach = function (callback) {
-  var i = this._cursor;
-  var node = this._front;
-  var elements = node._elements;
-  while (i !== elements.length || node._next !== undefined) {
-   if (i === elements.length) {
-    node = node._next;
-    elements = node._elements;
-    i = 0;
-    if (elements.length === 0) {
-     break;
-    }
-   }
-   callback(elements[i]);
-   ++i;
-  }
- };
- SimpleQueue.prototype.peek = function () {
-  var front = this._front;
-  var cursor = this._cursor;
-  return front._elements[cursor];
- };
- return SimpleQueue;
-}();
-function ReadableStreamCreateReadResult(value, done, forAuthorCode) {
- var prototype = null;
- if (forAuthorCode === true) {
-  prototype = Object.prototype;
- }
- var obj = Object.create(prototype);
- obj.value = value;
- obj.done = done;
- return obj;
-}
-function ReadableStreamReaderGenericInitialize(reader, stream) {
- reader._forAuthorCode = true;
- reader._ownerReadableStream = stream;
- stream._reader = reader;
- if (stream._state === 'readable') {
-  defaultReaderClosedPromiseInitialize(reader);
- } else if (stream._state === 'closed') {
-  defaultReaderClosedPromiseInitializeAsResolved(reader);
- } else {
-  defaultReaderClosedPromiseInitializeAsRejected(reader, stream._storedError);
- }
-}
-function ReadableStreamReaderGenericCancel(reader, reason) {
- var stream = reader._ownerReadableStream;
- return ReadableStreamCancel(stream, reason);
-}
-function ReadableStreamReaderGenericRelease(reader) {
- if (reader._ownerReadableStream._state === 'readable') {
-  defaultReaderClosedPromiseReject(reader, new TypeError('Reader was released and can no longer be used to monitor the stream\'s closedness'));
- } else {
-  defaultReaderClosedPromiseResetToRejected(reader, new TypeError('Reader was released and can no longer be used to monitor the stream\'s closedness'));
- }
- reader._ownerReadableStream._reader = undefined;
- reader._ownerReadableStream = undefined;
-}
-function readerLockException(name) {
- return new TypeError('Cannot ' + name + ' a stream using a released reader');
-}
-function defaultReaderClosedPromiseInitialize(reader) {
- reader._closedPromise = newPromise(function (resolve, reject) {
-  reader._closedPromise_resolve = resolve;
-  reader._closedPromise_reject = reject;
- });
-}
-function defaultReaderClosedPromiseInitializeAsRejected(reader, reason) {
- defaultReaderClosedPromiseInitialize(reader);
- defaultReaderClosedPromiseReject(reader, reason);
-}
-function defaultReaderClosedPromiseInitializeAsResolved(reader) {
- defaultReaderClosedPromiseInitialize(reader);
- defaultReaderClosedPromiseResolve(reader);
-}
-function defaultReaderClosedPromiseReject(reader, reason) {
- setPromiseIsHandledToTrue(reader._closedPromise);
- reader._closedPromise_reject(reason);
- reader._closedPromise_resolve = undefined;
- reader._closedPromise_reject = undefined;
-}
-function defaultReaderClosedPromiseResetToRejected(reader, reason) {
- defaultReaderClosedPromiseInitializeAsRejected(reader, reason);
-}
-function defaultReaderClosedPromiseResolve(reader) {
- reader._closedPromise_resolve(undefined);
- reader._closedPromise_resolve = undefined;
- reader._closedPromise_reject = undefined;
-}
-var CancelSteps = SymbolPolyfill('[[CancelSteps]]');
-var PullSteps = SymbolPolyfill('[[PullSteps]]');
-function AcquireReadableStreamDefaultReader(stream, forAuthorCode) {
- if (forAuthorCode === void 0) {
-  forAuthorCode = false;
- }
- var reader = new ReadableStreamDefaultReader(stream);
- reader._forAuthorCode = forAuthorCode;
- return reader;
-}
-function ReadableStreamAddReadRequest(stream) {
- var promise = newPromise(function (resolve, reject) {
-  var readRequest = {
-   _resolve: resolve,
-   _reject: reject
-  };
-  stream._reader._readRequests.push(readRequest);
- });
- return promise;
-}
-function ReadableStreamFulfillReadRequest(stream, chunk, done) {
- var reader = stream._reader;
- var readRequest = reader._readRequests.shift();
- readRequest._resolve(ReadableStreamCreateReadResult(chunk, done, reader._forAuthorCode));
-}
-function ReadableStreamGetNumReadRequests(stream) {
- return stream._reader._readRequests.length;
-}
-function ReadableStreamHasDefaultReader(stream) {
- var reader = stream._reader;
- if (reader === undefined) {
-  return false;
- }
- if (!IsReadableStreamDefaultReader(reader)) {
-  return false;
- }
- return true;
-}
-var ReadableStreamDefaultReader = function () {
- function ReadableStreamDefaultReader(stream) {
-  if (IsReadableStream(stream) === false) {
-   throw new TypeError('ReadableStreamDefaultReader can only be constructed with a ReadableStream instance');
-  }
-  if (IsReadableStreamLocked(stream) === true) {
-   throw new TypeError('This stream has already been locked for exclusive reading by another reader');
-  }
-  ReadableStreamReaderGenericInitialize(this, stream);
-  this._readRequests = new SimpleQueue();
- }
- Object.defineProperty(ReadableStreamDefaultReader.prototype, "closed", {
-  get: function () {
-   if (!IsReadableStreamDefaultReader(this)) {
-    return promiseRejectedWith(defaultReaderBrandCheckException('closed'));
-   }
-   return this._closedPromise;
-  },
-  enumerable: true,
-  configurable: true
- });
- ReadableStreamDefaultReader.prototype.cancel = function (reason) {
-  if (!IsReadableStreamDefaultReader(this)) {
-   return promiseRejectedWith(defaultReaderBrandCheckException('cancel'));
-  }
-  if (this._ownerReadableStream === undefined) {
-   return promiseRejectedWith(readerLockException('cancel'));
-  }
-  return ReadableStreamReaderGenericCancel(this, reason);
- };
- ReadableStreamDefaultReader.prototype.read = function () {
-  if (!IsReadableStreamDefaultReader(this)) {
-   return promiseRejectedWith(defaultReaderBrandCheckException('read'));
-  }
-  if (this._ownerReadableStream === undefined) {
-   return promiseRejectedWith(readerLockException('read from'));
-  }
-  return ReadableStreamDefaultReaderRead(this);
- };
- ReadableStreamDefaultReader.prototype.releaseLock = function () {
-  if (!IsReadableStreamDefaultReader(this)) {
-   throw defaultReaderBrandCheckException('releaseLock');
-  }
-  if (this._ownerReadableStream === undefined) {
-   return;
-  }
-  if (this._readRequests.length > 0) {
-   throw new TypeError('Tried to release a reader lock when that reader has pending read() calls un-settled');
-  }
-  ReadableStreamReaderGenericRelease(this);
- };
- return ReadableStreamDefaultReader;
-}();
-function IsReadableStreamDefaultReader(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_readRequests')) {
-  return false;
- }
- return true;
-}
-function ReadableStreamDefaultReaderRead(reader) {
- var stream = reader._ownerReadableStream;
- stream._disturbed = true;
- if (stream._state === 'closed') {
-  return promiseResolvedWith(ReadableStreamCreateReadResult(undefined, true, reader._forAuthorCode));
- }
- if (stream._state === 'errored') {
-  return promiseRejectedWith(stream._storedError);
- }
- return stream._readableStreamController[PullSteps]();
-}
-function defaultReaderBrandCheckException(name) {
- return new TypeError("ReadableStreamDefaultReader.prototype." + name + " can only be used on a ReadableStreamDefaultReader");
-}
-var _a;
-var AsyncIteratorPrototype;
-if (typeof SymbolPolyfill.asyncIterator === 'symbol') {
- AsyncIteratorPrototype = (_a = {}, _a[SymbolPolyfill.asyncIterator] = function () {
-  return this;
- }, _a);
- Object.defineProperty(AsyncIteratorPrototype, SymbolPolyfill.asyncIterator, { enumerable: false });
-}
-var ReadableStreamAsyncIteratorPrototype = {
- next: function () {
-  if (IsReadableStreamAsyncIterator(this) === false) {
-   return promiseRejectedWith(streamAsyncIteratorBrandCheckException('next'));
-  }
-  var reader = this._asyncIteratorReader;
-  if (reader._ownerReadableStream === undefined) {
-   return promiseRejectedWith(readerLockException('iterate'));
-  }
-  return transformPromiseWith(ReadableStreamDefaultReaderRead(reader), function (result) {
-   var done = result.done;
-   if (done) {
-    ReadableStreamReaderGenericRelease(reader);
-   }
-   var value = result.value;
-   return ReadableStreamCreateReadResult(value, done, true);
+  Object.defineProperty(SimpleQueue.prototype, "length", {
+   get: function () {
+    return this._size;
+   },
+   enumerable: true,
+   configurable: true
   });
- },
- return: function (value) {
-  if (IsReadableStreamAsyncIterator(this) === false) {
-   return promiseRejectedWith(streamAsyncIteratorBrandCheckException('next'));
+  SimpleQueue.prototype.push = function (element) {
+   var oldBack = this._back;
+   var newBack = oldBack;
+   if (oldBack._elements.length === QUEUE_MAX_ARRAY_SIZE - 1) {
+    newBack = {
+     _elements: [],
+     _next: undefined
+    };
+   }
+   oldBack._elements.push(element);
+   if (newBack !== oldBack) {
+    this._back = newBack;
+    oldBack._next = newBack;
+   }
+   ++this._size;
+  };
+  SimpleQueue.prototype.shift = function () {
+   var oldFront = this._front;
+   var newFront = oldFront;
+   var oldCursor = this._cursor;
+   var newCursor = oldCursor + 1;
+   var elements = oldFront._elements;
+   var element = elements[oldCursor];
+   if (newCursor === QUEUE_MAX_ARRAY_SIZE) {
+    newFront = oldFront._next;
+    newCursor = 0;
+   }
+   --this._size;
+   this._cursor = newCursor;
+   if (oldFront !== newFront) {
+    this._front = newFront;
+   }
+   elements[oldCursor] = undefined;
+   return element;
+  };
+  SimpleQueue.prototype.forEach = function (callback) {
+   var i = this._cursor;
+   var node = this._front;
+   var elements = node._elements;
+   while (i !== elements.length || node._next !== undefined) {
+    if (i === elements.length) {
+     node = node._next;
+     elements = node._elements;
+     i = 0;
+     if (elements.length === 0) {
+      break;
+     }
+    }
+    callback(elements[i]);
+    ++i;
+   }
+  };
+  SimpleQueue.prototype.peek = function () {
+   var front = this._front;
+   var cursor = this._cursor;
+   return front._elements[cursor];
+  };
+  return SimpleQueue;
+ }();
+ function ReadableStreamCreateReadResult(value, done, forAuthorCode) {
+  var prototype = null;
+  if (forAuthorCode === true) {
+   prototype = Object.prototype;
   }
-  var reader = this._asyncIteratorReader;
-  if (reader._ownerReadableStream === undefined) {
-   return promiseRejectedWith(readerLockException('finish iterating'));
+  var obj = Object.create(prototype);
+  obj.value = value;
+  obj.done = done;
+  return obj;
+ }
+ function ReadableStreamReaderGenericInitialize(reader, stream) {
+  reader._forAuthorCode = true;
+  reader._ownerReadableStream = stream;
+  stream._reader = reader;
+  if (stream._state === 'readable') {
+   defaultReaderClosedPromiseInitialize(reader);
+  } else if (stream._state === 'closed') {
+   defaultReaderClosedPromiseInitializeAsResolved(reader);
+  } else {
+   defaultReaderClosedPromiseInitializeAsRejected(reader, stream._storedError);
   }
-  if (reader._readRequests.length > 0) {
-   return promiseRejectedWith(new TypeError('Tried to release a reader lock when that reader has pending read() calls un-settled'));
+ }
+ function ReadableStreamReaderGenericCancel(reader, reason) {
+  var stream = reader._ownerReadableStream;
+  return ReadableStreamCancel(stream, reason);
+ }
+ function ReadableStreamReaderGenericRelease(reader) {
+  if (reader._ownerReadableStream._state === 'readable') {
+   defaultReaderClosedPromiseReject(reader, new TypeError('Reader was released and can no longer be used to monitor the stream\'s closedness'));
+  } else {
+   defaultReaderClosedPromiseResetToRejected(reader, new TypeError('Reader was released and can no longer be used to monitor the stream\'s closedness'));
   }
-  if (this._preventCancel === false) {
-   var result = ReadableStreamReaderGenericCancel(reader, value);
-   ReadableStreamReaderGenericRelease(reader);
-   return transformPromiseWith(result, function () {
-    return ReadableStreamCreateReadResult(value, true, true);
+  reader._ownerReadableStream._reader = undefined;
+  reader._ownerReadableStream = undefined;
+ }
+ function readerLockException(name) {
+  return new TypeError('Cannot ' + name + ' a stream using a released reader');
+ }
+ function defaultReaderClosedPromiseInitialize(reader) {
+  reader._closedPromise = newPromise(function (resolve, reject) {
+   reader._closedPromise_resolve = resolve;
+   reader._closedPromise_reject = reject;
+  });
+ }
+ function defaultReaderClosedPromiseInitializeAsRejected(reader, reason) {
+  defaultReaderClosedPromiseInitialize(reader);
+  defaultReaderClosedPromiseReject(reader, reason);
+ }
+ function defaultReaderClosedPromiseInitializeAsResolved(reader) {
+  defaultReaderClosedPromiseInitialize(reader);
+  defaultReaderClosedPromiseResolve(reader);
+ }
+ function defaultReaderClosedPromiseReject(reader, reason) {
+  setPromiseIsHandledToTrue(reader._closedPromise);
+  reader._closedPromise_reject(reason);
+  reader._closedPromise_resolve = undefined;
+  reader._closedPromise_reject = undefined;
+ }
+ function defaultReaderClosedPromiseResetToRejected(reader, reason) {
+  defaultReaderClosedPromiseInitializeAsRejected(reader, reason);
+ }
+ function defaultReaderClosedPromiseResolve(reader) {
+  reader._closedPromise_resolve(undefined);
+  reader._closedPromise_resolve = undefined;
+  reader._closedPromise_reject = undefined;
+ }
+ var CancelSteps = SymbolPolyfill('[[CancelSteps]]');
+ var PullSteps = SymbolPolyfill('[[PullSteps]]');
+ function AcquireReadableStreamDefaultReader(stream, forAuthorCode) {
+  if (forAuthorCode === void 0) {
+   forAuthorCode = false;
+  }
+  var reader = new ReadableStreamDefaultReader(stream);
+  reader._forAuthorCode = forAuthorCode;
+  return reader;
+ }
+ function ReadableStreamAddReadRequest(stream) {
+  var promise = newPromise(function (resolve, reject) {
+   var readRequest = {
+    _resolve: resolve,
+    _reject: reject
+   };
+   stream._reader._readRequests.push(readRequest);
+  });
+  return promise;
+ }
+ function ReadableStreamFulfillReadRequest(stream, chunk, done) {
+  var reader = stream._reader;
+  var readRequest = reader._readRequests.shift();
+  readRequest._resolve(ReadableStreamCreateReadResult(chunk, done, reader._forAuthorCode));
+ }
+ function ReadableStreamGetNumReadRequests(stream) {
+  return stream._reader._readRequests.length;
+ }
+ function ReadableStreamHasDefaultReader(stream) {
+  var reader = stream._reader;
+  if (reader === undefined) {
+   return false;
+  }
+  if (!IsReadableStreamDefaultReader(reader)) {
+   return false;
+  }
+  return true;
+ }
+ var ReadableStreamDefaultReader = function () {
+  function ReadableStreamDefaultReader(stream) {
+   if (IsReadableStream(stream) === false) {
+    throw new TypeError('ReadableStreamDefaultReader can only be constructed with a ReadableStream instance');
+   }
+   if (IsReadableStreamLocked(stream) === true) {
+    throw new TypeError('This stream has already been locked for exclusive reading by another reader');
+   }
+   ReadableStreamReaderGenericInitialize(this, stream);
+   this._readRequests = new SimpleQueue();
+  }
+  Object.defineProperty(ReadableStreamDefaultReader.prototype, "closed", {
+   get: function () {
+    if (!IsReadableStreamDefaultReader(this)) {
+     return promiseRejectedWith(defaultReaderBrandCheckException('closed'));
+    }
+    return this._closedPromise;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  ReadableStreamDefaultReader.prototype.cancel = function (reason) {
+   if (!IsReadableStreamDefaultReader(this)) {
+    return promiseRejectedWith(defaultReaderBrandCheckException('cancel'));
+   }
+   if (this._ownerReadableStream === undefined) {
+    return promiseRejectedWith(readerLockException('cancel'));
+   }
+   return ReadableStreamReaderGenericCancel(this, reason);
+  };
+  ReadableStreamDefaultReader.prototype.read = function () {
+   if (!IsReadableStreamDefaultReader(this)) {
+    return promiseRejectedWith(defaultReaderBrandCheckException('read'));
+   }
+   if (this._ownerReadableStream === undefined) {
+    return promiseRejectedWith(readerLockException('read from'));
+   }
+   return ReadableStreamDefaultReaderRead(this);
+  };
+  ReadableStreamDefaultReader.prototype.releaseLock = function () {
+   if (!IsReadableStreamDefaultReader(this)) {
+    throw defaultReaderBrandCheckException('releaseLock');
+   }
+   if (this._ownerReadableStream === undefined) {
+    return;
+   }
+   if (this._readRequests.length > 0) {
+    throw new TypeError('Tried to release a reader lock when that reader has pending read() calls un-settled');
+   }
+   ReadableStreamReaderGenericRelease(this);
+  };
+  return ReadableStreamDefaultReader;
+ }();
+ function IsReadableStreamDefaultReader(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_readRequests')) {
+   return false;
+  }
+  return true;
+ }
+ function ReadableStreamDefaultReaderRead(reader) {
+  var stream = reader._ownerReadableStream;
+  stream._disturbed = true;
+  if (stream._state === 'closed') {
+   return promiseResolvedWith(ReadableStreamCreateReadResult(undefined, true, reader._forAuthorCode));
+  }
+  if (stream._state === 'errored') {
+   return promiseRejectedWith(stream._storedError);
+  }
+  return stream._readableStreamController[PullSteps]();
+ }
+ function defaultReaderBrandCheckException(name) {
+  return new TypeError("ReadableStreamDefaultReader.prototype." + name + " can only be used on a ReadableStreamDefaultReader");
+ }
+ var _a;
+ var AsyncIteratorPrototype;
+ if (typeof SymbolPolyfill.asyncIterator === 'symbol') {
+  AsyncIteratorPrototype = (_a = {}, _a[SymbolPolyfill.asyncIterator] = function () {
+   return this;
+  }, _a);
+  Object.defineProperty(AsyncIteratorPrototype, SymbolPolyfill.asyncIterator, { enumerable: false });
+ }
+ var ReadableStreamAsyncIteratorPrototype = {
+  next: function () {
+   if (IsReadableStreamAsyncIterator(this) === false) {
+    return promiseRejectedWith(streamAsyncIteratorBrandCheckException('next'));
+   }
+   var reader = this._asyncIteratorReader;
+   if (reader._ownerReadableStream === undefined) {
+    return promiseRejectedWith(readerLockException('iterate'));
+   }
+   return transformPromiseWith(ReadableStreamDefaultReaderRead(reader), function (result) {
+    var done = result.done;
+    if (done) {
+     ReadableStreamReaderGenericRelease(reader);
+    }
+    var value = result.value;
+    return ReadableStreamCreateReadResult(value, done, true);
    });
+  },
+  return: function (value) {
+   if (IsReadableStreamAsyncIterator(this) === false) {
+    return promiseRejectedWith(streamAsyncIteratorBrandCheckException('next'));
+   }
+   var reader = this._asyncIteratorReader;
+   if (reader._ownerReadableStream === undefined) {
+    return promiseRejectedWith(readerLockException('finish iterating'));
+   }
+   if (reader._readRequests.length > 0) {
+    return promiseRejectedWith(new TypeError('Tried to release a reader lock when that reader has pending read() calls un-settled'));
+   }
+   if (this._preventCancel === false) {
+    var result = ReadableStreamReaderGenericCancel(reader, value);
+    ReadableStreamReaderGenericRelease(reader);
+    return transformPromiseWith(result, function () {
+     return ReadableStreamCreateReadResult(value, true, true);
+    });
+   }
+   ReadableStreamReaderGenericRelease(reader);
+   return promiseResolvedWith(ReadableStreamCreateReadResult(value, true, true));
   }
-  ReadableStreamReaderGenericRelease(reader);
-  return promiseResolvedWith(ReadableStreamCreateReadResult(value, true, true));
+ };
+ if (AsyncIteratorPrototype !== undefined) {
+  Object.setPrototypeOf(ReadableStreamAsyncIteratorPrototype, AsyncIteratorPrototype);
  }
-};
-if (AsyncIteratorPrototype !== undefined) {
- Object.setPrototypeOf(ReadableStreamAsyncIteratorPrototype, AsyncIteratorPrototype);
-}
-Object.defineProperty(ReadableStreamAsyncIteratorPrototype, 'next', { enumerable: false });
-Object.defineProperty(ReadableStreamAsyncIteratorPrototype, 'return', { enumerable: false });
-function AcquireReadableStreamAsyncIterator(stream, preventCancel) {
- if (preventCancel === void 0) {
-  preventCancel = false;
+ Object.defineProperty(ReadableStreamAsyncIteratorPrototype, 'next', { enumerable: false });
+ Object.defineProperty(ReadableStreamAsyncIteratorPrototype, 'return', { enumerable: false });
+ function AcquireReadableStreamAsyncIterator(stream, preventCancel) {
+  if (preventCancel === void 0) {
+   preventCancel = false;
+  }
+  var reader = AcquireReadableStreamDefaultReader(stream);
+  var iterator = Object.create(ReadableStreamAsyncIteratorPrototype);
+  iterator._asyncIteratorReader = reader;
+  iterator._preventCancel = Boolean(preventCancel);
+  return iterator;
  }
- var reader = AcquireReadableStreamDefaultReader(stream);
- var iterator = Object.create(ReadableStreamAsyncIteratorPrototype);
- iterator._asyncIteratorReader = reader;
- iterator._preventCancel = Boolean(preventCancel);
- return iterator;
-}
-function IsReadableStreamAsyncIterator(x) {
- if (!typeIsObject(x)) {
-  return false;
+ function IsReadableStreamAsyncIterator(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_asyncIteratorReader')) {
+   return false;
+  }
+  return true;
  }
- if (!Object.prototype.hasOwnProperty.call(x, '_asyncIteratorReader')) {
-  return false;
+ function streamAsyncIteratorBrandCheckException(name) {
+  return new TypeError("ReadableStreamAsyncIterator." + name + " can only be used on a ReadableSteamAsyncIterator");
  }
- return true;
-}
-function streamAsyncIteratorBrandCheckException(name) {
- return new TypeError("ReadableStreamAsyncIterator." + name + " can only be used on a ReadableSteamAsyncIterator");
-}
-function DequeueValue(container) {
- var pair = container._queue.shift();
- container._queueTotalSize -= pair.size;
- if (container._queueTotalSize < 0) {
+ function DequeueValue(container) {
+  var pair = container._queue.shift();
+  container._queueTotalSize -= pair.size;
+  if (container._queueTotalSize < 0) {
+   container._queueTotalSize = 0;
+  }
+  return pair.value;
+ }
+ function EnqueueValueWithSize(container, value, size) {
+  size = Number(size);
+  if (!IsFiniteNonNegativeNumber(size)) {
+   throw new RangeError('Size must be a finite, non-NaN, non-negative number.');
+  }
+  container._queue.push({
+   value: value,
+   size: size
+  });
+  container._queueTotalSize += size;
+ }
+ function PeekQueueValue(container) {
+  var pair = container._queue.peek();
+  return pair.value;
+ }
+ function ResetQueue(container) {
+  container._queue = new SimpleQueue();
   container._queueTotalSize = 0;
  }
- return pair.value;
-}
-function EnqueueValueWithSize(container, value, size) {
- size = Number(size);
- if (!IsFiniteNonNegativeNumber(size)) {
-  throw new RangeError('Size must be a finite, non-NaN, non-negative number.');
- }
- container._queue.push({
-  value: value,
-  size: size
- });
- container._queueTotalSize += size;
-}
-function PeekQueueValue(container) {
- var pair = container._queue.peek();
- return pair.value;
-}
-function ResetQueue(container) {
- container._queue = new SimpleQueue();
- container._queueTotalSize = 0;
-}
-var AbortSteps = SymbolPolyfill('[[AbortSteps]]');
-var ErrorSteps = SymbolPolyfill('[[ErrorSteps]]');
-var WritableStream = function () {
- function WritableStream(underlyingSink, strategy) {
-  if (underlyingSink === void 0) {
-   underlyingSink = {};
-  }
-  if (strategy === void 0) {
-   strategy = {};
-  }
-  InitializeWritableStream(this);
-  var size = strategy.size;
-  var highWaterMark = strategy.highWaterMark;
-  var type = underlyingSink.type;
-  if (type !== undefined) {
-   throw new RangeError('Invalid type is specified');
-  }
-  var sizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(size);
-  if (highWaterMark === undefined) {
-   highWaterMark = 1;
-  }
-  highWaterMark = ValidateAndNormalizeHighWaterMark(highWaterMark);
-  SetUpWritableStreamDefaultControllerFromUnderlyingSink(this, underlyingSink, highWaterMark, sizeAlgorithm);
- }
- Object.defineProperty(WritableStream.prototype, "locked", {
-  get: function () {
-   if (IsWritableStream(this) === false) {
-    throw streamBrandCheckException('locked');
+ var AbortSteps = SymbolPolyfill('[[AbortSteps]]');
+ var ErrorSteps = SymbolPolyfill('[[ErrorSteps]]');
+ var WritableStream = function () {
+  function WritableStream(underlyingSink, strategy) {
+   if (underlyingSink === void 0) {
+    underlyingSink = {};
    }
-   return IsWritableStreamLocked(this);
-  },
-  enumerable: true,
-  configurable: true
- });
- WritableStream.prototype.abort = function (reason) {
-  if (IsWritableStream(this) === false) {
-   return promiseRejectedWith(streamBrandCheckException('abort'));
-  }
-  if (IsWritableStreamLocked(this) === true) {
-   return promiseRejectedWith(new TypeError('Cannot abort a stream that already has a writer'));
-  }
-  return WritableStreamAbort(this, reason);
- };
- WritableStream.prototype.getWriter = function () {
-  if (IsWritableStream(this) === false) {
-   throw streamBrandCheckException('getWriter');
-  }
-  return AcquireWritableStreamDefaultWriter(this);
- };
- return WritableStream;
-}();
-function AcquireWritableStreamDefaultWriter(stream) {
- return new WritableStreamDefaultWriter(stream);
-}
-function CreateWritableStream(startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm) {
- if (highWaterMark === void 0) {
-  highWaterMark = 1;
- }
- if (sizeAlgorithm === void 0) {
-  sizeAlgorithm = function () {
-   return 1;
-  };
- }
- var stream = Object.create(WritableStream.prototype);
- InitializeWritableStream(stream);
- var controller = Object.create(WritableStreamDefaultController.prototype);
- SetUpWritableStreamDefaultController(stream, controller, startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm);
- return stream;
-}
-function InitializeWritableStream(stream) {
- stream._state = 'writable';
- stream._storedError = undefined;
- stream._writer = undefined;
- stream._writableStreamController = undefined;
- stream._writeRequests = new SimpleQueue();
- stream._inFlightWriteRequest = undefined;
- stream._closeRequest = undefined;
- stream._inFlightCloseRequest = undefined;
- stream._pendingAbortRequest = undefined;
- stream._backpressure = false;
-}
-function IsWritableStream(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_writableStreamController')) {
-  return false;
- }
- return true;
-}
-function IsWritableStreamLocked(stream) {
- if (stream._writer === undefined) {
-  return false;
- }
- return true;
-}
-function WritableStreamAbort(stream, reason) {
- var state = stream._state;
- if (state === 'closed' || state === 'errored') {
-  return promiseResolvedWith(undefined);
- }
- if (stream._pendingAbortRequest !== undefined) {
-  return stream._pendingAbortRequest._promise;
- }
- var wasAlreadyErroring = false;
- if (state === 'erroring') {
-  wasAlreadyErroring = true;
-  reason = undefined;
- }
- var promise = newPromise(function (resolve, reject) {
-  stream._pendingAbortRequest = {
-   _promise: undefined,
-   _resolve: resolve,
-   _reject: reject,
-   _reason: reason,
-   _wasAlreadyErroring: wasAlreadyErroring
-  };
- });
- stream._pendingAbortRequest._promise = promise;
- if (wasAlreadyErroring === false) {
-  WritableStreamStartErroring(stream, reason);
- }
- return promise;
-}
-function WritableStreamAddWriteRequest(stream) {
- var promise = newPromise(function (resolve, reject) {
-  var writeRequest = {
-   _resolve: resolve,
-   _reject: reject
-  };
-  stream._writeRequests.push(writeRequest);
- });
- return promise;
-}
-function WritableStreamDealWithRejection(stream, error) {
- var state = stream._state;
- if (state === 'writable') {
-  WritableStreamStartErroring(stream, error);
-  return;
- }
- WritableStreamFinishErroring(stream);
-}
-function WritableStreamStartErroring(stream, reason) {
- var controller = stream._writableStreamController;
- stream._state = 'erroring';
- stream._storedError = reason;
- var writer = stream._writer;
- if (writer !== undefined) {
-  WritableStreamDefaultWriterEnsureReadyPromiseRejected(writer, reason);
- }
- if (WritableStreamHasOperationMarkedInFlight(stream) === false && controller._started === true) {
-  WritableStreamFinishErroring(stream);
- }
-}
-function WritableStreamFinishErroring(stream) {
- stream._state = 'errored';
- stream._writableStreamController[ErrorSteps]();
- var storedError = stream._storedError;
- stream._writeRequests.forEach(function (writeRequest) {
-  writeRequest._reject(storedError);
- });
- stream._writeRequests = new SimpleQueue();
- if (stream._pendingAbortRequest === undefined) {
-  WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
-  return;
- }
- var abortRequest = stream._pendingAbortRequest;
- stream._pendingAbortRequest = undefined;
- if (abortRequest._wasAlreadyErroring === true) {
-  abortRequest._reject(storedError);
-  WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
-  return;
- }
- var promise = stream._writableStreamController[AbortSteps](abortRequest._reason);
- uponPromise(promise, function () {
-  abortRequest._resolve();
-  WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
- }, function (reason) {
-  abortRequest._reject(reason);
-  WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
- });
-}
-function WritableStreamFinishInFlightWrite(stream) {
- stream._inFlightWriteRequest._resolve(undefined);
- stream._inFlightWriteRequest = undefined;
-}
-function WritableStreamFinishInFlightWriteWithError(stream, error) {
- stream._inFlightWriteRequest._reject(error);
- stream._inFlightWriteRequest = undefined;
- WritableStreamDealWithRejection(stream, error);
-}
-function WritableStreamFinishInFlightClose(stream) {
- stream._inFlightCloseRequest._resolve(undefined);
- stream._inFlightCloseRequest = undefined;
- var state = stream._state;
- if (state === 'erroring') {
-  stream._storedError = undefined;
-  if (stream._pendingAbortRequest !== undefined) {
-   stream._pendingAbortRequest._resolve();
-   stream._pendingAbortRequest = undefined;
-  }
- }
- stream._state = 'closed';
- var writer = stream._writer;
- if (writer !== undefined) {
-  defaultWriterClosedPromiseResolve(writer);
- }
-}
-function WritableStreamFinishInFlightCloseWithError(stream, error) {
- stream._inFlightCloseRequest._reject(error);
- stream._inFlightCloseRequest = undefined;
- if (stream._pendingAbortRequest !== undefined) {
-  stream._pendingAbortRequest._reject(error);
-  stream._pendingAbortRequest = undefined;
- }
- WritableStreamDealWithRejection(stream, error);
-}
-function WritableStreamCloseQueuedOrInFlight(stream) {
- if (stream._closeRequest === undefined && stream._inFlightCloseRequest === undefined) {
-  return false;
- }
- return true;
-}
-function WritableStreamHasOperationMarkedInFlight(stream) {
- if (stream._inFlightWriteRequest === undefined && stream._inFlightCloseRequest === undefined) {
-  return false;
- }
- return true;
-}
-function WritableStreamMarkCloseRequestInFlight(stream) {
- stream._inFlightCloseRequest = stream._closeRequest;
- stream._closeRequest = undefined;
-}
-function WritableStreamMarkFirstWriteRequestInFlight(stream) {
- stream._inFlightWriteRequest = stream._writeRequests.shift();
-}
-function WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream) {
- if (stream._closeRequest !== undefined) {
-  stream._closeRequest._reject(stream._storedError);
-  stream._closeRequest = undefined;
- }
- var writer = stream._writer;
- if (writer !== undefined) {
-  defaultWriterClosedPromiseReject(writer, stream._storedError);
- }
-}
-function WritableStreamUpdateBackpressure(stream, backpressure) {
- var writer = stream._writer;
- if (writer !== undefined && backpressure !== stream._backpressure) {
-  if (backpressure === true) {
-   defaultWriterReadyPromiseReset(writer);
-  } else {
-   defaultWriterReadyPromiseResolve(writer);
-  }
- }
- stream._backpressure = backpressure;
-}
-var WritableStreamDefaultWriter = function () {
- function WritableStreamDefaultWriter(stream) {
-  if (IsWritableStream(stream) === false) {
-   throw new TypeError('WritableStreamDefaultWriter can only be constructed with a WritableStream instance');
-  }
-  if (IsWritableStreamLocked(stream) === true) {
-   throw new TypeError('This stream has already been locked for exclusive writing by another writer');
-  }
-  this._ownerWritableStream = stream;
-  stream._writer = this;
-  var state = stream._state;
-  if (state === 'writable') {
-   if (WritableStreamCloseQueuedOrInFlight(stream) === false && stream._backpressure === true) {
-    defaultWriterReadyPromiseInitialize(this);
-   } else {
-    defaultWriterReadyPromiseInitializeAsResolved(this);
+   if (strategy === void 0) {
+    strategy = {};
    }
-   defaultWriterClosedPromiseInitialize(this);
-  } else if (state === 'erroring') {
-   defaultWriterReadyPromiseInitializeAsRejected(this, stream._storedError);
-   defaultWriterClosedPromiseInitialize(this);
-  } else if (state === 'closed') {
-   defaultWriterReadyPromiseInitializeAsResolved(this);
-   defaultWriterClosedPromiseInitializeAsResolved(this);
-  } else {
-   var storedError = stream._storedError;
-   defaultWriterReadyPromiseInitializeAsRejected(this, storedError);
-   defaultWriterClosedPromiseInitializeAsRejected(this, storedError);
-  }
- }
- Object.defineProperty(WritableStreamDefaultWriter.prototype, "closed", {
-  get: function () {
-   if (IsWritableStreamDefaultWriter(this) === false) {
-    return promiseRejectedWith(defaultWriterBrandCheckException('closed'));
+   InitializeWritableStream(this);
+   var size = strategy.size;
+   var highWaterMark = strategy.highWaterMark;
+   var type = underlyingSink.type;
+   if (type !== undefined) {
+    throw new RangeError('Invalid type is specified');
    }
-   return this._closedPromise;
-  },
-  enumerable: true,
-  configurable: true
- });
- Object.defineProperty(WritableStreamDefaultWriter.prototype, "desiredSize", {
-  get: function () {
-   if (IsWritableStreamDefaultWriter(this) === false) {
-    throw defaultWriterBrandCheckException('desiredSize');
-   }
-   if (this._ownerWritableStream === undefined) {
-    throw defaultWriterLockException('desiredSize');
-   }
-   return WritableStreamDefaultWriterGetDesiredSize(this);
-  },
-  enumerable: true,
-  configurable: true
- });
- Object.defineProperty(WritableStreamDefaultWriter.prototype, "ready", {
-  get: function () {
-   if (IsWritableStreamDefaultWriter(this) === false) {
-    return promiseRejectedWith(defaultWriterBrandCheckException('ready'));
-   }
-   return this._readyPromise;
-  },
-  enumerable: true,
-  configurable: true
- });
- WritableStreamDefaultWriter.prototype.abort = function (reason) {
-  if (IsWritableStreamDefaultWriter(this) === false) {
-   return promiseRejectedWith(defaultWriterBrandCheckException('abort'));
-  }
-  if (this._ownerWritableStream === undefined) {
-   return promiseRejectedWith(defaultWriterLockException('abort'));
-  }
-  return WritableStreamDefaultWriterAbort(this, reason);
- };
- WritableStreamDefaultWriter.prototype.close = function () {
-  if (IsWritableStreamDefaultWriter(this) === false) {
-   return promiseRejectedWith(defaultWriterBrandCheckException('close'));
-  }
-  var stream = this._ownerWritableStream;
-  if (stream === undefined) {
-   return promiseRejectedWith(defaultWriterLockException('close'));
-  }
-  if (WritableStreamCloseQueuedOrInFlight(stream) === true) {
-   return promiseRejectedWith(new TypeError('cannot close an already-closing stream'));
-  }
-  return WritableStreamDefaultWriterClose(this);
- };
- WritableStreamDefaultWriter.prototype.releaseLock = function () {
-  if (IsWritableStreamDefaultWriter(this) === false) {
-   throw defaultWriterBrandCheckException('releaseLock');
-  }
-  var stream = this._ownerWritableStream;
-  if (stream === undefined) {
-   return;
-  }
-  WritableStreamDefaultWriterRelease(this);
- };
- WritableStreamDefaultWriter.prototype.write = function (chunk) {
-  if (IsWritableStreamDefaultWriter(this) === false) {
-   return promiseRejectedWith(defaultWriterBrandCheckException('write'));
-  }
-  if (this._ownerWritableStream === undefined) {
-   return promiseRejectedWith(defaultWriterLockException('write to'));
-  }
-  return WritableStreamDefaultWriterWrite(this, chunk);
- };
- return WritableStreamDefaultWriter;
-}();
-function IsWritableStreamDefaultWriter(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_ownerWritableStream')) {
-  return false;
- }
- return true;
-}
-function WritableStreamDefaultWriterAbort(writer, reason) {
- var stream = writer._ownerWritableStream;
- return WritableStreamAbort(stream, reason);
-}
-function WritableStreamDefaultWriterClose(writer) {
- var stream = writer._ownerWritableStream;
- var state = stream._state;
- if (state === 'closed' || state === 'errored') {
-  return promiseRejectedWith(new TypeError("The stream (in " + state + " state) is not in the writable state and cannot be closed"));
- }
- var promise = newPromise(function (resolve, reject) {
-  var closeRequest = {
-   _resolve: resolve,
-   _reject: reject
-  };
-  stream._closeRequest = closeRequest;
- });
- if (stream._backpressure === true && state === 'writable') {
-  defaultWriterReadyPromiseResolve(writer);
- }
- WritableStreamDefaultControllerClose(stream._writableStreamController);
- return promise;
-}
-function WritableStreamDefaultWriterCloseWithErrorPropagation(writer) {
- var stream = writer._ownerWritableStream;
- var state = stream._state;
- if (WritableStreamCloseQueuedOrInFlight(stream) === true || state === 'closed') {
-  return promiseResolvedWith(undefined);
- }
- if (state === 'errored') {
-  return promiseRejectedWith(stream._storedError);
- }
- return WritableStreamDefaultWriterClose(writer);
-}
-function WritableStreamDefaultWriterEnsureClosedPromiseRejected(writer, error) {
- if (writer._closedPromiseState === 'pending') {
-  defaultWriterClosedPromiseReject(writer, error);
- } else {
-  defaultWriterClosedPromiseResetToRejected(writer, error);
- }
-}
-function WritableStreamDefaultWriterEnsureReadyPromiseRejected(writer, error) {
- if (writer._readyPromiseState === 'pending') {
-  defaultWriterReadyPromiseReject(writer, error);
- } else {
-  defaultWriterReadyPromiseResetToRejected(writer, error);
- }
-}
-function WritableStreamDefaultWriterGetDesiredSize(writer) {
- var stream = writer._ownerWritableStream;
- var state = stream._state;
- if (state === 'errored' || state === 'erroring') {
-  return null;
- }
- if (state === 'closed') {
-  return 0;
- }
- return WritableStreamDefaultControllerGetDesiredSize(stream._writableStreamController);
-}
-function WritableStreamDefaultWriterRelease(writer) {
- var stream = writer._ownerWritableStream;
- var releasedError = new TypeError('Writer was released and can no longer be used to monitor the stream\'s closedness');
- WritableStreamDefaultWriterEnsureReadyPromiseRejected(writer, releasedError);
- WritableStreamDefaultWriterEnsureClosedPromiseRejected(writer, releasedError);
- stream._writer = undefined;
- writer._ownerWritableStream = undefined;
-}
-function WritableStreamDefaultWriterWrite(writer, chunk) {
- var stream = writer._ownerWritableStream;
- var controller = stream._writableStreamController;
- var chunkSize = WritableStreamDefaultControllerGetChunkSize(controller, chunk);
- if (stream !== writer._ownerWritableStream) {
-  return promiseRejectedWith(defaultWriterLockException('write to'));
- }
- var state = stream._state;
- if (state === 'errored') {
-  return promiseRejectedWith(stream._storedError);
- }
- if (WritableStreamCloseQueuedOrInFlight(stream) === true || state === 'closed') {
-  return promiseRejectedWith(new TypeError('The stream is closing or closed and cannot be written to'));
- }
- if (state === 'erroring') {
-  return promiseRejectedWith(stream._storedError);
- }
- var promise = WritableStreamAddWriteRequest(stream);
- WritableStreamDefaultControllerWrite(controller, chunk, chunkSize);
- return promise;
-}
-var WritableStreamDefaultController = function () {
- function WritableStreamDefaultController() {
-  throw new TypeError('WritableStreamDefaultController cannot be constructed explicitly');
- }
- WritableStreamDefaultController.prototype.error = function (e) {
-  if (IsWritableStreamDefaultController(this) === false) {
-   throw new TypeError('WritableStreamDefaultController.prototype.error can only be used on a WritableStreamDefaultController');
-  }
-  var state = this._controlledWritableStream._state;
-  if (state !== 'writable') {
-   return;
-  }
-  WritableStreamDefaultControllerError(this, e);
- };
- WritableStreamDefaultController.prototype[AbortSteps] = function (reason) {
-  var result = this._abortAlgorithm(reason);
-  WritableStreamDefaultControllerClearAlgorithms(this);
-  return result;
- };
- WritableStreamDefaultController.prototype[ErrorSteps] = function () {
-  ResetQueue(this);
- };
- return WritableStreamDefaultController;
-}();
-function IsWritableStreamDefaultController(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_controlledWritableStream')) {
-  return false;
- }
- return true;
-}
-function SetUpWritableStreamDefaultController(stream, controller, startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm) {
- controller._controlledWritableStream = stream;
- stream._writableStreamController = controller;
- controller._queue = undefined;
- controller._queueTotalSize = undefined;
- ResetQueue(controller);
- controller._started = false;
- controller._strategySizeAlgorithm = sizeAlgorithm;
- controller._strategyHWM = highWaterMark;
- controller._writeAlgorithm = writeAlgorithm;
- controller._closeAlgorithm = closeAlgorithm;
- controller._abortAlgorithm = abortAlgorithm;
- var backpressure = WritableStreamDefaultControllerGetBackpressure(controller);
- WritableStreamUpdateBackpressure(stream, backpressure);
- var startResult = startAlgorithm();
- var startPromise = promiseResolvedWith(startResult);
- uponPromise(startPromise, function () {
-  controller._started = true;
-  WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
- }, function (r) {
-  controller._started = true;
-  WritableStreamDealWithRejection(stream, r);
- });
-}
-function SetUpWritableStreamDefaultControllerFromUnderlyingSink(stream, underlyingSink, highWaterMark, sizeAlgorithm) {
- var controller = Object.create(WritableStreamDefaultController.prototype);
- function startAlgorithm() {
-  return InvokeOrNoop(underlyingSink, 'start', [controller]);
- }
- var writeAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSink, 'write', 1, [controller]);
- var closeAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSink, 'close', 0, []);
- var abortAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSink, 'abort', 1, []);
- SetUpWritableStreamDefaultController(stream, controller, startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm);
-}
-function WritableStreamDefaultControllerClearAlgorithms(controller) {
- controller._writeAlgorithm = undefined;
- controller._closeAlgorithm = undefined;
- controller._abortAlgorithm = undefined;
- controller._strategySizeAlgorithm = undefined;
-}
-function WritableStreamDefaultControllerClose(controller) {
- EnqueueValueWithSize(controller, 'close', 0);
- WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
-}
-function WritableStreamDefaultControllerGetChunkSize(controller, chunk) {
- try {
-  return controller._strategySizeAlgorithm(chunk);
- } catch (chunkSizeE) {
-  WritableStreamDefaultControllerErrorIfNeeded(controller, chunkSizeE);
-  return 1;
- }
-}
-function WritableStreamDefaultControllerGetDesiredSize(controller) {
- return controller._strategyHWM - controller._queueTotalSize;
-}
-function WritableStreamDefaultControllerWrite(controller, chunk, chunkSize) {
- var writeRecord = { chunk: chunk };
- try {
-  EnqueueValueWithSize(controller, writeRecord, chunkSize);
- } catch (enqueueE) {
-  WritableStreamDefaultControllerErrorIfNeeded(controller, enqueueE);
-  return;
- }
- var stream = controller._controlledWritableStream;
- if (WritableStreamCloseQueuedOrInFlight(stream) === false && stream._state === 'writable') {
-  var backpressure = WritableStreamDefaultControllerGetBackpressure(controller);
-  WritableStreamUpdateBackpressure(stream, backpressure);
- }
- WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
-}
-function WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller) {
- var stream = controller._controlledWritableStream;
- if (controller._started === false) {
-  return;
- }
- if (stream._inFlightWriteRequest !== undefined) {
-  return;
- }
- var state = stream._state;
- if (state === 'erroring') {
-  WritableStreamFinishErroring(stream);
-  return;
- }
- if (controller._queue.length === 0) {
-  return;
- }
- var writeRecord = PeekQueueValue(controller);
- if (writeRecord === 'close') {
-  WritableStreamDefaultControllerProcessClose(controller);
- } else {
-  WritableStreamDefaultControllerProcessWrite(controller, writeRecord.chunk);
- }
-}
-function WritableStreamDefaultControllerErrorIfNeeded(controller, error) {
- if (controller._controlledWritableStream._state === 'writable') {
-  WritableStreamDefaultControllerError(controller, error);
- }
-}
-function WritableStreamDefaultControllerProcessClose(controller) {
- var stream = controller._controlledWritableStream;
- WritableStreamMarkCloseRequestInFlight(stream);
- DequeueValue(controller);
- var sinkClosePromise = controller._closeAlgorithm();
- WritableStreamDefaultControllerClearAlgorithms(controller);
- uponPromise(sinkClosePromise, function () {
-  WritableStreamFinishInFlightClose(stream);
- }, function (reason) {
-  WritableStreamFinishInFlightCloseWithError(stream, reason);
- });
-}
-function WritableStreamDefaultControllerProcessWrite(controller, chunk) {
- var stream = controller._controlledWritableStream;
- WritableStreamMarkFirstWriteRequestInFlight(stream);
- var sinkWritePromise = controller._writeAlgorithm(chunk);
- uponPromise(sinkWritePromise, function () {
-  WritableStreamFinishInFlightWrite(stream);
-  var state = stream._state;
-  DequeueValue(controller);
-  if (WritableStreamCloseQueuedOrInFlight(stream) === false && state === 'writable') {
-   var backpressure = WritableStreamDefaultControllerGetBackpressure(controller);
-   WritableStreamUpdateBackpressure(stream, backpressure);
-  }
-  WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
- }, function (reason) {
-  if (stream._state === 'writable') {
-   WritableStreamDefaultControllerClearAlgorithms(controller);
-  }
-  WritableStreamFinishInFlightWriteWithError(stream, reason);
- });
-}
-function WritableStreamDefaultControllerGetBackpressure(controller) {
- var desiredSize = WritableStreamDefaultControllerGetDesiredSize(controller);
- return desiredSize <= 0;
-}
-function WritableStreamDefaultControllerError(controller, error) {
- var stream = controller._controlledWritableStream;
- WritableStreamDefaultControllerClearAlgorithms(controller);
- WritableStreamStartErroring(stream, error);
-}
-function streamBrandCheckException(name) {
- return new TypeError("WritableStream.prototype." + name + " can only be used on a WritableStream");
-}
-function defaultWriterBrandCheckException(name) {
- return new TypeError("WritableStreamDefaultWriter.prototype." + name + " can only be used on a WritableStreamDefaultWriter");
-}
-function defaultWriterLockException(name) {
- return new TypeError('Cannot ' + name + ' a stream using a released writer');
-}
-function defaultWriterClosedPromiseInitialize(writer) {
- writer._closedPromise = newPromise(function (resolve, reject) {
-  writer._closedPromise_resolve = resolve;
-  writer._closedPromise_reject = reject;
-  writer._closedPromiseState = 'pending';
- });
-}
-function defaultWriterClosedPromiseInitializeAsRejected(writer, reason) {
- defaultWriterClosedPromiseInitialize(writer);
- defaultWriterClosedPromiseReject(writer, reason);
-}
-function defaultWriterClosedPromiseInitializeAsResolved(writer) {
- defaultWriterClosedPromiseInitialize(writer);
- defaultWriterClosedPromiseResolve(writer);
-}
-function defaultWriterClosedPromiseReject(writer, reason) {
- setPromiseIsHandledToTrue(writer._closedPromise);
- writer._closedPromise_reject(reason);
- writer._closedPromise_resolve = undefined;
- writer._closedPromise_reject = undefined;
- writer._closedPromiseState = 'rejected';
-}
-function defaultWriterClosedPromiseResetToRejected(writer, reason) {
- defaultWriterClosedPromiseInitializeAsRejected(writer, reason);
-}
-function defaultWriterClosedPromiseResolve(writer) {
- writer._closedPromise_resolve(undefined);
- writer._closedPromise_resolve = undefined;
- writer._closedPromise_reject = undefined;
- writer._closedPromiseState = 'resolved';
-}
-function defaultWriterReadyPromiseInitialize(writer) {
- writer._readyPromise = newPromise(function (resolve, reject) {
-  writer._readyPromise_resolve = resolve;
-  writer._readyPromise_reject = reject;
- });
- writer._readyPromiseState = 'pending';
-}
-function defaultWriterReadyPromiseInitializeAsRejected(writer, reason) {
- defaultWriterReadyPromiseInitialize(writer);
- defaultWriterReadyPromiseReject(writer, reason);
-}
-function defaultWriterReadyPromiseInitializeAsResolved(writer) {
- defaultWriterReadyPromiseInitialize(writer);
- defaultWriterReadyPromiseResolve(writer);
-}
-function defaultWriterReadyPromiseReject(writer, reason) {
- setPromiseIsHandledToTrue(writer._readyPromise);
- writer._readyPromise_reject(reason);
- writer._readyPromise_resolve = undefined;
- writer._readyPromise_reject = undefined;
- writer._readyPromiseState = 'rejected';
-}
-function defaultWriterReadyPromiseReset(writer) {
- defaultWriterReadyPromiseInitialize(writer);
-}
-function defaultWriterReadyPromiseResetToRejected(writer, reason) {
- defaultWriterReadyPromiseInitializeAsRejected(writer, reason);
-}
-function defaultWriterReadyPromiseResolve(writer) {
- writer._readyPromise_resolve(undefined);
- writer._readyPromise_resolve = undefined;
- writer._readyPromise_reject = undefined;
- writer._readyPromiseState = 'fulfilled';
-}
-function isAbortSignal(value) {
- if (typeof value !== 'object' || value === null) {
-  return false;
- }
- try {
-  return typeof value.aborted === 'boolean';
- } catch (_a) {
-  return false;
- }
-}
-var NativeDOMException = typeof DOMException !== 'undefined' ? DOMException : undefined;
-function isDOMExceptionConstructor(ctor) {
- if (!(typeof ctor === 'function' || typeof ctor === 'object')) {
-  return false;
- }
- try {
-  new ctor();
-  return true;
- } catch (_a) {
-  return false;
- }
-}
-function createDOMExceptionPolyfill() {
- var ctor = function DOMException(message, name) {
-  this.message = message || '';
-  this.name = name || 'Error';
-  if (Error.captureStackTrace) {
-   Error.captureStackTrace(this, this.constructor);
-  }
- };
- ctor.prototype = Object.create(Error.prototype);
- Object.defineProperty(ctor.prototype, 'constructor', {
-  value: ctor,
-  writable: true,
-  configurable: true
- });
- return ctor;
-}
-var DOMException$1 = isDOMExceptionConstructor(NativeDOMException) ? NativeDOMException : createDOMExceptionPolyfill();
-function ReadableStreamPipeTo(source, dest, preventClose, preventAbort, preventCancel, signal) {
- var reader = AcquireReadableStreamDefaultReader(source);
- var writer = AcquireWritableStreamDefaultWriter(dest);
- var shuttingDown = false;
- var currentWrite = promiseResolvedWith(undefined);
- return newPromise(function (resolve, reject) {
-  var abortAlgorithm;
-  if (signal !== undefined) {
-   abortAlgorithm = function () {
-    var error = new DOMException$1('Aborted', 'AbortError');
-    var actions = [];
-    if (preventAbort === false) {
-     actions.push(function () {
-      if (dest._state === 'writable') {
-       return WritableStreamAbort(dest, error);
-      }
-      return promiseResolvedWith(undefined);
-     });
-    }
-    if (preventCancel === false) {
-     actions.push(function () {
-      if (source._state === 'readable') {
-       return ReadableStreamCancel(source, error);
-      }
-      return promiseResolvedWith(undefined);
-     });
-    }
-    shutdownWithAction(function () {
-     return Promise.all(actions.map(function (action) {
-      return action();
-     }));
-    }, true, error);
-   };
-   if (signal.aborted === true) {
-    abortAlgorithm();
-    return;
-   }
-   signal.addEventListener('abort', abortAlgorithm);
-  }
-  function pipeLoop() {
-   return newPromise(function (resolveLoop, rejectLoop) {
-    function next(done) {
-     if (done) {
-      resolveLoop();
-     } else {
-      PerformPromiseThen(pipeStep(), next, rejectLoop);
-     }
-    }
-    next(false);
-   });
-  }
-  function pipeStep() {
-   if (shuttingDown === true) {
-    return promiseResolvedWith(true);
-   }
-   return PerformPromiseThen(writer._readyPromise, function () {
-    return PerformPromiseThen(ReadableStreamDefaultReaderRead(reader), function (_a) {
-     var value = _a.value, done = _a.done;
-     if (done === true) {
-      return true;
-     }
-     currentWrite = PerformPromiseThen(WritableStreamDefaultWriterWrite(writer, value), undefined, noop);
-     return false;
-    });
-   });
-  }
-  isOrBecomesErrored(source, reader._closedPromise, function (storedError) {
-   if (preventAbort === false) {
-    shutdownWithAction(function () {
-     return WritableStreamAbort(dest, storedError);
-    }, true, storedError);
-   } else {
-    shutdown(true, storedError);
-   }
-  });
-  isOrBecomesErrored(dest, writer._closedPromise, function (storedError) {
-   if (preventCancel === false) {
-    shutdownWithAction(function () {
-     return ReadableStreamCancel(source, storedError);
-    }, true, storedError);
-   } else {
-    shutdown(true, storedError);
-   }
-  });
-  isOrBecomesClosed(source, reader._closedPromise, function () {
-   if (preventClose === false) {
-    shutdownWithAction(function () {
-     return WritableStreamDefaultWriterCloseWithErrorPropagation(writer);
-    });
-   } else {
-    shutdown();
-   }
-  });
-  if (WritableStreamCloseQueuedOrInFlight(dest) === true || dest._state === 'closed') {
-   var destClosed_1 = new TypeError('the destination writable stream closed before all data could be piped to it');
-   if (preventCancel === false) {
-    shutdownWithAction(function () {
-     return ReadableStreamCancel(source, destClosed_1);
-    }, true, destClosed_1);
-   } else {
-    shutdown(true, destClosed_1);
-   }
-  }
-  setPromiseIsHandledToTrue(pipeLoop());
-  function waitForWritesToFinish() {
-   var oldCurrentWrite = currentWrite;
-   return PerformPromiseThen(currentWrite, function () {
-    return oldCurrentWrite !== currentWrite ? waitForWritesToFinish() : undefined;
-   });
-  }
-  function isOrBecomesErrored(stream, promise, action) {
-   if (stream._state === 'errored') {
-    action(stream._storedError);
-   } else {
-    uponRejection(promise, action);
-   }
-  }
-  function isOrBecomesClosed(stream, promise, action) {
-   if (stream._state === 'closed') {
-    action();
-   } else {
-    uponFulfillment(promise, action);
-   }
-  }
-  function shutdownWithAction(action, originalIsError, originalError) {
-   if (shuttingDown === true) {
-    return;
-   }
-   shuttingDown = true;
-   if (dest._state === 'writable' && WritableStreamCloseQueuedOrInFlight(dest) === false) {
-    uponFulfillment(waitForWritesToFinish(), doTheRest);
-   } else {
-    doTheRest();
-   }
-   function doTheRest() {
-    uponPromise(action(), function () {
-     return finalize(originalIsError, originalError);
-    }, function (newError) {
-     return finalize(true, newError);
-    });
-   }
-  }
-  function shutdown(isError, error) {
-   if (shuttingDown === true) {
-    return;
-   }
-   shuttingDown = true;
-   if (dest._state === 'writable' && WritableStreamCloseQueuedOrInFlight(dest) === false) {
-    uponFulfillment(waitForWritesToFinish(), function () {
-     return finalize(isError, error);
-    });
-   } else {
-    finalize(isError, error);
-   }
-  }
-  function finalize(isError, error) {
-   WritableStreamDefaultWriterRelease(writer);
-   ReadableStreamReaderGenericRelease(reader);
-   if (signal !== undefined) {
-    signal.removeEventListener('abort', abortAlgorithm);
-   }
-   if (isError) {
-    reject(error);
-   } else {
-    resolve(undefined);
-   }
-  }
- });
-}
-var ReadableStreamDefaultController = function () {
- function ReadableStreamDefaultController() {
-  throw new TypeError();
- }
- Object.defineProperty(ReadableStreamDefaultController.prototype, "desiredSize", {
-  get: function () {
-   if (IsReadableStreamDefaultController(this) === false) {
-    throw defaultControllerBrandCheckException('desiredSize');
-   }
-   return ReadableStreamDefaultControllerGetDesiredSize(this);
-  },
-  enumerable: true,
-  configurable: true
- });
- ReadableStreamDefaultController.prototype.close = function () {
-  if (IsReadableStreamDefaultController(this) === false) {
-   throw defaultControllerBrandCheckException('close');
-  }
-  if (ReadableStreamDefaultControllerCanCloseOrEnqueue(this) === false) {
-   throw new TypeError('The stream is not in a state that permits close');
-  }
-  ReadableStreamDefaultControllerClose(this);
- };
- ReadableStreamDefaultController.prototype.enqueue = function (chunk) {
-  if (IsReadableStreamDefaultController(this) === false) {
-   throw defaultControllerBrandCheckException('enqueue');
-  }
-  if (ReadableStreamDefaultControllerCanCloseOrEnqueue(this) === false) {
-   throw new TypeError('The stream is not in a state that permits enqueue');
-  }
-  return ReadableStreamDefaultControllerEnqueue(this, chunk);
- };
- ReadableStreamDefaultController.prototype.error = function (e) {
-  if (IsReadableStreamDefaultController(this) === false) {
-   throw defaultControllerBrandCheckException('error');
-  }
-  ReadableStreamDefaultControllerError(this, e);
- };
- ReadableStreamDefaultController.prototype[CancelSteps] = function (reason) {
-  ResetQueue(this);
-  var result = this._cancelAlgorithm(reason);
-  ReadableStreamDefaultControllerClearAlgorithms(this);
-  return result;
- };
- ReadableStreamDefaultController.prototype[PullSteps] = function () {
-  var stream = this._controlledReadableStream;
-  if (this._queue.length > 0) {
-   var chunk = DequeueValue(this);
-   if (this._closeRequested === true && this._queue.length === 0) {
-    ReadableStreamDefaultControllerClearAlgorithms(this);
-    ReadableStreamClose(stream);
-   } else {
-    ReadableStreamDefaultControllerCallPullIfNeeded(this);
-   }
-   return promiseResolvedWith(ReadableStreamCreateReadResult(chunk, false, stream._reader._forAuthorCode));
-  }
-  var pendingPromise = ReadableStreamAddReadRequest(stream);
-  ReadableStreamDefaultControllerCallPullIfNeeded(this);
-  return pendingPromise;
- };
- return ReadableStreamDefaultController;
-}();
-function IsReadableStreamDefaultController(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_controlledReadableStream')) {
-  return false;
- }
- return true;
-}
-function ReadableStreamDefaultControllerCallPullIfNeeded(controller) {
- var shouldPull = ReadableStreamDefaultControllerShouldCallPull(controller);
- if (shouldPull === false) {
-  return;
- }
- if (controller._pulling === true) {
-  controller._pullAgain = true;
-  return;
- }
- controller._pulling = true;
- var pullPromise = controller._pullAlgorithm();
- uponPromise(pullPromise, function () {
-  controller._pulling = false;
-  if (controller._pullAgain === true) {
-   controller._pullAgain = false;
-   ReadableStreamDefaultControllerCallPullIfNeeded(controller);
-  }
- }, function (e) {
-  ReadableStreamDefaultControllerError(controller, e);
- });
-}
-function ReadableStreamDefaultControllerShouldCallPull(controller) {
- var stream = controller._controlledReadableStream;
- if (ReadableStreamDefaultControllerCanCloseOrEnqueue(controller) === false) {
-  return false;
- }
- if (controller._started === false) {
-  return false;
- }
- if (IsReadableStreamLocked(stream) === true && ReadableStreamGetNumReadRequests(stream) > 0) {
-  return true;
- }
- var desiredSize = ReadableStreamDefaultControllerGetDesiredSize(controller);
- if (desiredSize > 0) {
-  return true;
- }
- return false;
-}
-function ReadableStreamDefaultControllerClearAlgorithms(controller) {
- controller._pullAlgorithm = undefined;
- controller._cancelAlgorithm = undefined;
- controller._strategySizeAlgorithm = undefined;
-}
-function ReadableStreamDefaultControllerClose(controller) {
- var stream = controller._controlledReadableStream;
- controller._closeRequested = true;
- if (controller._queue.length === 0) {
-  ReadableStreamDefaultControllerClearAlgorithms(controller);
-  ReadableStreamClose(stream);
- }
-}
-function ReadableStreamDefaultControllerEnqueue(controller, chunk) {
- var stream = controller._controlledReadableStream;
- if (IsReadableStreamLocked(stream) === true && ReadableStreamGetNumReadRequests(stream) > 0) {
-  ReadableStreamFulfillReadRequest(stream, chunk, false);
- } else {
-  var chunkSize = void 0;
-  try {
-   chunkSize = controller._strategySizeAlgorithm(chunk);
-  } catch (chunkSizeE) {
-   ReadableStreamDefaultControllerError(controller, chunkSizeE);
-   throw chunkSizeE;
-  }
-  try {
-   EnqueueValueWithSize(controller, chunk, chunkSize);
-  } catch (enqueueE) {
-   ReadableStreamDefaultControllerError(controller, enqueueE);
-   throw enqueueE;
-  }
- }
- ReadableStreamDefaultControllerCallPullIfNeeded(controller);
-}
-function ReadableStreamDefaultControllerError(controller, e) {
- var stream = controller._controlledReadableStream;
- if (stream._state !== 'readable') {
-  return;
- }
- ResetQueue(controller);
- ReadableStreamDefaultControllerClearAlgorithms(controller);
- ReadableStreamError(stream, e);
-}
-function ReadableStreamDefaultControllerGetDesiredSize(controller) {
- var stream = controller._controlledReadableStream;
- var state = stream._state;
- if (state === 'errored') {
-  return null;
- }
- if (state === 'closed') {
-  return 0;
- }
- return controller._strategyHWM - controller._queueTotalSize;
-}
-function ReadableStreamDefaultControllerHasBackpressure(controller) {
- if (ReadableStreamDefaultControllerShouldCallPull(controller) === true) {
-  return false;
- }
- return true;
-}
-function ReadableStreamDefaultControllerCanCloseOrEnqueue(controller) {
- var state = controller._controlledReadableStream._state;
- if (controller._closeRequested === false && state === 'readable') {
-  return true;
- }
- return false;
-}
-function SetUpReadableStreamDefaultController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm) {
- controller._controlledReadableStream = stream;
- controller._queue = undefined;
- controller._queueTotalSize = undefined;
- ResetQueue(controller);
- controller._started = false;
- controller._closeRequested = false;
- controller._pullAgain = false;
- controller._pulling = false;
- controller._strategySizeAlgorithm = sizeAlgorithm;
- controller._strategyHWM = highWaterMark;
- controller._pullAlgorithm = pullAlgorithm;
- controller._cancelAlgorithm = cancelAlgorithm;
- stream._readableStreamController = controller;
- var startResult = startAlgorithm();
- uponPromise(promiseResolvedWith(startResult), function () {
-  controller._started = true;
-  ReadableStreamDefaultControllerCallPullIfNeeded(controller);
- }, function (r) {
-  ReadableStreamDefaultControllerError(controller, r);
- });
-}
-function SetUpReadableStreamDefaultControllerFromUnderlyingSource(stream, underlyingSource, highWaterMark, sizeAlgorithm) {
- var controller = Object.create(ReadableStreamDefaultController.prototype);
- function startAlgorithm() {
-  return InvokeOrNoop(underlyingSource, 'start', [controller]);
- }
- var pullAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSource, 'pull', 0, [controller]);
- var cancelAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSource, 'cancel', 1, []);
- SetUpReadableStreamDefaultController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm);
-}
-function defaultControllerBrandCheckException(name) {
- return new TypeError("ReadableStreamDefaultController.prototype." + name + " can only be used on a ReadableStreamDefaultController");
-}
-function ReadableStreamTee(stream, cloneForBranch2) {
- var reader = AcquireReadableStreamDefaultReader(stream);
- var reading = false;
- var canceled1 = false;
- var canceled2 = false;
- var reason1;
- var reason2;
- var branch1;
- var branch2;
- var resolveCancelPromise;
- var cancelPromise = newPromise(function (resolve) {
-  resolveCancelPromise = resolve;
- });
- function pullAlgorithm() {
-  if (reading === true) {
-   return promiseResolvedWith(undefined);
-  }
-  reading = true;
-  var readPromise = transformPromiseWith(ReadableStreamDefaultReaderRead(reader), function (result) {
-   reading = false;
-   var done = result.done;
-   if (done === true) {
-    if (canceled1 === false) {
-     ReadableStreamDefaultControllerClose(branch1._readableStreamController);
-    }
-    if (canceled2 === false) {
-     ReadableStreamDefaultControllerClose(branch2._readableStreamController);
-    }
-    return;
-   }
-   var value = result.value;
-   var value1 = value;
-   var value2 = value;
-   if (canceled1 === false) {
-    ReadableStreamDefaultControllerEnqueue(branch1._readableStreamController, value1);
-   }
-   if (canceled2 === false) {
-    ReadableStreamDefaultControllerEnqueue(branch2._readableStreamController, value2);
-   }
-  });
-  setPromiseIsHandledToTrue(readPromise);
-  return promiseResolvedWith(undefined);
- }
- function cancel1Algorithm(reason) {
-  canceled1 = true;
-  reason1 = reason;
-  if (canceled2 === true) {
-   var compositeReason = createArrayFromList([
-    reason1,
-    reason2
-   ]);
-   var cancelResult = ReadableStreamCancel(stream, compositeReason);
-   resolveCancelPromise(cancelResult);
-  }
-  return cancelPromise;
- }
- function cancel2Algorithm(reason) {
-  canceled2 = true;
-  reason2 = reason;
-  if (canceled1 === true) {
-   var compositeReason = createArrayFromList([
-    reason1,
-    reason2
-   ]);
-   var cancelResult = ReadableStreamCancel(stream, compositeReason);
-   resolveCancelPromise(cancelResult);
-  }
-  return cancelPromise;
- }
- function startAlgorithm() {
- }
- branch1 = CreateReadableStream(startAlgorithm, pullAlgorithm, cancel1Algorithm);
- branch2 = CreateReadableStream(startAlgorithm, pullAlgorithm, cancel2Algorithm);
- uponRejection(reader._closedPromise, function (r) {
-  ReadableStreamDefaultControllerError(branch1._readableStreamController, r);
-  ReadableStreamDefaultControllerError(branch2._readableStreamController, r);
- });
- return [
-  branch1,
-  branch2
- ];
-}
-var NumberIsInteger = Number.isInteger || function (value) {
- return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
-};
-var ReadableStreamBYOBRequest = function () {
- function ReadableStreamBYOBRequest() {
-  throw new TypeError('ReadableStreamBYOBRequest cannot be used directly');
- }
- Object.defineProperty(ReadableStreamBYOBRequest.prototype, "view", {
-  get: function () {
-   if (IsReadableStreamBYOBRequest(this) === false) {
-    throw byobRequestBrandCheckException('view');
-   }
-   return this._view;
-  },
-  enumerable: true,
-  configurable: true
- });
- ReadableStreamBYOBRequest.prototype.respond = function (bytesWritten) {
-  if (IsReadableStreamBYOBRequest(this) === false) {
-   throw byobRequestBrandCheckException('respond');
-  }
-  if (this._associatedReadableByteStreamController === undefined) {
-   throw new TypeError('This BYOB request has been invalidated');
-  }
-  if (IsDetachedBuffer(this._view.buffer) === true);
-  ReadableByteStreamControllerRespond(this._associatedReadableByteStreamController, bytesWritten);
- };
- ReadableStreamBYOBRequest.prototype.respondWithNewView = function (view) {
-  if (IsReadableStreamBYOBRequest(this) === false) {
-   throw byobRequestBrandCheckException('respond');
-  }
-  if (this._associatedReadableByteStreamController === undefined) {
-   throw new TypeError('This BYOB request has been invalidated');
-  }
-  if (!ArrayBuffer.isView(view)) {
-   throw new TypeError('You can only respond with array buffer views');
-  }
-  if (IsDetachedBuffer(view.buffer) === true);
-  ReadableByteStreamControllerRespondWithNewView(this._associatedReadableByteStreamController, view);
- };
- return ReadableStreamBYOBRequest;
-}();
-var ReadableByteStreamController = function () {
- function ReadableByteStreamController() {
-  throw new TypeError('ReadableByteStreamController constructor cannot be used directly');
- }
- Object.defineProperty(ReadableByteStreamController.prototype, "byobRequest", {
-  get: function () {
-   if (IsReadableByteStreamController(this) === false) {
-    throw byteStreamControllerBrandCheckException('byobRequest');
-   }
-   if (this._byobRequest === undefined && this._pendingPullIntos.length > 0) {
-    var firstDescriptor = this._pendingPullIntos.peek();
-    var view = new Uint8Array(firstDescriptor.buffer, firstDescriptor.byteOffset + firstDescriptor.bytesFilled, firstDescriptor.byteLength - firstDescriptor.bytesFilled);
-    var byobRequest = Object.create(ReadableStreamBYOBRequest.prototype);
-    SetUpReadableStreamBYOBRequest(byobRequest, this, view);
-    this._byobRequest = byobRequest;
-   }
-   return this._byobRequest;
-  },
-  enumerable: true,
-  configurable: true
- });
- Object.defineProperty(ReadableByteStreamController.prototype, "desiredSize", {
-  get: function () {
-   if (IsReadableByteStreamController(this) === false) {
-    throw byteStreamControllerBrandCheckException('desiredSize');
-   }
-   return ReadableByteStreamControllerGetDesiredSize(this);
-  },
-  enumerable: true,
-  configurable: true
- });
- ReadableByteStreamController.prototype.close = function () {
-  if (IsReadableByteStreamController(this) === false) {
-   throw byteStreamControllerBrandCheckException('close');
-  }
-  if (this._closeRequested === true) {
-   throw new TypeError('The stream has already been closed; do not close it again!');
-  }
-  var state = this._controlledReadableByteStream._state;
-  if (state !== 'readable') {
-   throw new TypeError("The stream (in " + state + " state) is not in the readable state and cannot be closed");
-  }
-  ReadableByteStreamControllerClose(this);
- };
- ReadableByteStreamController.prototype.enqueue = function (chunk) {
-  if (IsReadableByteStreamController(this) === false) {
-   throw byteStreamControllerBrandCheckException('enqueue');
-  }
-  if (this._closeRequested === true) {
-   throw new TypeError('stream is closed or draining');
-  }
-  var state = this._controlledReadableByteStream._state;
-  if (state !== 'readable') {
-   throw new TypeError("The stream (in " + state + " state) is not in the readable state and cannot be enqueued to");
-  }
-  if (!ArrayBuffer.isView(chunk)) {
-   throw new TypeError('You can only enqueue array buffer views when using a ReadableByteStreamController');
-  }
-  if (IsDetachedBuffer(chunk.buffer) === true);
-  ReadableByteStreamControllerEnqueue(this, chunk);
- };
- ReadableByteStreamController.prototype.error = function (e) {
-  if (IsReadableByteStreamController(this) === false) {
-   throw byteStreamControllerBrandCheckException('error');
-  }
-  ReadableByteStreamControllerError(this, e);
- };
- ReadableByteStreamController.prototype[CancelSteps] = function (reason) {
-  if (this._pendingPullIntos.length > 0) {
-   var firstDescriptor = this._pendingPullIntos.peek();
-   firstDescriptor.bytesFilled = 0;
-  }
-  ResetQueue(this);
-  var result = this._cancelAlgorithm(reason);
-  ReadableByteStreamControllerClearAlgorithms(this);
-  return result;
- };
- ReadableByteStreamController.prototype[PullSteps] = function () {
-  var stream = this._controlledReadableByteStream;
-  if (this._queueTotalSize > 0) {
-   var entry = this._queue.shift();
-   this._queueTotalSize -= entry.byteLength;
-   ReadableByteStreamControllerHandleQueueDrain(this);
-   var view = void 0;
-   try {
-    view = new Uint8Array(entry.buffer, entry.byteOffset, entry.byteLength);
-   } catch (viewE) {
-    return promiseRejectedWith(viewE);
-   }
-   return promiseResolvedWith(ReadableStreamCreateReadResult(view, false, stream._reader._forAuthorCode));
-  }
-  var autoAllocateChunkSize = this._autoAllocateChunkSize;
-  if (autoAllocateChunkSize !== undefined) {
-   var buffer = void 0;
-   try {
-    buffer = new ArrayBuffer(autoAllocateChunkSize);
-   } catch (bufferE) {
-    return promiseRejectedWith(bufferE);
-   }
-   var pullIntoDescriptor = {
-    buffer: buffer,
-    byteOffset: 0,
-    byteLength: autoAllocateChunkSize,
-    bytesFilled: 0,
-    elementSize: 1,
-    ctor: Uint8Array,
-    readerType: 'default'
-   };
-   this._pendingPullIntos.push(pullIntoDescriptor);
-  }
-  var promise = ReadableStreamAddReadRequest(stream);
-  ReadableByteStreamControllerCallPullIfNeeded(this);
-  return promise;
- };
- return ReadableByteStreamController;
-}();
-function IsReadableByteStreamController(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_controlledReadableByteStream')) {
-  return false;
- }
- return true;
-}
-function IsReadableStreamBYOBRequest(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_associatedReadableByteStreamController')) {
-  return false;
- }
- return true;
-}
-function ReadableByteStreamControllerCallPullIfNeeded(controller) {
- var shouldPull = ReadableByteStreamControllerShouldCallPull(controller);
- if (shouldPull === false) {
-  return;
- }
- if (controller._pulling === true) {
-  controller._pullAgain = true;
-  return;
- }
- controller._pulling = true;
- var pullPromise = controller._pullAlgorithm();
- uponPromise(pullPromise, function () {
-  controller._pulling = false;
-  if (controller._pullAgain === true) {
-   controller._pullAgain = false;
-   ReadableByteStreamControllerCallPullIfNeeded(controller);
-  }
- }, function (e) {
-  ReadableByteStreamControllerError(controller, e);
- });
-}
-function ReadableByteStreamControllerClearPendingPullIntos(controller) {
- ReadableByteStreamControllerInvalidateBYOBRequest(controller);
- controller._pendingPullIntos = new SimpleQueue();
-}
-function ReadableByteStreamControllerCommitPullIntoDescriptor(stream, pullIntoDescriptor) {
- var done = false;
- if (stream._state === 'closed') {
-  done = true;
- }
- var filledView = ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor);
- if (pullIntoDescriptor.readerType === 'default') {
-  ReadableStreamFulfillReadRequest(stream, filledView, done);
- } else {
-  ReadableStreamFulfillReadIntoRequest(stream, filledView, done);
- }
-}
-function ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor) {
- var bytesFilled = pullIntoDescriptor.bytesFilled;
- var elementSize = pullIntoDescriptor.elementSize;
- return new pullIntoDescriptor.ctor(pullIntoDescriptor.buffer, pullIntoDescriptor.byteOffset, bytesFilled / elementSize);
-}
-function ReadableByteStreamControllerEnqueueChunkToQueue(controller, buffer, byteOffset, byteLength) {
- controller._queue.push({
-  buffer: buffer,
-  byteOffset: byteOffset,
-  byteLength: byteLength
- });
- controller._queueTotalSize += byteLength;
-}
-function ReadableByteStreamControllerFillPullIntoDescriptorFromQueue(controller, pullIntoDescriptor) {
- var elementSize = pullIntoDescriptor.elementSize;
- var currentAlignedBytes = pullIntoDescriptor.bytesFilled - pullIntoDescriptor.bytesFilled % elementSize;
- var maxBytesToCopy = Math.min(controller._queueTotalSize, pullIntoDescriptor.byteLength - pullIntoDescriptor.bytesFilled);
- var maxBytesFilled = pullIntoDescriptor.bytesFilled + maxBytesToCopy;
- var maxAlignedBytes = maxBytesFilled - maxBytesFilled % elementSize;
- var totalBytesToCopyRemaining = maxBytesToCopy;
- var ready = false;
- if (maxAlignedBytes > currentAlignedBytes) {
-  totalBytesToCopyRemaining = maxAlignedBytes - pullIntoDescriptor.bytesFilled;
-  ready = true;
- }
- var queue = controller._queue;
- while (totalBytesToCopyRemaining > 0) {
-  var headOfQueue = queue.peek();
-  var bytesToCopy = Math.min(totalBytesToCopyRemaining, headOfQueue.byteLength);
-  var destStart = pullIntoDescriptor.byteOffset + pullIntoDescriptor.bytesFilled;
-  ArrayBufferCopy(pullIntoDescriptor.buffer, destStart, headOfQueue.buffer, headOfQueue.byteOffset, bytesToCopy);
-  if (headOfQueue.byteLength === bytesToCopy) {
-   queue.shift();
-  } else {
-   headOfQueue.byteOffset += bytesToCopy;
-   headOfQueue.byteLength -= bytesToCopy;
-  }
-  controller._queueTotalSize -= bytesToCopy;
-  ReadableByteStreamControllerFillHeadPullIntoDescriptor(controller, bytesToCopy, pullIntoDescriptor);
-  totalBytesToCopyRemaining -= bytesToCopy;
- }
- return ready;
-}
-function ReadableByteStreamControllerFillHeadPullIntoDescriptor(controller, size, pullIntoDescriptor) {
- ReadableByteStreamControllerInvalidateBYOBRequest(controller);
- pullIntoDescriptor.bytesFilled += size;
-}
-function ReadableByteStreamControllerHandleQueueDrain(controller) {
- if (controller._queueTotalSize === 0 && controller._closeRequested === true) {
-  ReadableByteStreamControllerClearAlgorithms(controller);
-  ReadableStreamClose(controller._controlledReadableByteStream);
- } else {
-  ReadableByteStreamControllerCallPullIfNeeded(controller);
- }
-}
-function ReadableByteStreamControllerInvalidateBYOBRequest(controller) {
- if (controller._byobRequest === undefined) {
-  return;
- }
- controller._byobRequest._associatedReadableByteStreamController = undefined;
- controller._byobRequest._view = undefined;
- controller._byobRequest = undefined;
-}
-function ReadableByteStreamControllerProcessPullIntoDescriptorsUsingQueue(controller) {
- while (controller._pendingPullIntos.length > 0) {
-  if (controller._queueTotalSize === 0) {
-   return;
-  }
-  var pullIntoDescriptor = controller._pendingPullIntos.peek();
-  if (ReadableByteStreamControllerFillPullIntoDescriptorFromQueue(controller, pullIntoDescriptor) === true) {
-   ReadableByteStreamControllerShiftPendingPullInto(controller);
-   ReadableByteStreamControllerCommitPullIntoDescriptor(controller._controlledReadableByteStream, pullIntoDescriptor);
-  }
- }
-}
-function ReadableByteStreamControllerPullInto(controller, view) {
- var stream = controller._controlledReadableByteStream;
- var elementSize = 1;
- if (view.constructor !== DataView) {
-  elementSize = view.constructor.BYTES_PER_ELEMENT;
- }
- var ctor = view.constructor;
- var buffer = TransferArrayBuffer(view.buffer);
- var pullIntoDescriptor = {
-  buffer: buffer,
-  byteOffset: view.byteOffset,
-  byteLength: view.byteLength,
-  bytesFilled: 0,
-  elementSize: elementSize,
-  ctor: ctor,
-  readerType: 'byob'
- };
- if (controller._pendingPullIntos.length > 0) {
-  controller._pendingPullIntos.push(pullIntoDescriptor);
-  return ReadableStreamAddReadIntoRequest(stream);
- }
- if (stream._state === 'closed') {
-  var emptyView = new ctor(pullIntoDescriptor.buffer, pullIntoDescriptor.byteOffset, 0);
-  return promiseResolvedWith(ReadableStreamCreateReadResult(emptyView, true, stream._reader._forAuthorCode));
- }
- if (controller._queueTotalSize > 0) {
-  if (ReadableByteStreamControllerFillPullIntoDescriptorFromQueue(controller, pullIntoDescriptor) === true) {
-   var filledView = ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor);
-   ReadableByteStreamControllerHandleQueueDrain(controller);
-   return promiseResolvedWith(ReadableStreamCreateReadResult(filledView, false, stream._reader._forAuthorCode));
-  }
-  if (controller._closeRequested === true) {
-   var e = new TypeError('Insufficient bytes to fill elements in the given buffer');
-   ReadableByteStreamControllerError(controller, e);
-   return promiseRejectedWith(e);
-  }
- }
- controller._pendingPullIntos.push(pullIntoDescriptor);
- var promise = ReadableStreamAddReadIntoRequest(stream);
- ReadableByteStreamControllerCallPullIfNeeded(controller);
- return promise;
-}
-function ReadableByteStreamControllerRespondInClosedState(controller, firstDescriptor) {
- firstDescriptor.buffer = TransferArrayBuffer(firstDescriptor.buffer);
- var stream = controller._controlledReadableByteStream;
- if (ReadableStreamHasBYOBReader(stream) === true) {
-  while (ReadableStreamGetNumReadIntoRequests(stream) > 0) {
-   var pullIntoDescriptor = ReadableByteStreamControllerShiftPendingPullInto(controller);
-   ReadableByteStreamControllerCommitPullIntoDescriptor(stream, pullIntoDescriptor);
-  }
- }
-}
-function ReadableByteStreamControllerRespondInReadableState(controller, bytesWritten, pullIntoDescriptor) {
- if (pullIntoDescriptor.bytesFilled + bytesWritten > pullIntoDescriptor.byteLength) {
-  throw new RangeError('bytesWritten out of range');
- }
- ReadableByteStreamControllerFillHeadPullIntoDescriptor(controller, bytesWritten, pullIntoDescriptor);
- if (pullIntoDescriptor.bytesFilled < pullIntoDescriptor.elementSize) {
-  return;
- }
- ReadableByteStreamControllerShiftPendingPullInto(controller);
- var remainderSize = pullIntoDescriptor.bytesFilled % pullIntoDescriptor.elementSize;
- if (remainderSize > 0) {
-  var end = pullIntoDescriptor.byteOffset + pullIntoDescriptor.bytesFilled;
-  var remainder = pullIntoDescriptor.buffer.slice(end - remainderSize, end);
-  ReadableByteStreamControllerEnqueueChunkToQueue(controller, remainder, 0, remainder.byteLength);
- }
- pullIntoDescriptor.buffer = TransferArrayBuffer(pullIntoDescriptor.buffer);
- pullIntoDescriptor.bytesFilled -= remainderSize;
- ReadableByteStreamControllerCommitPullIntoDescriptor(controller._controlledReadableByteStream, pullIntoDescriptor);
- ReadableByteStreamControllerProcessPullIntoDescriptorsUsingQueue(controller);
-}
-function ReadableByteStreamControllerRespondInternal(controller, bytesWritten) {
- var firstDescriptor = controller._pendingPullIntos.peek();
- var stream = controller._controlledReadableByteStream;
- if (stream._state === 'closed') {
-  if (bytesWritten !== 0) {
-   throw new TypeError('bytesWritten must be 0 when calling respond() on a closed stream');
-  }
-  ReadableByteStreamControllerRespondInClosedState(controller, firstDescriptor);
- } else {
-  ReadableByteStreamControllerRespondInReadableState(controller, bytesWritten, firstDescriptor);
- }
- ReadableByteStreamControllerCallPullIfNeeded(controller);
-}
-function ReadableByteStreamControllerShiftPendingPullInto(controller) {
- var descriptor = controller._pendingPullIntos.shift();
- ReadableByteStreamControllerInvalidateBYOBRequest(controller);
- return descriptor;
-}
-function ReadableByteStreamControllerShouldCallPull(controller) {
- var stream = controller._controlledReadableByteStream;
- if (stream._state !== 'readable') {
-  return false;
- }
- if (controller._closeRequested === true) {
-  return false;
- }
- if (controller._started === false) {
-  return false;
- }
- if (ReadableStreamHasDefaultReader(stream) === true && ReadableStreamGetNumReadRequests(stream) > 0) {
-  return true;
- }
- if (ReadableStreamHasBYOBReader(stream) === true && ReadableStreamGetNumReadIntoRequests(stream) > 0) {
-  return true;
- }
- var desiredSize = ReadableByteStreamControllerGetDesiredSize(controller);
- if (desiredSize > 0) {
-  return true;
- }
- return false;
-}
-function ReadableByteStreamControllerClearAlgorithms(controller) {
- controller._pullAlgorithm = undefined;
- controller._cancelAlgorithm = undefined;
-}
-function ReadableByteStreamControllerClose(controller) {
- var stream = controller._controlledReadableByteStream;
- if (controller._queueTotalSize > 0) {
-  controller._closeRequested = true;
-  return;
- }
- if (controller._pendingPullIntos.length > 0) {
-  var firstPendingPullInto = controller._pendingPullIntos.peek();
-  if (firstPendingPullInto.bytesFilled > 0) {
-   var e = new TypeError('Insufficient bytes to fill elements in the given buffer');
-   ReadableByteStreamControllerError(controller, e);
-   throw e;
-  }
- }
- ReadableByteStreamControllerClearAlgorithms(controller);
- ReadableStreamClose(stream);
-}
-function ReadableByteStreamControllerEnqueue(controller, chunk) {
- var stream = controller._controlledReadableByteStream;
- var buffer = chunk.buffer;
- var byteOffset = chunk.byteOffset;
- var byteLength = chunk.byteLength;
- var transferredBuffer = TransferArrayBuffer(buffer);
- if (ReadableStreamHasDefaultReader(stream) === true) {
-  if (ReadableStreamGetNumReadRequests(stream) === 0) {
-   ReadableByteStreamControllerEnqueueChunkToQueue(controller, transferredBuffer, byteOffset, byteLength);
-  } else {
-   var transferredView = new Uint8Array(transferredBuffer, byteOffset, byteLength);
-   ReadableStreamFulfillReadRequest(stream, transferredView, false);
-  }
- } else if (ReadableStreamHasBYOBReader(stream) === true) {
-  ReadableByteStreamControllerEnqueueChunkToQueue(controller, transferredBuffer, byteOffset, byteLength);
-  ReadableByteStreamControllerProcessPullIntoDescriptorsUsingQueue(controller);
- } else {
-  ReadableByteStreamControllerEnqueueChunkToQueue(controller, transferredBuffer, byteOffset, byteLength);
- }
- ReadableByteStreamControllerCallPullIfNeeded(controller);
-}
-function ReadableByteStreamControllerError(controller, e) {
- var stream = controller._controlledReadableByteStream;
- if (stream._state !== 'readable') {
-  return;
- }
- ReadableByteStreamControllerClearPendingPullIntos(controller);
- ResetQueue(controller);
- ReadableByteStreamControllerClearAlgorithms(controller);
- ReadableStreamError(stream, e);
-}
-function ReadableByteStreamControllerGetDesiredSize(controller) {
- var stream = controller._controlledReadableByteStream;
- var state = stream._state;
- if (state === 'errored') {
-  return null;
- }
- if (state === 'closed') {
-  return 0;
- }
- return controller._strategyHWM - controller._queueTotalSize;
-}
-function ReadableByteStreamControllerRespond(controller, bytesWritten) {
- bytesWritten = Number(bytesWritten);
- if (IsFiniteNonNegativeNumber(bytesWritten) === false) {
-  throw new RangeError('bytesWritten must be a finite');
- }
- ReadableByteStreamControllerRespondInternal(controller, bytesWritten);
-}
-function ReadableByteStreamControllerRespondWithNewView(controller, view) {
- var firstDescriptor = controller._pendingPullIntos.peek();
- if (firstDescriptor.byteOffset + firstDescriptor.bytesFilled !== view.byteOffset) {
-  throw new RangeError('The region specified by view does not match byobRequest');
- }
- if (firstDescriptor.byteLength !== view.byteLength) {
-  throw new RangeError('The buffer of view has different capacity than byobRequest');
- }
- firstDescriptor.buffer = view.buffer;
- ReadableByteStreamControllerRespondInternal(controller, view.byteLength);
-}
-function SetUpReadableByteStreamController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, autoAllocateChunkSize) {
- controller._controlledReadableByteStream = stream;
- controller._pullAgain = false;
- controller._pulling = false;
- controller._byobRequest = undefined;
- controller._queue = controller._queueTotalSize = undefined;
- ResetQueue(controller);
- controller._closeRequested = false;
- controller._started = false;
- controller._strategyHWM = ValidateAndNormalizeHighWaterMark(highWaterMark);
- controller._pullAlgorithm = pullAlgorithm;
- controller._cancelAlgorithm = cancelAlgorithm;
- controller._autoAllocateChunkSize = autoAllocateChunkSize;
- controller._pendingPullIntos = new SimpleQueue();
- stream._readableStreamController = controller;
- var startResult = startAlgorithm();
- uponPromise(promiseResolvedWith(startResult), function () {
-  controller._started = true;
-  ReadableByteStreamControllerCallPullIfNeeded(controller);
- }, function (r) {
-  ReadableByteStreamControllerError(controller, r);
- });
-}
-function SetUpReadableByteStreamControllerFromUnderlyingSource(stream, underlyingByteSource, highWaterMark) {
- var controller = Object.create(ReadableByteStreamController.prototype);
- function startAlgorithm() {
-  return InvokeOrNoop(underlyingByteSource, 'start', [controller]);
- }
- var pullAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingByteSource, 'pull', 0, [controller]);
- var cancelAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingByteSource, 'cancel', 1, []);
- var autoAllocateChunkSize = underlyingByteSource.autoAllocateChunkSize;
- if (autoAllocateChunkSize !== undefined) {
-  autoAllocateChunkSize = Number(autoAllocateChunkSize);
-  if (NumberIsInteger(autoAllocateChunkSize) === false || autoAllocateChunkSize <= 0) {
-   throw new RangeError('autoAllocateChunkSize must be a positive integer');
-  }
- }
- SetUpReadableByteStreamController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, autoAllocateChunkSize);
-}
-function SetUpReadableStreamBYOBRequest(request, controller, view) {
- request._associatedReadableByteStreamController = controller;
- request._view = view;
-}
-function byobRequestBrandCheckException(name) {
- return new TypeError("ReadableStreamBYOBRequest.prototype." + name + " can only be used on a ReadableStreamBYOBRequest");
-}
-function byteStreamControllerBrandCheckException(name) {
- return new TypeError("ReadableByteStreamController.prototype." + name + " can only be used on a ReadableByteStreamController");
-}
-function AcquireReadableStreamBYOBReader(stream, forAuthorCode) {
- if (forAuthorCode === void 0) {
-  forAuthorCode = false;
- }
- var reader = new ReadableStreamBYOBReader(stream);
- reader._forAuthorCode = forAuthorCode;
- return reader;
-}
-function ReadableStreamAddReadIntoRequest(stream) {
- var promise = newPromise(function (resolve, reject) {
-  var readIntoRequest = {
-   _resolve: resolve,
-   _reject: reject
-  };
-  stream._reader._readIntoRequests.push(readIntoRequest);
- });
- return promise;
-}
-function ReadableStreamFulfillReadIntoRequest(stream, chunk, done) {
- var reader = stream._reader;
- var readIntoRequest = reader._readIntoRequests.shift();
- readIntoRequest._resolve(ReadableStreamCreateReadResult(chunk, done, reader._forAuthorCode));
-}
-function ReadableStreamGetNumReadIntoRequests(stream) {
- return stream._reader._readIntoRequests.length;
-}
-function ReadableStreamHasBYOBReader(stream) {
- var reader = stream._reader;
- if (reader === undefined) {
-  return false;
- }
- if (!IsReadableStreamBYOBReader(reader)) {
-  return false;
- }
- return true;
-}
-var ReadableStreamBYOBReader = function () {
- function ReadableStreamBYOBReader(stream) {
-  if (!IsReadableStream(stream)) {
-   throw new TypeError('ReadableStreamBYOBReader can only be constructed with a ReadableStream instance given a ' + 'byte source');
-  }
-  if (IsReadableByteStreamController(stream._readableStreamController) === false) {
-   throw new TypeError('Cannot construct a ReadableStreamBYOBReader for a stream not constructed with a byte ' + 'source');
-  }
-  if (IsReadableStreamLocked(stream)) {
-   throw new TypeError('This stream has already been locked for exclusive reading by another reader');
-  }
-  ReadableStreamReaderGenericInitialize(this, stream);
-  this._readIntoRequests = new SimpleQueue();
- }
- Object.defineProperty(ReadableStreamBYOBReader.prototype, "closed", {
-  get: function () {
-   if (!IsReadableStreamBYOBReader(this)) {
-    return promiseRejectedWith(byobReaderBrandCheckException('closed'));
-   }
-   return this._closedPromise;
-  },
-  enumerable: true,
-  configurable: true
- });
- ReadableStreamBYOBReader.prototype.cancel = function (reason) {
-  if (!IsReadableStreamBYOBReader(this)) {
-   return promiseRejectedWith(byobReaderBrandCheckException('cancel'));
-  }
-  if (this._ownerReadableStream === undefined) {
-   return promiseRejectedWith(readerLockException('cancel'));
-  }
-  return ReadableStreamReaderGenericCancel(this, reason);
- };
- ReadableStreamBYOBReader.prototype.read = function (view) {
-  if (!IsReadableStreamBYOBReader(this)) {
-   return promiseRejectedWith(byobReaderBrandCheckException('read'));
-  }
-  if (this._ownerReadableStream === undefined) {
-   return promiseRejectedWith(readerLockException('read from'));
-  }
-  if (!ArrayBuffer.isView(view)) {
-   return promiseRejectedWith(new TypeError('view must be an array buffer view'));
-  }
-  if (IsDetachedBuffer(view.buffer) === true);
-  if (view.byteLength === 0) {
-   return promiseRejectedWith(new TypeError('view must have non-zero byteLength'));
-  }
-  return ReadableStreamBYOBReaderRead(this, view);
- };
- ReadableStreamBYOBReader.prototype.releaseLock = function () {
-  if (!IsReadableStreamBYOBReader(this)) {
-   throw byobReaderBrandCheckException('releaseLock');
-  }
-  if (this._ownerReadableStream === undefined) {
-   return;
-  }
-  if (this._readIntoRequests.length > 0) {
-   throw new TypeError('Tried to release a reader lock when that reader has pending read() calls un-settled');
-  }
-  ReadableStreamReaderGenericRelease(this);
- };
- return ReadableStreamBYOBReader;
-}();
-function IsReadableStreamBYOBReader(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_readIntoRequests')) {
-  return false;
- }
- return true;
-}
-function ReadableStreamBYOBReaderRead(reader, view) {
- var stream = reader._ownerReadableStream;
- stream._disturbed = true;
- if (stream._state === 'errored') {
-  return promiseRejectedWith(stream._storedError);
- }
- return ReadableByteStreamControllerPullInto(stream._readableStreamController, view);
-}
-function byobReaderBrandCheckException(name) {
- return new TypeError("ReadableStreamBYOBReader.prototype." + name + " can only be used on a ReadableStreamBYOBReader");
-}
-var ReadableStream = function () {
- function ReadableStream(underlyingSource, strategy) {
-  if (underlyingSource === void 0) {
-   underlyingSource = {};
-  }
-  if (strategy === void 0) {
-   strategy = {};
-  }
-  InitializeReadableStream(this);
-  var size = strategy.size;
-  var highWaterMark = strategy.highWaterMark;
-  var type = underlyingSource.type;
-  var typeString = String(type);
-  if (typeString === 'bytes') {
-   if (size !== undefined) {
-    throw new RangeError('The strategy for a byte stream cannot have a size function');
-   }
-   if (highWaterMark === undefined) {
-    highWaterMark = 0;
-   }
-   highWaterMark = ValidateAndNormalizeHighWaterMark(highWaterMark);
-   SetUpReadableByteStreamControllerFromUnderlyingSource(this, underlyingSource, highWaterMark);
-  } else if (type === undefined) {
    var sizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(size);
    if (highWaterMark === undefined) {
     highWaterMark = 1;
    }
    highWaterMark = ValidateAndNormalizeHighWaterMark(highWaterMark);
-   SetUpReadableStreamDefaultControllerFromUnderlyingSource(this, underlyingSource, highWaterMark, sizeAlgorithm);
-  } else {
-   throw new RangeError('Invalid type is specified');
+   SetUpWritableStreamDefaultControllerFromUnderlyingSink(this, underlyingSink, highWaterMark, sizeAlgorithm);
   }
- }
- Object.defineProperty(ReadableStream.prototype, "locked", {
-  get: function () {
-   if (IsReadableStream(this) === false) {
-    throw streamBrandCheckException$1('locked');
+  Object.defineProperty(WritableStream.prototype, "locked", {
+   get: function () {
+    if (IsWritableStream(this) === false) {
+     throw streamBrandCheckException('locked');
+    }
+    return IsWritableStreamLocked(this);
+   },
+   enumerable: true,
+   configurable: true
+  });
+  WritableStream.prototype.abort = function (reason) {
+   if (IsWritableStream(this) === false) {
+    return promiseRejectedWith(streamBrandCheckException('abort'));
    }
-   return IsReadableStreamLocked(this);
-  },
-  enumerable: true,
-  configurable: true
- });
- ReadableStream.prototype.cancel = function (reason) {
-  if (IsReadableStream(this) === false) {
-   return promiseRejectedWith(streamBrandCheckException$1('cancel'));
-  }
-  if (IsReadableStreamLocked(this) === true) {
-   return promiseRejectedWith(new TypeError('Cannot cancel a stream that already has a reader'));
-  }
-  return ReadableStreamCancel(this, reason);
- };
- ReadableStream.prototype.getReader = function (_a) {
-  var mode = (_a === void 0 ? {} : _a).mode;
-  if (IsReadableStream(this) === false) {
-   throw streamBrandCheckException$1('getReader');
-  }
-  if (mode === undefined) {
-   return AcquireReadableStreamDefaultReader(this, true);
-  }
-  mode = String(mode);
-  if (mode === 'byob') {
-   return AcquireReadableStreamBYOBReader(this, true);
-  }
-  throw new RangeError('Invalid mode is specified');
- };
- ReadableStream.prototype.pipeThrough = function (_a, _b) {
-  var writable = _a.writable, readable = _a.readable;
-  var _c = _b === void 0 ? {} : _b, preventClose = _c.preventClose, preventAbort = _c.preventAbort, preventCancel = _c.preventCancel, signal = _c.signal;
-  if (IsReadableStream(this) === false) {
-   throw streamBrandCheckException$1('pipeThrough');
-  }
-  if (IsWritableStream(writable) === false) {
-   throw new TypeError('writable argument to pipeThrough must be a WritableStream');
-  }
-  if (IsReadableStream(readable) === false) {
-   throw new TypeError('readable argument to pipeThrough must be a ReadableStream');
-  }
-  preventClose = Boolean(preventClose);
-  preventAbort = Boolean(preventAbort);
-  preventCancel = Boolean(preventCancel);
-  if (signal !== undefined && !isAbortSignal(signal)) {
-   throw new TypeError('ReadableStream.prototype.pipeThrough\'s signal option must be an AbortSignal');
-  }
-  if (IsReadableStreamLocked(this) === true) {
-   throw new TypeError('ReadableStream.prototype.pipeThrough cannot be used on a locked ReadableStream');
-  }
-  if (IsWritableStreamLocked(writable) === true) {
-   throw new TypeError('ReadableStream.prototype.pipeThrough cannot be used on a locked WritableStream');
-  }
-  var promise = ReadableStreamPipeTo(this, writable, preventClose, preventAbort, preventCancel, signal);
-  setPromiseIsHandledToTrue(promise);
-  return readable;
- };
- ReadableStream.prototype.pipeTo = function (dest, _a) {
-  var _b = _a === void 0 ? {} : _a, preventClose = _b.preventClose, preventAbort = _b.preventAbort, preventCancel = _b.preventCancel, signal = _b.signal;
-  if (IsReadableStream(this) === false) {
-   return promiseRejectedWith(streamBrandCheckException$1('pipeTo'));
-  }
-  if (IsWritableStream(dest) === false) {
-   return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo\'s first argument must be a WritableStream'));
-  }
-  preventClose = Boolean(preventClose);
-  preventAbort = Boolean(preventAbort);
-  preventCancel = Boolean(preventCancel);
-  if (signal !== undefined && !isAbortSignal(signal)) {
-   return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo\'s signal option must be an AbortSignal'));
-  }
-  if (IsReadableStreamLocked(this) === true) {
-   return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo cannot be used on a locked ReadableStream'));
-  }
-  if (IsWritableStreamLocked(dest) === true) {
-   return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo cannot be used on a locked WritableStream'));
-  }
-  return ReadableStreamPipeTo(this, dest, preventClose, preventAbort, preventCancel, signal);
- };
- ReadableStream.prototype.tee = function () {
-  if (IsReadableStream(this) === false) {
-   throw streamBrandCheckException$1('tee');
-  }
-  var branches = ReadableStreamTee(this);
-  return createArrayFromList(branches);
- };
- ReadableStream.prototype.getIterator = function (_a) {
-  var _b = (_a === void 0 ? {} : _a).preventCancel, preventCancel = _b === void 0 ? false : _b;
-  if (IsReadableStream(this) === false) {
-   throw streamBrandCheckException$1('getIterator');
-  }
-  return AcquireReadableStreamAsyncIterator(this, preventCancel);
- };
- return ReadableStream;
-}();
-if (typeof SymbolPolyfill.asyncIterator === 'symbol') {
- Object.defineProperty(ReadableStream.prototype, SymbolPolyfill.asyncIterator, {
-  value: ReadableStream.prototype.getIterator,
-  enumerable: false,
-  writable: true,
-  configurable: true
- });
-}
-function CreateReadableStream(startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm) {
- if (highWaterMark === void 0) {
-  highWaterMark = 1;
+   if (IsWritableStreamLocked(this) === true) {
+    return promiseRejectedWith(new TypeError('Cannot abort a stream that already has a writer'));
+   }
+   return WritableStreamAbort(this, reason);
+  };
+  WritableStream.prototype.getWriter = function () {
+   if (IsWritableStream(this) === false) {
+    throw streamBrandCheckException('getWriter');
+   }
+   return AcquireWritableStreamDefaultWriter(this);
+  };
+  return WritableStream;
+ }();
+ function AcquireWritableStreamDefaultWriter(stream) {
+  return new WritableStreamDefaultWriter(stream);
  }
- if (sizeAlgorithm === void 0) {
-  sizeAlgorithm = function () {
+ function CreateWritableStream(startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm) {
+  if (highWaterMark === void 0) {
+   highWaterMark = 1;
+  }
+  if (sizeAlgorithm === void 0) {
+   sizeAlgorithm = function () {
+    return 1;
+   };
+  }
+  var stream = Object.create(WritableStream.prototype);
+  InitializeWritableStream(stream);
+  var controller = Object.create(WritableStreamDefaultController.prototype);
+  SetUpWritableStreamDefaultController(stream, controller, startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm);
+  return stream;
+ }
+ function InitializeWritableStream(stream) {
+  stream._state = 'writable';
+  stream._storedError = undefined;
+  stream._writer = undefined;
+  stream._writableStreamController = undefined;
+  stream._writeRequests = new SimpleQueue();
+  stream._inFlightWriteRequest = undefined;
+  stream._closeRequest = undefined;
+  stream._inFlightCloseRequest = undefined;
+  stream._pendingAbortRequest = undefined;
+  stream._backpressure = false;
+ }
+ function IsWritableStream(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_writableStreamController')) {
+   return false;
+  }
+  return true;
+ }
+ function IsWritableStreamLocked(stream) {
+  if (stream._writer === undefined) {
+   return false;
+  }
+  return true;
+ }
+ function WritableStreamAbort(stream, reason) {
+  var state = stream._state;
+  if (state === 'closed' || state === 'errored') {
+   return promiseResolvedWith(undefined);
+  }
+  if (stream._pendingAbortRequest !== undefined) {
+   return stream._pendingAbortRequest._promise;
+  }
+  var wasAlreadyErroring = false;
+  if (state === 'erroring') {
+   wasAlreadyErroring = true;
+   reason = undefined;
+  }
+  var promise = newPromise(function (resolve, reject) {
+   stream._pendingAbortRequest = {
+    _promise: undefined,
+    _resolve: resolve,
+    _reject: reject,
+    _reason: reason,
+    _wasAlreadyErroring: wasAlreadyErroring
+   };
+  });
+  stream._pendingAbortRequest._promise = promise;
+  if (wasAlreadyErroring === false) {
+   WritableStreamStartErroring(stream, reason);
+  }
+  return promise;
+ }
+ function WritableStreamAddWriteRequest(stream) {
+  var promise = newPromise(function (resolve, reject) {
+   var writeRequest = {
+    _resolve: resolve,
+    _reject: reject
+   };
+   stream._writeRequests.push(writeRequest);
+  });
+  return promise;
+ }
+ function WritableStreamDealWithRejection(stream, error) {
+  var state = stream._state;
+  if (state === 'writable') {
+   WritableStreamStartErroring(stream, error);
+   return;
+  }
+  WritableStreamFinishErroring(stream);
+ }
+ function WritableStreamStartErroring(stream, reason) {
+  var controller = stream._writableStreamController;
+  stream._state = 'erroring';
+  stream._storedError = reason;
+  var writer = stream._writer;
+  if (writer !== undefined) {
+   WritableStreamDefaultWriterEnsureReadyPromiseRejected(writer, reason);
+  }
+  if (WritableStreamHasOperationMarkedInFlight(stream) === false && controller._started === true) {
+   WritableStreamFinishErroring(stream);
+  }
+ }
+ function WritableStreamFinishErroring(stream) {
+  stream._state = 'errored';
+  stream._writableStreamController[ErrorSteps]();
+  var storedError = stream._storedError;
+  stream._writeRequests.forEach(function (writeRequest) {
+   writeRequest._reject(storedError);
+  });
+  stream._writeRequests = new SimpleQueue();
+  if (stream._pendingAbortRequest === undefined) {
+   WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
+   return;
+  }
+  var abortRequest = stream._pendingAbortRequest;
+  stream._pendingAbortRequest = undefined;
+  if (abortRequest._wasAlreadyErroring === true) {
+   abortRequest._reject(storedError);
+   WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
+   return;
+  }
+  var promise = stream._writableStreamController[AbortSteps](abortRequest._reason);
+  uponPromise(promise, function () {
+   abortRequest._resolve();
+   WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
+  }, function (reason) {
+   abortRequest._reject(reason);
+   WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
+  });
+ }
+ function WritableStreamFinishInFlightWrite(stream) {
+  stream._inFlightWriteRequest._resolve(undefined);
+  stream._inFlightWriteRequest = undefined;
+ }
+ function WritableStreamFinishInFlightWriteWithError(stream, error) {
+  stream._inFlightWriteRequest._reject(error);
+  stream._inFlightWriteRequest = undefined;
+  WritableStreamDealWithRejection(stream, error);
+ }
+ function WritableStreamFinishInFlightClose(stream) {
+  stream._inFlightCloseRequest._resolve(undefined);
+  stream._inFlightCloseRequest = undefined;
+  var state = stream._state;
+  if (state === 'erroring') {
+   stream._storedError = undefined;
+   if (stream._pendingAbortRequest !== undefined) {
+    stream._pendingAbortRequest._resolve();
+    stream._pendingAbortRequest = undefined;
+   }
+  }
+  stream._state = 'closed';
+  var writer = stream._writer;
+  if (writer !== undefined) {
+   defaultWriterClosedPromiseResolve(writer);
+  }
+ }
+ function WritableStreamFinishInFlightCloseWithError(stream, error) {
+  stream._inFlightCloseRequest._reject(error);
+  stream._inFlightCloseRequest = undefined;
+  if (stream._pendingAbortRequest !== undefined) {
+   stream._pendingAbortRequest._reject(error);
+   stream._pendingAbortRequest = undefined;
+  }
+  WritableStreamDealWithRejection(stream, error);
+ }
+ function WritableStreamCloseQueuedOrInFlight(stream) {
+  if (stream._closeRequest === undefined && stream._inFlightCloseRequest === undefined) {
+   return false;
+  }
+  return true;
+ }
+ function WritableStreamHasOperationMarkedInFlight(stream) {
+  if (stream._inFlightWriteRequest === undefined && stream._inFlightCloseRequest === undefined) {
+   return false;
+  }
+  return true;
+ }
+ function WritableStreamMarkCloseRequestInFlight(stream) {
+  stream._inFlightCloseRequest = stream._closeRequest;
+  stream._closeRequest = undefined;
+ }
+ function WritableStreamMarkFirstWriteRequestInFlight(stream) {
+  stream._inFlightWriteRequest = stream._writeRequests.shift();
+ }
+ function WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream) {
+  if (stream._closeRequest !== undefined) {
+   stream._closeRequest._reject(stream._storedError);
+   stream._closeRequest = undefined;
+  }
+  var writer = stream._writer;
+  if (writer !== undefined) {
+   defaultWriterClosedPromiseReject(writer, stream._storedError);
+  }
+ }
+ function WritableStreamUpdateBackpressure(stream, backpressure) {
+  var writer = stream._writer;
+  if (writer !== undefined && backpressure !== stream._backpressure) {
+   if (backpressure === true) {
+    defaultWriterReadyPromiseReset(writer);
+   } else {
+    defaultWriterReadyPromiseResolve(writer);
+   }
+  }
+  stream._backpressure = backpressure;
+ }
+ var WritableStreamDefaultWriter = function () {
+  function WritableStreamDefaultWriter(stream) {
+   if (IsWritableStream(stream) === false) {
+    throw new TypeError('WritableStreamDefaultWriter can only be constructed with a WritableStream instance');
+   }
+   if (IsWritableStreamLocked(stream) === true) {
+    throw new TypeError('This stream has already been locked for exclusive writing by another writer');
+   }
+   this._ownerWritableStream = stream;
+   stream._writer = this;
+   var state = stream._state;
+   if (state === 'writable') {
+    if (WritableStreamCloseQueuedOrInFlight(stream) === false && stream._backpressure === true) {
+     defaultWriterReadyPromiseInitialize(this);
+    } else {
+     defaultWriterReadyPromiseInitializeAsResolved(this);
+    }
+    defaultWriterClosedPromiseInitialize(this);
+   } else if (state === 'erroring') {
+    defaultWriterReadyPromiseInitializeAsRejected(this, stream._storedError);
+    defaultWriterClosedPromiseInitialize(this);
+   } else if (state === 'closed') {
+    defaultWriterReadyPromiseInitializeAsResolved(this);
+    defaultWriterClosedPromiseInitializeAsResolved(this);
+   } else {
+    var storedError = stream._storedError;
+    defaultWriterReadyPromiseInitializeAsRejected(this, storedError);
+    defaultWriterClosedPromiseInitializeAsRejected(this, storedError);
+   }
+  }
+  Object.defineProperty(WritableStreamDefaultWriter.prototype, "closed", {
+   get: function () {
+    if (IsWritableStreamDefaultWriter(this) === false) {
+     return promiseRejectedWith(defaultWriterBrandCheckException('closed'));
+    }
+    return this._closedPromise;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  Object.defineProperty(WritableStreamDefaultWriter.prototype, "desiredSize", {
+   get: function () {
+    if (IsWritableStreamDefaultWriter(this) === false) {
+     throw defaultWriterBrandCheckException('desiredSize');
+    }
+    if (this._ownerWritableStream === undefined) {
+     throw defaultWriterLockException('desiredSize');
+    }
+    return WritableStreamDefaultWriterGetDesiredSize(this);
+   },
+   enumerable: true,
+   configurable: true
+  });
+  Object.defineProperty(WritableStreamDefaultWriter.prototype, "ready", {
+   get: function () {
+    if (IsWritableStreamDefaultWriter(this) === false) {
+     return promiseRejectedWith(defaultWriterBrandCheckException('ready'));
+    }
+    return this._readyPromise;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  WritableStreamDefaultWriter.prototype.abort = function (reason) {
+   if (IsWritableStreamDefaultWriter(this) === false) {
+    return promiseRejectedWith(defaultWriterBrandCheckException('abort'));
+   }
+   if (this._ownerWritableStream === undefined) {
+    return promiseRejectedWith(defaultWriterLockException('abort'));
+   }
+   return WritableStreamDefaultWriterAbort(this, reason);
+  };
+  WritableStreamDefaultWriter.prototype.close = function () {
+   if (IsWritableStreamDefaultWriter(this) === false) {
+    return promiseRejectedWith(defaultWriterBrandCheckException('close'));
+   }
+   var stream = this._ownerWritableStream;
+   if (stream === undefined) {
+    return promiseRejectedWith(defaultWriterLockException('close'));
+   }
+   if (WritableStreamCloseQueuedOrInFlight(stream) === true) {
+    return promiseRejectedWith(new TypeError('cannot close an already-closing stream'));
+   }
+   return WritableStreamDefaultWriterClose(this);
+  };
+  WritableStreamDefaultWriter.prototype.releaseLock = function () {
+   if (IsWritableStreamDefaultWriter(this) === false) {
+    throw defaultWriterBrandCheckException('releaseLock');
+   }
+   var stream = this._ownerWritableStream;
+   if (stream === undefined) {
+    return;
+   }
+   WritableStreamDefaultWriterRelease(this);
+  };
+  WritableStreamDefaultWriter.prototype.write = function (chunk) {
+   if (IsWritableStreamDefaultWriter(this) === false) {
+    return promiseRejectedWith(defaultWriterBrandCheckException('write'));
+   }
+   if (this._ownerWritableStream === undefined) {
+    return promiseRejectedWith(defaultWriterLockException('write to'));
+   }
+   return WritableStreamDefaultWriterWrite(this, chunk);
+  };
+  return WritableStreamDefaultWriter;
+ }();
+ function IsWritableStreamDefaultWriter(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_ownerWritableStream')) {
+   return false;
+  }
+  return true;
+ }
+ function WritableStreamDefaultWriterAbort(writer, reason) {
+  var stream = writer._ownerWritableStream;
+  return WritableStreamAbort(stream, reason);
+ }
+ function WritableStreamDefaultWriterClose(writer) {
+  var stream = writer._ownerWritableStream;
+  var state = stream._state;
+  if (state === 'closed' || state === 'errored') {
+   return promiseRejectedWith(new TypeError("The stream (in " + state + " state) is not in the writable state and cannot be closed"));
+  }
+  var promise = newPromise(function (resolve, reject) {
+   var closeRequest = {
+    _resolve: resolve,
+    _reject: reject
+   };
+   stream._closeRequest = closeRequest;
+  });
+  if (stream._backpressure === true && state === 'writable') {
+   defaultWriterReadyPromiseResolve(writer);
+  }
+  WritableStreamDefaultControllerClose(stream._writableStreamController);
+  return promise;
+ }
+ function WritableStreamDefaultWriterCloseWithErrorPropagation(writer) {
+  var stream = writer._ownerWritableStream;
+  var state = stream._state;
+  if (WritableStreamCloseQueuedOrInFlight(stream) === true || state === 'closed') {
+   return promiseResolvedWith(undefined);
+  }
+  if (state === 'errored') {
+   return promiseRejectedWith(stream._storedError);
+  }
+  return WritableStreamDefaultWriterClose(writer);
+ }
+ function WritableStreamDefaultWriterEnsureClosedPromiseRejected(writer, error) {
+  if (writer._closedPromiseState === 'pending') {
+   defaultWriterClosedPromiseReject(writer, error);
+  } else {
+   defaultWriterClosedPromiseResetToRejected(writer, error);
+  }
+ }
+ function WritableStreamDefaultWriterEnsureReadyPromiseRejected(writer, error) {
+  if (writer._readyPromiseState === 'pending') {
+   defaultWriterReadyPromiseReject(writer, error);
+  } else {
+   defaultWriterReadyPromiseResetToRejected(writer, error);
+  }
+ }
+ function WritableStreamDefaultWriterGetDesiredSize(writer) {
+  var stream = writer._ownerWritableStream;
+  var state = stream._state;
+  if (state === 'errored' || state === 'erroring') {
+   return null;
+  }
+  if (state === 'closed') {
+   return 0;
+  }
+  return WritableStreamDefaultControllerGetDesiredSize(stream._writableStreamController);
+ }
+ function WritableStreamDefaultWriterRelease(writer) {
+  var stream = writer._ownerWritableStream;
+  var releasedError = new TypeError('Writer was released and can no longer be used to monitor the stream\'s closedness');
+  WritableStreamDefaultWriterEnsureReadyPromiseRejected(writer, releasedError);
+  WritableStreamDefaultWriterEnsureClosedPromiseRejected(writer, releasedError);
+  stream._writer = undefined;
+  writer._ownerWritableStream = undefined;
+ }
+ function WritableStreamDefaultWriterWrite(writer, chunk) {
+  var stream = writer._ownerWritableStream;
+  var controller = stream._writableStreamController;
+  var chunkSize = WritableStreamDefaultControllerGetChunkSize(controller, chunk);
+  if (stream !== writer._ownerWritableStream) {
+   return promiseRejectedWith(defaultWriterLockException('write to'));
+  }
+  var state = stream._state;
+  if (state === 'errored') {
+   return promiseRejectedWith(stream._storedError);
+  }
+  if (WritableStreamCloseQueuedOrInFlight(stream) === true || state === 'closed') {
+   return promiseRejectedWith(new TypeError('The stream is closing or closed and cannot be written to'));
+  }
+  if (state === 'erroring') {
+   return promiseRejectedWith(stream._storedError);
+  }
+  var promise = WritableStreamAddWriteRequest(stream);
+  WritableStreamDefaultControllerWrite(controller, chunk, chunkSize);
+  return promise;
+ }
+ var WritableStreamDefaultController = function () {
+  function WritableStreamDefaultController() {
+   throw new TypeError('WritableStreamDefaultController cannot be constructed explicitly');
+  }
+  WritableStreamDefaultController.prototype.error = function (e) {
+   if (IsWritableStreamDefaultController(this) === false) {
+    throw new TypeError('WritableStreamDefaultController.prototype.error can only be used on a WritableStreamDefaultController');
+   }
+   var state = this._controlledWritableStream._state;
+   if (state !== 'writable') {
+    return;
+   }
+   WritableStreamDefaultControllerError(this, e);
+  };
+  WritableStreamDefaultController.prototype[AbortSteps] = function (reason) {
+   var result = this._abortAlgorithm(reason);
+   WritableStreamDefaultControllerClearAlgorithms(this);
+   return result;
+  };
+  WritableStreamDefaultController.prototype[ErrorSteps] = function () {
+   ResetQueue(this);
+  };
+  return WritableStreamDefaultController;
+ }();
+ function IsWritableStreamDefaultController(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_controlledWritableStream')) {
+   return false;
+  }
+  return true;
+ }
+ function SetUpWritableStreamDefaultController(stream, controller, startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm) {
+  controller._controlledWritableStream = stream;
+  stream._writableStreamController = controller;
+  controller._queue = undefined;
+  controller._queueTotalSize = undefined;
+  ResetQueue(controller);
+  controller._started = false;
+  controller._strategySizeAlgorithm = sizeAlgorithm;
+  controller._strategyHWM = highWaterMark;
+  controller._writeAlgorithm = writeAlgorithm;
+  controller._closeAlgorithm = closeAlgorithm;
+  controller._abortAlgorithm = abortAlgorithm;
+  var backpressure = WritableStreamDefaultControllerGetBackpressure(controller);
+  WritableStreamUpdateBackpressure(stream, backpressure);
+  var startResult = startAlgorithm();
+  var startPromise = promiseResolvedWith(startResult);
+  uponPromise(startPromise, function () {
+   controller._started = true;
+   WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
+  }, function (r) {
+   controller._started = true;
+   WritableStreamDealWithRejection(stream, r);
+  });
+ }
+ function SetUpWritableStreamDefaultControllerFromUnderlyingSink(stream, underlyingSink, highWaterMark, sizeAlgorithm) {
+  var controller = Object.create(WritableStreamDefaultController.prototype);
+  function startAlgorithm() {
+   return InvokeOrNoop(underlyingSink, 'start', [controller]);
+  }
+  var writeAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSink, 'write', 1, [controller]);
+  var closeAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSink, 'close', 0, []);
+  var abortAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSink, 'abort', 1, []);
+  SetUpWritableStreamDefaultController(stream, controller, startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, highWaterMark, sizeAlgorithm);
+ }
+ function WritableStreamDefaultControllerClearAlgorithms(controller) {
+  controller._writeAlgorithm = undefined;
+  controller._closeAlgorithm = undefined;
+  controller._abortAlgorithm = undefined;
+  controller._strategySizeAlgorithm = undefined;
+ }
+ function WritableStreamDefaultControllerClose(controller) {
+  EnqueueValueWithSize(controller, 'close', 0);
+  WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
+ }
+ function WritableStreamDefaultControllerGetChunkSize(controller, chunk) {
+  try {
+   return controller._strategySizeAlgorithm(chunk);
+  } catch (chunkSizeE) {
+   WritableStreamDefaultControllerErrorIfNeeded(controller, chunkSizeE);
+   return 1;
+  }
+ }
+ function WritableStreamDefaultControllerGetDesiredSize(controller) {
+  return controller._strategyHWM - controller._queueTotalSize;
+ }
+ function WritableStreamDefaultControllerWrite(controller, chunk, chunkSize) {
+  var writeRecord = { chunk: chunk };
+  try {
+   EnqueueValueWithSize(controller, writeRecord, chunkSize);
+  } catch (enqueueE) {
+   WritableStreamDefaultControllerErrorIfNeeded(controller, enqueueE);
+   return;
+  }
+  var stream = controller._controlledWritableStream;
+  if (WritableStreamCloseQueuedOrInFlight(stream) === false && stream._state === 'writable') {
+   var backpressure = WritableStreamDefaultControllerGetBackpressure(controller);
+   WritableStreamUpdateBackpressure(stream, backpressure);
+  }
+  WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
+ }
+ function WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller) {
+  var stream = controller._controlledWritableStream;
+  if (controller._started === false) {
+   return;
+  }
+  if (stream._inFlightWriteRequest !== undefined) {
+   return;
+  }
+  var state = stream._state;
+  if (state === 'erroring') {
+   WritableStreamFinishErroring(stream);
+   return;
+  }
+  if (controller._queue.length === 0) {
+   return;
+  }
+  var writeRecord = PeekQueueValue(controller);
+  if (writeRecord === 'close') {
+   WritableStreamDefaultControllerProcessClose(controller);
+  } else {
+   WritableStreamDefaultControllerProcessWrite(controller, writeRecord.chunk);
+  }
+ }
+ function WritableStreamDefaultControllerErrorIfNeeded(controller, error) {
+  if (controller._controlledWritableStream._state === 'writable') {
+   WritableStreamDefaultControllerError(controller, error);
+  }
+ }
+ function WritableStreamDefaultControllerProcessClose(controller) {
+  var stream = controller._controlledWritableStream;
+  WritableStreamMarkCloseRequestInFlight(stream);
+  DequeueValue(controller);
+  var sinkClosePromise = controller._closeAlgorithm();
+  WritableStreamDefaultControllerClearAlgorithms(controller);
+  uponPromise(sinkClosePromise, function () {
+   WritableStreamFinishInFlightClose(stream);
+  }, function (reason) {
+   WritableStreamFinishInFlightCloseWithError(stream, reason);
+  });
+ }
+ function WritableStreamDefaultControllerProcessWrite(controller, chunk) {
+  var stream = controller._controlledWritableStream;
+  WritableStreamMarkFirstWriteRequestInFlight(stream);
+  var sinkWritePromise = controller._writeAlgorithm(chunk);
+  uponPromise(sinkWritePromise, function () {
+   WritableStreamFinishInFlightWrite(stream);
+   var state = stream._state;
+   DequeueValue(controller);
+   if (WritableStreamCloseQueuedOrInFlight(stream) === false && state === 'writable') {
+    var backpressure = WritableStreamDefaultControllerGetBackpressure(controller);
+    WritableStreamUpdateBackpressure(stream, backpressure);
+   }
+   WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
+  }, function (reason) {
+   if (stream._state === 'writable') {
+    WritableStreamDefaultControllerClearAlgorithms(controller);
+   }
+   WritableStreamFinishInFlightWriteWithError(stream, reason);
+  });
+ }
+ function WritableStreamDefaultControllerGetBackpressure(controller) {
+  var desiredSize = WritableStreamDefaultControllerGetDesiredSize(controller);
+  return desiredSize <= 0;
+ }
+ function WritableStreamDefaultControllerError(controller, error) {
+  var stream = controller._controlledWritableStream;
+  WritableStreamDefaultControllerClearAlgorithms(controller);
+  WritableStreamStartErroring(stream, error);
+ }
+ function streamBrandCheckException(name) {
+  return new TypeError("WritableStream.prototype." + name + " can only be used on a WritableStream");
+ }
+ function defaultWriterBrandCheckException(name) {
+  return new TypeError("WritableStreamDefaultWriter.prototype." + name + " can only be used on a WritableStreamDefaultWriter");
+ }
+ function defaultWriterLockException(name) {
+  return new TypeError('Cannot ' + name + ' a stream using a released writer');
+ }
+ function defaultWriterClosedPromiseInitialize(writer) {
+  writer._closedPromise = newPromise(function (resolve, reject) {
+   writer._closedPromise_resolve = resolve;
+   writer._closedPromise_reject = reject;
+   writer._closedPromiseState = 'pending';
+  });
+ }
+ function defaultWriterClosedPromiseInitializeAsRejected(writer, reason) {
+  defaultWriterClosedPromiseInitialize(writer);
+  defaultWriterClosedPromiseReject(writer, reason);
+ }
+ function defaultWriterClosedPromiseInitializeAsResolved(writer) {
+  defaultWriterClosedPromiseInitialize(writer);
+  defaultWriterClosedPromiseResolve(writer);
+ }
+ function defaultWriterClosedPromiseReject(writer, reason) {
+  setPromiseIsHandledToTrue(writer._closedPromise);
+  writer._closedPromise_reject(reason);
+  writer._closedPromise_resolve = undefined;
+  writer._closedPromise_reject = undefined;
+  writer._closedPromiseState = 'rejected';
+ }
+ function defaultWriterClosedPromiseResetToRejected(writer, reason) {
+  defaultWriterClosedPromiseInitializeAsRejected(writer, reason);
+ }
+ function defaultWriterClosedPromiseResolve(writer) {
+  writer._closedPromise_resolve(undefined);
+  writer._closedPromise_resolve = undefined;
+  writer._closedPromise_reject = undefined;
+  writer._closedPromiseState = 'resolved';
+ }
+ function defaultWriterReadyPromiseInitialize(writer) {
+  writer._readyPromise = newPromise(function (resolve, reject) {
+   writer._readyPromise_resolve = resolve;
+   writer._readyPromise_reject = reject;
+  });
+  writer._readyPromiseState = 'pending';
+ }
+ function defaultWriterReadyPromiseInitializeAsRejected(writer, reason) {
+  defaultWriterReadyPromiseInitialize(writer);
+  defaultWriterReadyPromiseReject(writer, reason);
+ }
+ function defaultWriterReadyPromiseInitializeAsResolved(writer) {
+  defaultWriterReadyPromiseInitialize(writer);
+  defaultWriterReadyPromiseResolve(writer);
+ }
+ function defaultWriterReadyPromiseReject(writer, reason) {
+  setPromiseIsHandledToTrue(writer._readyPromise);
+  writer._readyPromise_reject(reason);
+  writer._readyPromise_resolve = undefined;
+  writer._readyPromise_reject = undefined;
+  writer._readyPromiseState = 'rejected';
+ }
+ function defaultWriterReadyPromiseReset(writer) {
+  defaultWriterReadyPromiseInitialize(writer);
+ }
+ function defaultWriterReadyPromiseResetToRejected(writer, reason) {
+  defaultWriterReadyPromiseInitializeAsRejected(writer, reason);
+ }
+ function defaultWriterReadyPromiseResolve(writer) {
+  writer._readyPromise_resolve(undefined);
+  writer._readyPromise_resolve = undefined;
+  writer._readyPromise_reject = undefined;
+  writer._readyPromiseState = 'fulfilled';
+ }
+ function isAbortSignal(value) {
+  if (typeof value !== 'object' || value === null) {
+   return false;
+  }
+  try {
+   return typeof value.aborted === 'boolean';
+  } catch (_a) {
+   return false;
+  }
+ }
+ var NativeDOMException = typeof DOMException !== 'undefined' ? DOMException : undefined;
+ function isDOMExceptionConstructor(ctor) {
+  if (!(typeof ctor === 'function' || typeof ctor === 'object')) {
+   return false;
+  }
+  try {
+   new ctor();
+   return true;
+  } catch (_a) {
+   return false;
+  }
+ }
+ function createDOMExceptionPolyfill() {
+  var ctor = function DOMException(message, name) {
+   this.message = message || '';
+   this.name = name || 'Error';
+   if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor);
+   }
+  };
+  ctor.prototype = Object.create(Error.prototype);
+  Object.defineProperty(ctor.prototype, 'constructor', {
+   value: ctor,
+   writable: true,
+   configurable: true
+  });
+  return ctor;
+ }
+ var DOMException$1 = isDOMExceptionConstructor(NativeDOMException) ? NativeDOMException : createDOMExceptionPolyfill();
+ function ReadableStreamPipeTo(source, dest, preventClose, preventAbort, preventCancel, signal) {
+  var reader = AcquireReadableStreamDefaultReader(source);
+  var writer = AcquireWritableStreamDefaultWriter(dest);
+  var shuttingDown = false;
+  var currentWrite = promiseResolvedWith(undefined);
+  return newPromise(function (resolve, reject) {
+   var abortAlgorithm;
+   if (signal !== undefined) {
+    abortAlgorithm = function () {
+     var error = new DOMException$1('Aborted', 'AbortError');
+     var actions = [];
+     if (preventAbort === false) {
+      actions.push(function () {
+       if (dest._state === 'writable') {
+        return WritableStreamAbort(dest, error);
+       }
+       return promiseResolvedWith(undefined);
+      });
+     }
+     if (preventCancel === false) {
+      actions.push(function () {
+       if (source._state === 'readable') {
+        return ReadableStreamCancel(source, error);
+       }
+       return promiseResolvedWith(undefined);
+      });
+     }
+     shutdownWithAction(function () {
+      return Promise.all(actions.map(function (action) {
+       return action();
+      }));
+     }, true, error);
+    };
+    if (signal.aborted === true) {
+     abortAlgorithm();
+     return;
+    }
+    signal.addEventListener('abort', abortAlgorithm);
+   }
+   function pipeLoop() {
+    return newPromise(function (resolveLoop, rejectLoop) {
+     function next(done) {
+      if (done) {
+       resolveLoop();
+      } else {
+       PerformPromiseThen(pipeStep(), next, rejectLoop);
+      }
+     }
+     next(false);
+    });
+   }
+   function pipeStep() {
+    if (shuttingDown === true) {
+     return promiseResolvedWith(true);
+    }
+    return PerformPromiseThen(writer._readyPromise, function () {
+     return PerformPromiseThen(ReadableStreamDefaultReaderRead(reader), function (_a) {
+      var value = _a.value, done = _a.done;
+      if (done === true) {
+       return true;
+      }
+      currentWrite = PerformPromiseThen(WritableStreamDefaultWriterWrite(writer, value), undefined, noop);
+      return false;
+     });
+    });
+   }
+   isOrBecomesErrored(source, reader._closedPromise, function (storedError) {
+    if (preventAbort === false) {
+     shutdownWithAction(function () {
+      return WritableStreamAbort(dest, storedError);
+     }, true, storedError);
+    } else {
+     shutdown(true, storedError);
+    }
+   });
+   isOrBecomesErrored(dest, writer._closedPromise, function (storedError) {
+    if (preventCancel === false) {
+     shutdownWithAction(function () {
+      return ReadableStreamCancel(source, storedError);
+     }, true, storedError);
+    } else {
+     shutdown(true, storedError);
+    }
+   });
+   isOrBecomesClosed(source, reader._closedPromise, function () {
+    if (preventClose === false) {
+     shutdownWithAction(function () {
+      return WritableStreamDefaultWriterCloseWithErrorPropagation(writer);
+     });
+    } else {
+     shutdown();
+    }
+   });
+   if (WritableStreamCloseQueuedOrInFlight(dest) === true || dest._state === 'closed') {
+    var destClosed_1 = new TypeError('the destination writable stream closed before all data could be piped to it');
+    if (preventCancel === false) {
+     shutdownWithAction(function () {
+      return ReadableStreamCancel(source, destClosed_1);
+     }, true, destClosed_1);
+    } else {
+     shutdown(true, destClosed_1);
+    }
+   }
+   setPromiseIsHandledToTrue(pipeLoop());
+   function waitForWritesToFinish() {
+    var oldCurrentWrite = currentWrite;
+    return PerformPromiseThen(currentWrite, function () {
+     return oldCurrentWrite !== currentWrite ? waitForWritesToFinish() : undefined;
+    });
+   }
+   function isOrBecomesErrored(stream, promise, action) {
+    if (stream._state === 'errored') {
+     action(stream._storedError);
+    } else {
+     uponRejection(promise, action);
+    }
+   }
+   function isOrBecomesClosed(stream, promise, action) {
+    if (stream._state === 'closed') {
+     action();
+    } else {
+     uponFulfillment(promise, action);
+    }
+   }
+   function shutdownWithAction(action, originalIsError, originalError) {
+    if (shuttingDown === true) {
+     return;
+    }
+    shuttingDown = true;
+    if (dest._state === 'writable' && WritableStreamCloseQueuedOrInFlight(dest) === false) {
+     uponFulfillment(waitForWritesToFinish(), doTheRest);
+    } else {
+     doTheRest();
+    }
+    function doTheRest() {
+     uponPromise(action(), function () {
+      return finalize(originalIsError, originalError);
+     }, function (newError) {
+      return finalize(true, newError);
+     });
+    }
+   }
+   function shutdown(isError, error) {
+    if (shuttingDown === true) {
+     return;
+    }
+    shuttingDown = true;
+    if (dest._state === 'writable' && WritableStreamCloseQueuedOrInFlight(dest) === false) {
+     uponFulfillment(waitForWritesToFinish(), function () {
+      return finalize(isError, error);
+     });
+    } else {
+     finalize(isError, error);
+    }
+   }
+   function finalize(isError, error) {
+    WritableStreamDefaultWriterRelease(writer);
+    ReadableStreamReaderGenericRelease(reader);
+    if (signal !== undefined) {
+     signal.removeEventListener('abort', abortAlgorithm);
+    }
+    if (isError) {
+     reject(error);
+    } else {
+     resolve(undefined);
+    }
+   }
+  });
+ }
+ var ReadableStreamDefaultController = function () {
+  function ReadableStreamDefaultController() {
+   throw new TypeError();
+  }
+  Object.defineProperty(ReadableStreamDefaultController.prototype, "desiredSize", {
+   get: function () {
+    if (IsReadableStreamDefaultController(this) === false) {
+     throw defaultControllerBrandCheckException('desiredSize');
+    }
+    return ReadableStreamDefaultControllerGetDesiredSize(this);
+   },
+   enumerable: true,
+   configurable: true
+  });
+  ReadableStreamDefaultController.prototype.close = function () {
+   if (IsReadableStreamDefaultController(this) === false) {
+    throw defaultControllerBrandCheckException('close');
+   }
+   if (ReadableStreamDefaultControllerCanCloseOrEnqueue(this) === false) {
+    throw new TypeError('The stream is not in a state that permits close');
+   }
+   ReadableStreamDefaultControllerClose(this);
+  };
+  ReadableStreamDefaultController.prototype.enqueue = function (chunk) {
+   if (IsReadableStreamDefaultController(this) === false) {
+    throw defaultControllerBrandCheckException('enqueue');
+   }
+   if (ReadableStreamDefaultControllerCanCloseOrEnqueue(this) === false) {
+    throw new TypeError('The stream is not in a state that permits enqueue');
+   }
+   return ReadableStreamDefaultControllerEnqueue(this, chunk);
+  };
+  ReadableStreamDefaultController.prototype.error = function (e) {
+   if (IsReadableStreamDefaultController(this) === false) {
+    throw defaultControllerBrandCheckException('error');
+   }
+   ReadableStreamDefaultControllerError(this, e);
+  };
+  ReadableStreamDefaultController.prototype[CancelSteps] = function (reason) {
+   ResetQueue(this);
+   var result = this._cancelAlgorithm(reason);
+   ReadableStreamDefaultControllerClearAlgorithms(this);
+   return result;
+  };
+  ReadableStreamDefaultController.prototype[PullSteps] = function () {
+   var stream = this._controlledReadableStream;
+   if (this._queue.length > 0) {
+    var chunk = DequeueValue(this);
+    if (this._closeRequested === true && this._queue.length === 0) {
+     ReadableStreamDefaultControllerClearAlgorithms(this);
+     ReadableStreamClose(stream);
+    } else {
+     ReadableStreamDefaultControllerCallPullIfNeeded(this);
+    }
+    return promiseResolvedWith(ReadableStreamCreateReadResult(chunk, false, stream._reader._forAuthorCode));
+   }
+   var pendingPromise = ReadableStreamAddReadRequest(stream);
+   ReadableStreamDefaultControllerCallPullIfNeeded(this);
+   return pendingPromise;
+  };
+  return ReadableStreamDefaultController;
+ }();
+ function IsReadableStreamDefaultController(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_controlledReadableStream')) {
+   return false;
+  }
+  return true;
+ }
+ function ReadableStreamDefaultControllerCallPullIfNeeded(controller) {
+  var shouldPull = ReadableStreamDefaultControllerShouldCallPull(controller);
+  if (shouldPull === false) {
+   return;
+  }
+  if (controller._pulling === true) {
+   controller._pullAgain = true;
+   return;
+  }
+  controller._pulling = true;
+  var pullPromise = controller._pullAlgorithm();
+  uponPromise(pullPromise, function () {
+   controller._pulling = false;
+   if (controller._pullAgain === true) {
+    controller._pullAgain = false;
+    ReadableStreamDefaultControllerCallPullIfNeeded(controller);
+   }
+  }, function (e) {
+   ReadableStreamDefaultControllerError(controller, e);
+  });
+ }
+ function ReadableStreamDefaultControllerShouldCallPull(controller) {
+  var stream = controller._controlledReadableStream;
+  if (ReadableStreamDefaultControllerCanCloseOrEnqueue(controller) === false) {
+   return false;
+  }
+  if (controller._started === false) {
+   return false;
+  }
+  if (IsReadableStreamLocked(stream) === true && ReadableStreamGetNumReadRequests(stream) > 0) {
+   return true;
+  }
+  var desiredSize = ReadableStreamDefaultControllerGetDesiredSize(controller);
+  if (desiredSize > 0) {
+   return true;
+  }
+  return false;
+ }
+ function ReadableStreamDefaultControllerClearAlgorithms(controller) {
+  controller._pullAlgorithm = undefined;
+  controller._cancelAlgorithm = undefined;
+  controller._strategySizeAlgorithm = undefined;
+ }
+ function ReadableStreamDefaultControllerClose(controller) {
+  var stream = controller._controlledReadableStream;
+  controller._closeRequested = true;
+  if (controller._queue.length === 0) {
+   ReadableStreamDefaultControllerClearAlgorithms(controller);
+   ReadableStreamClose(stream);
+  }
+ }
+ function ReadableStreamDefaultControllerEnqueue(controller, chunk) {
+  var stream = controller._controlledReadableStream;
+  if (IsReadableStreamLocked(stream) === true && ReadableStreamGetNumReadRequests(stream) > 0) {
+   ReadableStreamFulfillReadRequest(stream, chunk, false);
+  } else {
+   var chunkSize = void 0;
+   try {
+    chunkSize = controller._strategySizeAlgorithm(chunk);
+   } catch (chunkSizeE) {
+    ReadableStreamDefaultControllerError(controller, chunkSizeE);
+    throw chunkSizeE;
+   }
+   try {
+    EnqueueValueWithSize(controller, chunk, chunkSize);
+   } catch (enqueueE) {
+    ReadableStreamDefaultControllerError(controller, enqueueE);
+    throw enqueueE;
+   }
+  }
+  ReadableStreamDefaultControllerCallPullIfNeeded(controller);
+ }
+ function ReadableStreamDefaultControllerError(controller, e) {
+  var stream = controller._controlledReadableStream;
+  if (stream._state !== 'readable') {
+   return;
+  }
+  ResetQueue(controller);
+  ReadableStreamDefaultControllerClearAlgorithms(controller);
+  ReadableStreamError(stream, e);
+ }
+ function ReadableStreamDefaultControllerGetDesiredSize(controller) {
+  var stream = controller._controlledReadableStream;
+  var state = stream._state;
+  if (state === 'errored') {
+   return null;
+  }
+  if (state === 'closed') {
+   return 0;
+  }
+  return controller._strategyHWM - controller._queueTotalSize;
+ }
+ function ReadableStreamDefaultControllerHasBackpressure(controller) {
+  if (ReadableStreamDefaultControllerShouldCallPull(controller) === true) {
+   return false;
+  }
+  return true;
+ }
+ function ReadableStreamDefaultControllerCanCloseOrEnqueue(controller) {
+  var state = controller._controlledReadableStream._state;
+  if (controller._closeRequested === false && state === 'readable') {
+   return true;
+  }
+  return false;
+ }
+ function SetUpReadableStreamDefaultController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm) {
+  controller._controlledReadableStream = stream;
+  controller._queue = undefined;
+  controller._queueTotalSize = undefined;
+  ResetQueue(controller);
+  controller._started = false;
+  controller._closeRequested = false;
+  controller._pullAgain = false;
+  controller._pulling = false;
+  controller._strategySizeAlgorithm = sizeAlgorithm;
+  controller._strategyHWM = highWaterMark;
+  controller._pullAlgorithm = pullAlgorithm;
+  controller._cancelAlgorithm = cancelAlgorithm;
+  stream._readableStreamController = controller;
+  var startResult = startAlgorithm();
+  uponPromise(promiseResolvedWith(startResult), function () {
+   controller._started = true;
+   ReadableStreamDefaultControllerCallPullIfNeeded(controller);
+  }, function (r) {
+   ReadableStreamDefaultControllerError(controller, r);
+  });
+ }
+ function SetUpReadableStreamDefaultControllerFromUnderlyingSource(stream, underlyingSource, highWaterMark, sizeAlgorithm) {
+  var controller = Object.create(ReadableStreamDefaultController.prototype);
+  function startAlgorithm() {
+   return InvokeOrNoop(underlyingSource, 'start', [controller]);
+  }
+  var pullAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSource, 'pull', 0, [controller]);
+  var cancelAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingSource, 'cancel', 1, []);
+  SetUpReadableStreamDefaultController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm);
+ }
+ function defaultControllerBrandCheckException(name) {
+  return new TypeError("ReadableStreamDefaultController.prototype." + name + " can only be used on a ReadableStreamDefaultController");
+ }
+ function ReadableStreamTee(stream, cloneForBranch2) {
+  var reader = AcquireReadableStreamDefaultReader(stream);
+  var reading = false;
+  var canceled1 = false;
+  var canceled2 = false;
+  var reason1;
+  var reason2;
+  var branch1;
+  var branch2;
+  var resolveCancelPromise;
+  var cancelPromise = newPromise(function (resolve) {
+   resolveCancelPromise = resolve;
+  });
+  function pullAlgorithm() {
+   if (reading === true) {
+    return promiseResolvedWith(undefined);
+   }
+   reading = true;
+   var readPromise = transformPromiseWith(ReadableStreamDefaultReaderRead(reader), function (result) {
+    reading = false;
+    var done = result.done;
+    if (done === true) {
+     if (canceled1 === false) {
+      ReadableStreamDefaultControllerClose(branch1._readableStreamController);
+     }
+     if (canceled2 === false) {
+      ReadableStreamDefaultControllerClose(branch2._readableStreamController);
+     }
+     return;
+    }
+    var value = result.value;
+    var value1 = value;
+    var value2 = value;
+    if (canceled1 === false) {
+     ReadableStreamDefaultControllerEnqueue(branch1._readableStreamController, value1);
+    }
+    if (canceled2 === false) {
+     ReadableStreamDefaultControllerEnqueue(branch2._readableStreamController, value2);
+    }
+   });
+   setPromiseIsHandledToTrue(readPromise);
+   return promiseResolvedWith(undefined);
+  }
+  function cancel1Algorithm(reason) {
+   canceled1 = true;
+   reason1 = reason;
+   if (canceled2 === true) {
+    var compositeReason = createArrayFromList([
+     reason1,
+     reason2
+    ]);
+    var cancelResult = ReadableStreamCancel(stream, compositeReason);
+    resolveCancelPromise(cancelResult);
+   }
+   return cancelPromise;
+  }
+  function cancel2Algorithm(reason) {
+   canceled2 = true;
+   reason2 = reason;
+   if (canceled1 === true) {
+    var compositeReason = createArrayFromList([
+     reason1,
+     reason2
+    ]);
+    var cancelResult = ReadableStreamCancel(stream, compositeReason);
+    resolveCancelPromise(cancelResult);
+   }
+   return cancelPromise;
+  }
+  function startAlgorithm() {
+  }
+  branch1 = CreateReadableStream(startAlgorithm, pullAlgorithm, cancel1Algorithm);
+  branch2 = CreateReadableStream(startAlgorithm, pullAlgorithm, cancel2Algorithm);
+  uponRejection(reader._closedPromise, function (r) {
+   ReadableStreamDefaultControllerError(branch1._readableStreamController, r);
+   ReadableStreamDefaultControllerError(branch2._readableStreamController, r);
+  });
+  return [
+   branch1,
+   branch2
+  ];
+ }
+ var NumberIsInteger = Number.isInteger || function (value) {
+  return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
+ };
+ var ReadableStreamBYOBRequest = function () {
+  function ReadableStreamBYOBRequest() {
+   throw new TypeError('ReadableStreamBYOBRequest cannot be used directly');
+  }
+  Object.defineProperty(ReadableStreamBYOBRequest.prototype, "view", {
+   get: function () {
+    if (IsReadableStreamBYOBRequest(this) === false) {
+     throw byobRequestBrandCheckException('view');
+    }
+    return this._view;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  ReadableStreamBYOBRequest.prototype.respond = function (bytesWritten) {
+   if (IsReadableStreamBYOBRequest(this) === false) {
+    throw byobRequestBrandCheckException('respond');
+   }
+   if (this._associatedReadableByteStreamController === undefined) {
+    throw new TypeError('This BYOB request has been invalidated');
+   }
+   if (IsDetachedBuffer(this._view.buffer) === true);
+   ReadableByteStreamControllerRespond(this._associatedReadableByteStreamController, bytesWritten);
+  };
+  ReadableStreamBYOBRequest.prototype.respondWithNewView = function (view) {
+   if (IsReadableStreamBYOBRequest(this) === false) {
+    throw byobRequestBrandCheckException('respond');
+   }
+   if (this._associatedReadableByteStreamController === undefined) {
+    throw new TypeError('This BYOB request has been invalidated');
+   }
+   if (!ArrayBuffer.isView(view)) {
+    throw new TypeError('You can only respond with array buffer views');
+   }
+   if (IsDetachedBuffer(view.buffer) === true);
+   ReadableByteStreamControllerRespondWithNewView(this._associatedReadableByteStreamController, view);
+  };
+  return ReadableStreamBYOBRequest;
+ }();
+ var ReadableByteStreamController = function () {
+  function ReadableByteStreamController() {
+   throw new TypeError('ReadableByteStreamController constructor cannot be used directly');
+  }
+  Object.defineProperty(ReadableByteStreamController.prototype, "byobRequest", {
+   get: function () {
+    if (IsReadableByteStreamController(this) === false) {
+     throw byteStreamControllerBrandCheckException('byobRequest');
+    }
+    if (this._byobRequest === undefined && this._pendingPullIntos.length > 0) {
+     var firstDescriptor = this._pendingPullIntos.peek();
+     var view = new Uint8Array(firstDescriptor.buffer, firstDescriptor.byteOffset + firstDescriptor.bytesFilled, firstDescriptor.byteLength - firstDescriptor.bytesFilled);
+     var byobRequest = Object.create(ReadableStreamBYOBRequest.prototype);
+     SetUpReadableStreamBYOBRequest(byobRequest, this, view);
+     this._byobRequest = byobRequest;
+    }
+    return this._byobRequest;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  Object.defineProperty(ReadableByteStreamController.prototype, "desiredSize", {
+   get: function () {
+    if (IsReadableByteStreamController(this) === false) {
+     throw byteStreamControllerBrandCheckException('desiredSize');
+    }
+    return ReadableByteStreamControllerGetDesiredSize(this);
+   },
+   enumerable: true,
+   configurable: true
+  });
+  ReadableByteStreamController.prototype.close = function () {
+   if (IsReadableByteStreamController(this) === false) {
+    throw byteStreamControllerBrandCheckException('close');
+   }
+   if (this._closeRequested === true) {
+    throw new TypeError('The stream has already been closed; do not close it again!');
+   }
+   var state = this._controlledReadableByteStream._state;
+   if (state !== 'readable') {
+    throw new TypeError("The stream (in " + state + " state) is not in the readable state and cannot be closed");
+   }
+   ReadableByteStreamControllerClose(this);
+  };
+  ReadableByteStreamController.prototype.enqueue = function (chunk) {
+   if (IsReadableByteStreamController(this) === false) {
+    throw byteStreamControllerBrandCheckException('enqueue');
+   }
+   if (this._closeRequested === true) {
+    throw new TypeError('stream is closed or draining');
+   }
+   var state = this._controlledReadableByteStream._state;
+   if (state !== 'readable') {
+    throw new TypeError("The stream (in " + state + " state) is not in the readable state and cannot be enqueued to");
+   }
+   if (!ArrayBuffer.isView(chunk)) {
+    throw new TypeError('You can only enqueue array buffer views when using a ReadableByteStreamController');
+   }
+   if (IsDetachedBuffer(chunk.buffer) === true);
+   ReadableByteStreamControllerEnqueue(this, chunk);
+  };
+  ReadableByteStreamController.prototype.error = function (e) {
+   if (IsReadableByteStreamController(this) === false) {
+    throw byteStreamControllerBrandCheckException('error');
+   }
+   ReadableByteStreamControllerError(this, e);
+  };
+  ReadableByteStreamController.prototype[CancelSteps] = function (reason) {
+   if (this._pendingPullIntos.length > 0) {
+    var firstDescriptor = this._pendingPullIntos.peek();
+    firstDescriptor.bytesFilled = 0;
+   }
+   ResetQueue(this);
+   var result = this._cancelAlgorithm(reason);
+   ReadableByteStreamControllerClearAlgorithms(this);
+   return result;
+  };
+  ReadableByteStreamController.prototype[PullSteps] = function () {
+   var stream = this._controlledReadableByteStream;
+   if (this._queueTotalSize > 0) {
+    var entry = this._queue.shift();
+    this._queueTotalSize -= entry.byteLength;
+    ReadableByteStreamControllerHandleQueueDrain(this);
+    var view = void 0;
+    try {
+     view = new Uint8Array(entry.buffer, entry.byteOffset, entry.byteLength);
+    } catch (viewE) {
+     return promiseRejectedWith(viewE);
+    }
+    return promiseResolvedWith(ReadableStreamCreateReadResult(view, false, stream._reader._forAuthorCode));
+   }
+   var autoAllocateChunkSize = this._autoAllocateChunkSize;
+   if (autoAllocateChunkSize !== undefined) {
+    var buffer = void 0;
+    try {
+     buffer = new ArrayBuffer(autoAllocateChunkSize);
+    } catch (bufferE) {
+     return promiseRejectedWith(bufferE);
+    }
+    var pullIntoDescriptor = {
+     buffer: buffer,
+     byteOffset: 0,
+     byteLength: autoAllocateChunkSize,
+     bytesFilled: 0,
+     elementSize: 1,
+     ctor: Uint8Array,
+     readerType: 'default'
+    };
+    this._pendingPullIntos.push(pullIntoDescriptor);
+   }
+   var promise = ReadableStreamAddReadRequest(stream);
+   ReadableByteStreamControllerCallPullIfNeeded(this);
+   return promise;
+  };
+  return ReadableByteStreamController;
+ }();
+ function IsReadableByteStreamController(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_controlledReadableByteStream')) {
+   return false;
+  }
+  return true;
+ }
+ function IsReadableStreamBYOBRequest(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_associatedReadableByteStreamController')) {
+   return false;
+  }
+  return true;
+ }
+ function ReadableByteStreamControllerCallPullIfNeeded(controller) {
+  var shouldPull = ReadableByteStreamControllerShouldCallPull(controller);
+  if (shouldPull === false) {
+   return;
+  }
+  if (controller._pulling === true) {
+   controller._pullAgain = true;
+   return;
+  }
+  controller._pulling = true;
+  var pullPromise = controller._pullAlgorithm();
+  uponPromise(pullPromise, function () {
+   controller._pulling = false;
+   if (controller._pullAgain === true) {
+    controller._pullAgain = false;
+    ReadableByteStreamControllerCallPullIfNeeded(controller);
+   }
+  }, function (e) {
+   ReadableByteStreamControllerError(controller, e);
+  });
+ }
+ function ReadableByteStreamControllerClearPendingPullIntos(controller) {
+  ReadableByteStreamControllerInvalidateBYOBRequest(controller);
+  controller._pendingPullIntos = new SimpleQueue();
+ }
+ function ReadableByteStreamControllerCommitPullIntoDescriptor(stream, pullIntoDescriptor) {
+  var done = false;
+  if (stream._state === 'closed') {
+   done = true;
+  }
+  var filledView = ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor);
+  if (pullIntoDescriptor.readerType === 'default') {
+   ReadableStreamFulfillReadRequest(stream, filledView, done);
+  } else {
+   ReadableStreamFulfillReadIntoRequest(stream, filledView, done);
+  }
+ }
+ function ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor) {
+  var bytesFilled = pullIntoDescriptor.bytesFilled;
+  var elementSize = pullIntoDescriptor.elementSize;
+  return new pullIntoDescriptor.ctor(pullIntoDescriptor.buffer, pullIntoDescriptor.byteOffset, bytesFilled / elementSize);
+ }
+ function ReadableByteStreamControllerEnqueueChunkToQueue(controller, buffer, byteOffset, byteLength) {
+  controller._queue.push({
+   buffer: buffer,
+   byteOffset: byteOffset,
+   byteLength: byteLength
+  });
+  controller._queueTotalSize += byteLength;
+ }
+ function ReadableByteStreamControllerFillPullIntoDescriptorFromQueue(controller, pullIntoDescriptor) {
+  var elementSize = pullIntoDescriptor.elementSize;
+  var currentAlignedBytes = pullIntoDescriptor.bytesFilled - pullIntoDescriptor.bytesFilled % elementSize;
+  var maxBytesToCopy = Math.min(controller._queueTotalSize, pullIntoDescriptor.byteLength - pullIntoDescriptor.bytesFilled);
+  var maxBytesFilled = pullIntoDescriptor.bytesFilled + maxBytesToCopy;
+  var maxAlignedBytes = maxBytesFilled - maxBytesFilled % elementSize;
+  var totalBytesToCopyRemaining = maxBytesToCopy;
+  var ready = false;
+  if (maxAlignedBytes > currentAlignedBytes) {
+   totalBytesToCopyRemaining = maxAlignedBytes - pullIntoDescriptor.bytesFilled;
+   ready = true;
+  }
+  var queue = controller._queue;
+  while (totalBytesToCopyRemaining > 0) {
+   var headOfQueue = queue.peek();
+   var bytesToCopy = Math.min(totalBytesToCopyRemaining, headOfQueue.byteLength);
+   var destStart = pullIntoDescriptor.byteOffset + pullIntoDescriptor.bytesFilled;
+   ArrayBufferCopy(pullIntoDescriptor.buffer, destStart, headOfQueue.buffer, headOfQueue.byteOffset, bytesToCopy);
+   if (headOfQueue.byteLength === bytesToCopy) {
+    queue.shift();
+   } else {
+    headOfQueue.byteOffset += bytesToCopy;
+    headOfQueue.byteLength -= bytesToCopy;
+   }
+   controller._queueTotalSize -= bytesToCopy;
+   ReadableByteStreamControllerFillHeadPullIntoDescriptor(controller, bytesToCopy, pullIntoDescriptor);
+   totalBytesToCopyRemaining -= bytesToCopy;
+  }
+  return ready;
+ }
+ function ReadableByteStreamControllerFillHeadPullIntoDescriptor(controller, size, pullIntoDescriptor) {
+  ReadableByteStreamControllerInvalidateBYOBRequest(controller);
+  pullIntoDescriptor.bytesFilled += size;
+ }
+ function ReadableByteStreamControllerHandleQueueDrain(controller) {
+  if (controller._queueTotalSize === 0 && controller._closeRequested === true) {
+   ReadableByteStreamControllerClearAlgorithms(controller);
+   ReadableStreamClose(controller._controlledReadableByteStream);
+  } else {
+   ReadableByteStreamControllerCallPullIfNeeded(controller);
+  }
+ }
+ function ReadableByteStreamControllerInvalidateBYOBRequest(controller) {
+  if (controller._byobRequest === undefined) {
+   return;
+  }
+  controller._byobRequest._associatedReadableByteStreamController = undefined;
+  controller._byobRequest._view = undefined;
+  controller._byobRequest = undefined;
+ }
+ function ReadableByteStreamControllerProcessPullIntoDescriptorsUsingQueue(controller) {
+  while (controller._pendingPullIntos.length > 0) {
+   if (controller._queueTotalSize === 0) {
+    return;
+   }
+   var pullIntoDescriptor = controller._pendingPullIntos.peek();
+   if (ReadableByteStreamControllerFillPullIntoDescriptorFromQueue(controller, pullIntoDescriptor) === true) {
+    ReadableByteStreamControllerShiftPendingPullInto(controller);
+    ReadableByteStreamControllerCommitPullIntoDescriptor(controller._controlledReadableByteStream, pullIntoDescriptor);
+   }
+  }
+ }
+ function ReadableByteStreamControllerPullInto(controller, view) {
+  var stream = controller._controlledReadableByteStream;
+  var elementSize = 1;
+  if (view.constructor !== DataView) {
+   elementSize = view.constructor.BYTES_PER_ELEMENT;
+  }
+  var ctor = view.constructor;
+  var buffer = TransferArrayBuffer(view.buffer);
+  var pullIntoDescriptor = {
+   buffer: buffer,
+   byteOffset: view.byteOffset,
+   byteLength: view.byteLength,
+   bytesFilled: 0,
+   elementSize: elementSize,
+   ctor: ctor,
+   readerType: 'byob'
+  };
+  if (controller._pendingPullIntos.length > 0) {
+   controller._pendingPullIntos.push(pullIntoDescriptor);
+   return ReadableStreamAddReadIntoRequest(stream);
+  }
+  if (stream._state === 'closed') {
+   var emptyView = new ctor(pullIntoDescriptor.buffer, pullIntoDescriptor.byteOffset, 0);
+   return promiseResolvedWith(ReadableStreamCreateReadResult(emptyView, true, stream._reader._forAuthorCode));
+  }
+  if (controller._queueTotalSize > 0) {
+   if (ReadableByteStreamControllerFillPullIntoDescriptorFromQueue(controller, pullIntoDescriptor) === true) {
+    var filledView = ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor);
+    ReadableByteStreamControllerHandleQueueDrain(controller);
+    return promiseResolvedWith(ReadableStreamCreateReadResult(filledView, false, stream._reader._forAuthorCode));
+   }
+   if (controller._closeRequested === true) {
+    var e = new TypeError('Insufficient bytes to fill elements in the given buffer');
+    ReadableByteStreamControllerError(controller, e);
+    return promiseRejectedWith(e);
+   }
+  }
+  controller._pendingPullIntos.push(pullIntoDescriptor);
+  var promise = ReadableStreamAddReadIntoRequest(stream);
+  ReadableByteStreamControllerCallPullIfNeeded(controller);
+  return promise;
+ }
+ function ReadableByteStreamControllerRespondInClosedState(controller, firstDescriptor) {
+  firstDescriptor.buffer = TransferArrayBuffer(firstDescriptor.buffer);
+  var stream = controller._controlledReadableByteStream;
+  if (ReadableStreamHasBYOBReader(stream) === true) {
+   while (ReadableStreamGetNumReadIntoRequests(stream) > 0) {
+    var pullIntoDescriptor = ReadableByteStreamControllerShiftPendingPullInto(controller);
+    ReadableByteStreamControllerCommitPullIntoDescriptor(stream, pullIntoDescriptor);
+   }
+  }
+ }
+ function ReadableByteStreamControllerRespondInReadableState(controller, bytesWritten, pullIntoDescriptor) {
+  if (pullIntoDescriptor.bytesFilled + bytesWritten > pullIntoDescriptor.byteLength) {
+   throw new RangeError('bytesWritten out of range');
+  }
+  ReadableByteStreamControllerFillHeadPullIntoDescriptor(controller, bytesWritten, pullIntoDescriptor);
+  if (pullIntoDescriptor.bytesFilled < pullIntoDescriptor.elementSize) {
+   return;
+  }
+  ReadableByteStreamControllerShiftPendingPullInto(controller);
+  var remainderSize = pullIntoDescriptor.bytesFilled % pullIntoDescriptor.elementSize;
+  if (remainderSize > 0) {
+   var end = pullIntoDescriptor.byteOffset + pullIntoDescriptor.bytesFilled;
+   var remainder = pullIntoDescriptor.buffer.slice(end - remainderSize, end);
+   ReadableByteStreamControllerEnqueueChunkToQueue(controller, remainder, 0, remainder.byteLength);
+  }
+  pullIntoDescriptor.buffer = TransferArrayBuffer(pullIntoDescriptor.buffer);
+  pullIntoDescriptor.bytesFilled -= remainderSize;
+  ReadableByteStreamControllerCommitPullIntoDescriptor(controller._controlledReadableByteStream, pullIntoDescriptor);
+  ReadableByteStreamControllerProcessPullIntoDescriptorsUsingQueue(controller);
+ }
+ function ReadableByteStreamControllerRespondInternal(controller, bytesWritten) {
+  var firstDescriptor = controller._pendingPullIntos.peek();
+  var stream = controller._controlledReadableByteStream;
+  if (stream._state === 'closed') {
+   if (bytesWritten !== 0) {
+    throw new TypeError('bytesWritten must be 0 when calling respond() on a closed stream');
+   }
+   ReadableByteStreamControllerRespondInClosedState(controller, firstDescriptor);
+  } else {
+   ReadableByteStreamControllerRespondInReadableState(controller, bytesWritten, firstDescriptor);
+  }
+  ReadableByteStreamControllerCallPullIfNeeded(controller);
+ }
+ function ReadableByteStreamControllerShiftPendingPullInto(controller) {
+  var descriptor = controller._pendingPullIntos.shift();
+  ReadableByteStreamControllerInvalidateBYOBRequest(controller);
+  return descriptor;
+ }
+ function ReadableByteStreamControllerShouldCallPull(controller) {
+  var stream = controller._controlledReadableByteStream;
+  if (stream._state !== 'readable') {
+   return false;
+  }
+  if (controller._closeRequested === true) {
+   return false;
+  }
+  if (controller._started === false) {
+   return false;
+  }
+  if (ReadableStreamHasDefaultReader(stream) === true && ReadableStreamGetNumReadRequests(stream) > 0) {
+   return true;
+  }
+  if (ReadableStreamHasBYOBReader(stream) === true && ReadableStreamGetNumReadIntoRequests(stream) > 0) {
+   return true;
+  }
+  var desiredSize = ReadableByteStreamControllerGetDesiredSize(controller);
+  if (desiredSize > 0) {
+   return true;
+  }
+  return false;
+ }
+ function ReadableByteStreamControllerClearAlgorithms(controller) {
+  controller._pullAlgorithm = undefined;
+  controller._cancelAlgorithm = undefined;
+ }
+ function ReadableByteStreamControllerClose(controller) {
+  var stream = controller._controlledReadableByteStream;
+  if (controller._queueTotalSize > 0) {
+   controller._closeRequested = true;
+   return;
+  }
+  if (controller._pendingPullIntos.length > 0) {
+   var firstPendingPullInto = controller._pendingPullIntos.peek();
+   if (firstPendingPullInto.bytesFilled > 0) {
+    var e = new TypeError('Insufficient bytes to fill elements in the given buffer');
+    ReadableByteStreamControllerError(controller, e);
+    throw e;
+   }
+  }
+  ReadableByteStreamControllerClearAlgorithms(controller);
+  ReadableStreamClose(stream);
+ }
+ function ReadableByteStreamControllerEnqueue(controller, chunk) {
+  var stream = controller._controlledReadableByteStream;
+  var buffer = chunk.buffer;
+  var byteOffset = chunk.byteOffset;
+  var byteLength = chunk.byteLength;
+  var transferredBuffer = TransferArrayBuffer(buffer);
+  if (ReadableStreamHasDefaultReader(stream) === true) {
+   if (ReadableStreamGetNumReadRequests(stream) === 0) {
+    ReadableByteStreamControllerEnqueueChunkToQueue(controller, transferredBuffer, byteOffset, byteLength);
+   } else {
+    var transferredView = new Uint8Array(transferredBuffer, byteOffset, byteLength);
+    ReadableStreamFulfillReadRequest(stream, transferredView, false);
+   }
+  } else if (ReadableStreamHasBYOBReader(stream) === true) {
+   ReadableByteStreamControllerEnqueueChunkToQueue(controller, transferredBuffer, byteOffset, byteLength);
+   ReadableByteStreamControllerProcessPullIntoDescriptorsUsingQueue(controller);
+  } else {
+   ReadableByteStreamControllerEnqueueChunkToQueue(controller, transferredBuffer, byteOffset, byteLength);
+  }
+  ReadableByteStreamControllerCallPullIfNeeded(controller);
+ }
+ function ReadableByteStreamControllerError(controller, e) {
+  var stream = controller._controlledReadableByteStream;
+  if (stream._state !== 'readable') {
+   return;
+  }
+  ReadableByteStreamControllerClearPendingPullIntos(controller);
+  ResetQueue(controller);
+  ReadableByteStreamControllerClearAlgorithms(controller);
+  ReadableStreamError(stream, e);
+ }
+ function ReadableByteStreamControllerGetDesiredSize(controller) {
+  var stream = controller._controlledReadableByteStream;
+  var state = stream._state;
+  if (state === 'errored') {
+   return null;
+  }
+  if (state === 'closed') {
+   return 0;
+  }
+  return controller._strategyHWM - controller._queueTotalSize;
+ }
+ function ReadableByteStreamControllerRespond(controller, bytesWritten) {
+  bytesWritten = Number(bytesWritten);
+  if (IsFiniteNonNegativeNumber(bytesWritten) === false) {
+   throw new RangeError('bytesWritten must be a finite');
+  }
+  ReadableByteStreamControllerRespondInternal(controller, bytesWritten);
+ }
+ function ReadableByteStreamControllerRespondWithNewView(controller, view) {
+  var firstDescriptor = controller._pendingPullIntos.peek();
+  if (firstDescriptor.byteOffset + firstDescriptor.bytesFilled !== view.byteOffset) {
+   throw new RangeError('The region specified by view does not match byobRequest');
+  }
+  if (firstDescriptor.byteLength !== view.byteLength) {
+   throw new RangeError('The buffer of view has different capacity than byobRequest');
+  }
+  firstDescriptor.buffer = view.buffer;
+  ReadableByteStreamControllerRespondInternal(controller, view.byteLength);
+ }
+ function SetUpReadableByteStreamController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, autoAllocateChunkSize) {
+  controller._controlledReadableByteStream = stream;
+  controller._pullAgain = false;
+  controller._pulling = false;
+  controller._byobRequest = undefined;
+  controller._queue = controller._queueTotalSize = undefined;
+  ResetQueue(controller);
+  controller._closeRequested = false;
+  controller._started = false;
+  controller._strategyHWM = ValidateAndNormalizeHighWaterMark(highWaterMark);
+  controller._pullAlgorithm = pullAlgorithm;
+  controller._cancelAlgorithm = cancelAlgorithm;
+  controller._autoAllocateChunkSize = autoAllocateChunkSize;
+  controller._pendingPullIntos = new SimpleQueue();
+  stream._readableStreamController = controller;
+  var startResult = startAlgorithm();
+  uponPromise(promiseResolvedWith(startResult), function () {
+   controller._started = true;
+   ReadableByteStreamControllerCallPullIfNeeded(controller);
+  }, function (r) {
+   ReadableByteStreamControllerError(controller, r);
+  });
+ }
+ function SetUpReadableByteStreamControllerFromUnderlyingSource(stream, underlyingByteSource, highWaterMark) {
+  var controller = Object.create(ReadableByteStreamController.prototype);
+  function startAlgorithm() {
+   return InvokeOrNoop(underlyingByteSource, 'start', [controller]);
+  }
+  var pullAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingByteSource, 'pull', 0, [controller]);
+  var cancelAlgorithm = CreateAlgorithmFromUnderlyingMethod(underlyingByteSource, 'cancel', 1, []);
+  var autoAllocateChunkSize = underlyingByteSource.autoAllocateChunkSize;
+  if (autoAllocateChunkSize !== undefined) {
+   autoAllocateChunkSize = Number(autoAllocateChunkSize);
+   if (NumberIsInteger(autoAllocateChunkSize) === false || autoAllocateChunkSize <= 0) {
+    throw new RangeError('autoAllocateChunkSize must be a positive integer');
+   }
+  }
+  SetUpReadableByteStreamController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, autoAllocateChunkSize);
+ }
+ function SetUpReadableStreamBYOBRequest(request, controller, view) {
+  request._associatedReadableByteStreamController = controller;
+  request._view = view;
+ }
+ function byobRequestBrandCheckException(name) {
+  return new TypeError("ReadableStreamBYOBRequest.prototype." + name + " can only be used on a ReadableStreamBYOBRequest");
+ }
+ function byteStreamControllerBrandCheckException(name) {
+  return new TypeError("ReadableByteStreamController.prototype." + name + " can only be used on a ReadableByteStreamController");
+ }
+ function AcquireReadableStreamBYOBReader(stream, forAuthorCode) {
+  if (forAuthorCode === void 0) {
+   forAuthorCode = false;
+  }
+  var reader = new ReadableStreamBYOBReader(stream);
+  reader._forAuthorCode = forAuthorCode;
+  return reader;
+ }
+ function ReadableStreamAddReadIntoRequest(stream) {
+  var promise = newPromise(function (resolve, reject) {
+   var readIntoRequest = {
+    _resolve: resolve,
+    _reject: reject
+   };
+   stream._reader._readIntoRequests.push(readIntoRequest);
+  });
+  return promise;
+ }
+ function ReadableStreamFulfillReadIntoRequest(stream, chunk, done) {
+  var reader = stream._reader;
+  var readIntoRequest = reader._readIntoRequests.shift();
+  readIntoRequest._resolve(ReadableStreamCreateReadResult(chunk, done, reader._forAuthorCode));
+ }
+ function ReadableStreamGetNumReadIntoRequests(stream) {
+  return stream._reader._readIntoRequests.length;
+ }
+ function ReadableStreamHasBYOBReader(stream) {
+  var reader = stream._reader;
+  if (reader === undefined) {
+   return false;
+  }
+  if (!IsReadableStreamBYOBReader(reader)) {
+   return false;
+  }
+  return true;
+ }
+ var ReadableStreamBYOBReader = function () {
+  function ReadableStreamBYOBReader(stream) {
+   if (!IsReadableStream(stream)) {
+    throw new TypeError('ReadableStreamBYOBReader can only be constructed with a ReadableStream instance given a ' + 'byte source');
+   }
+   if (IsReadableByteStreamController(stream._readableStreamController) === false) {
+    throw new TypeError('Cannot construct a ReadableStreamBYOBReader for a stream not constructed with a byte ' + 'source');
+   }
+   if (IsReadableStreamLocked(stream)) {
+    throw new TypeError('This stream has already been locked for exclusive reading by another reader');
+   }
+   ReadableStreamReaderGenericInitialize(this, stream);
+   this._readIntoRequests = new SimpleQueue();
+  }
+  Object.defineProperty(ReadableStreamBYOBReader.prototype, "closed", {
+   get: function () {
+    if (!IsReadableStreamBYOBReader(this)) {
+     return promiseRejectedWith(byobReaderBrandCheckException('closed'));
+    }
+    return this._closedPromise;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  ReadableStreamBYOBReader.prototype.cancel = function (reason) {
+   if (!IsReadableStreamBYOBReader(this)) {
+    return promiseRejectedWith(byobReaderBrandCheckException('cancel'));
+   }
+   if (this._ownerReadableStream === undefined) {
+    return promiseRejectedWith(readerLockException('cancel'));
+   }
+   return ReadableStreamReaderGenericCancel(this, reason);
+  };
+  ReadableStreamBYOBReader.prototype.read = function (view) {
+   if (!IsReadableStreamBYOBReader(this)) {
+    return promiseRejectedWith(byobReaderBrandCheckException('read'));
+   }
+   if (this._ownerReadableStream === undefined) {
+    return promiseRejectedWith(readerLockException('read from'));
+   }
+   if (!ArrayBuffer.isView(view)) {
+    return promiseRejectedWith(new TypeError('view must be an array buffer view'));
+   }
+   if (IsDetachedBuffer(view.buffer) === true);
+   if (view.byteLength === 0) {
+    return promiseRejectedWith(new TypeError('view must have non-zero byteLength'));
+   }
+   return ReadableStreamBYOBReaderRead(this, view);
+  };
+  ReadableStreamBYOBReader.prototype.releaseLock = function () {
+   if (!IsReadableStreamBYOBReader(this)) {
+    throw byobReaderBrandCheckException('releaseLock');
+   }
+   if (this._ownerReadableStream === undefined) {
+    return;
+   }
+   if (this._readIntoRequests.length > 0) {
+    throw new TypeError('Tried to release a reader lock when that reader has pending read() calls un-settled');
+   }
+   ReadableStreamReaderGenericRelease(this);
+  };
+  return ReadableStreamBYOBReader;
+ }();
+ function IsReadableStreamBYOBReader(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_readIntoRequests')) {
+   return false;
+  }
+  return true;
+ }
+ function ReadableStreamBYOBReaderRead(reader, view) {
+  var stream = reader._ownerReadableStream;
+  stream._disturbed = true;
+  if (stream._state === 'errored') {
+   return promiseRejectedWith(stream._storedError);
+  }
+  return ReadableByteStreamControllerPullInto(stream._readableStreamController, view);
+ }
+ function byobReaderBrandCheckException(name) {
+  return new TypeError("ReadableStreamBYOBReader.prototype." + name + " can only be used on a ReadableStreamBYOBReader");
+ }
+ var ReadableStream = function () {
+  function ReadableStream(underlyingSource, strategy) {
+   if (underlyingSource === void 0) {
+    underlyingSource = {};
+   }
+   if (strategy === void 0) {
+    strategy = {};
+   }
+   InitializeReadableStream(this);
+   var size = strategy.size;
+   var highWaterMark = strategy.highWaterMark;
+   var type = underlyingSource.type;
+   var typeString = String(type);
+   if (typeString === 'bytes') {
+    if (size !== undefined) {
+     throw new RangeError('The strategy for a byte stream cannot have a size function');
+    }
+    if (highWaterMark === undefined) {
+     highWaterMark = 0;
+    }
+    highWaterMark = ValidateAndNormalizeHighWaterMark(highWaterMark);
+    SetUpReadableByteStreamControllerFromUnderlyingSource(this, underlyingSource, highWaterMark);
+   } else if (type === undefined) {
+    var sizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(size);
+    if (highWaterMark === undefined) {
+     highWaterMark = 1;
+    }
+    highWaterMark = ValidateAndNormalizeHighWaterMark(highWaterMark);
+    SetUpReadableStreamDefaultControllerFromUnderlyingSource(this, underlyingSource, highWaterMark, sizeAlgorithm);
+   } else {
+    throw new RangeError('Invalid type is specified');
+   }
+  }
+  Object.defineProperty(ReadableStream.prototype, "locked", {
+   get: function () {
+    if (IsReadableStream(this) === false) {
+     throw streamBrandCheckException$1('locked');
+    }
+    return IsReadableStreamLocked(this);
+   },
+   enumerable: true,
+   configurable: true
+  });
+  ReadableStream.prototype.cancel = function (reason) {
+   if (IsReadableStream(this) === false) {
+    return promiseRejectedWith(streamBrandCheckException$1('cancel'));
+   }
+   if (IsReadableStreamLocked(this) === true) {
+    return promiseRejectedWith(new TypeError('Cannot cancel a stream that already has a reader'));
+   }
+   return ReadableStreamCancel(this, reason);
+  };
+  ReadableStream.prototype.getReader = function (_a) {
+   var mode = (_a === void 0 ? {} : _a).mode;
+   if (IsReadableStream(this) === false) {
+    throw streamBrandCheckException$1('getReader');
+   }
+   if (mode === undefined) {
+    return AcquireReadableStreamDefaultReader(this, true);
+   }
+   mode = String(mode);
+   if (mode === 'byob') {
+    return AcquireReadableStreamBYOBReader(this, true);
+   }
+   throw new RangeError('Invalid mode is specified');
+  };
+  ReadableStream.prototype.pipeThrough = function (_a, _b) {
+   var writable = _a.writable, readable = _a.readable;
+   var _c = _b === void 0 ? {} : _b, preventClose = _c.preventClose, preventAbort = _c.preventAbort, preventCancel = _c.preventCancel, signal = _c.signal;
+   if (IsReadableStream(this) === false) {
+    throw streamBrandCheckException$1('pipeThrough');
+   }
+   if (IsWritableStream(writable) === false) {
+    throw new TypeError('writable argument to pipeThrough must be a WritableStream');
+   }
+   if (IsReadableStream(readable) === false) {
+    throw new TypeError('readable argument to pipeThrough must be a ReadableStream');
+   }
+   preventClose = Boolean(preventClose);
+   preventAbort = Boolean(preventAbort);
+   preventCancel = Boolean(preventCancel);
+   if (signal !== undefined && !isAbortSignal(signal)) {
+    throw new TypeError('ReadableStream.prototype.pipeThrough\'s signal option must be an AbortSignal');
+   }
+   if (IsReadableStreamLocked(this) === true) {
+    throw new TypeError('ReadableStream.prototype.pipeThrough cannot be used on a locked ReadableStream');
+   }
+   if (IsWritableStreamLocked(writable) === true) {
+    throw new TypeError('ReadableStream.prototype.pipeThrough cannot be used on a locked WritableStream');
+   }
+   var promise = ReadableStreamPipeTo(this, writable, preventClose, preventAbort, preventCancel, signal);
+   setPromiseIsHandledToTrue(promise);
+   return readable;
+  };
+  ReadableStream.prototype.pipeTo = function (dest, _a) {
+   var _b = _a === void 0 ? {} : _a, preventClose = _b.preventClose, preventAbort = _b.preventAbort, preventCancel = _b.preventCancel, signal = _b.signal;
+   if (IsReadableStream(this) === false) {
+    return promiseRejectedWith(streamBrandCheckException$1('pipeTo'));
+   }
+   if (IsWritableStream(dest) === false) {
+    return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo\'s first argument must be a WritableStream'));
+   }
+   preventClose = Boolean(preventClose);
+   preventAbort = Boolean(preventAbort);
+   preventCancel = Boolean(preventCancel);
+   if (signal !== undefined && !isAbortSignal(signal)) {
+    return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo\'s signal option must be an AbortSignal'));
+   }
+   if (IsReadableStreamLocked(this) === true) {
+    return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo cannot be used on a locked ReadableStream'));
+   }
+   if (IsWritableStreamLocked(dest) === true) {
+    return promiseRejectedWith(new TypeError('ReadableStream.prototype.pipeTo cannot be used on a locked WritableStream'));
+   }
+   return ReadableStreamPipeTo(this, dest, preventClose, preventAbort, preventCancel, signal);
+  };
+  ReadableStream.prototype.tee = function () {
+   if (IsReadableStream(this) === false) {
+    throw streamBrandCheckException$1('tee');
+   }
+   var branches = ReadableStreamTee(this);
+   return createArrayFromList(branches);
+  };
+  ReadableStream.prototype.getIterator = function (_a) {
+   var _b = (_a === void 0 ? {} : _a).preventCancel, preventCancel = _b === void 0 ? false : _b;
+   if (IsReadableStream(this) === false) {
+    throw streamBrandCheckException$1('getIterator');
+   }
+   return AcquireReadableStreamAsyncIterator(this, preventCancel);
+  };
+  return ReadableStream;
+ }();
+ if (typeof SymbolPolyfill.asyncIterator === 'symbol') {
+  Object.defineProperty(ReadableStream.prototype, SymbolPolyfill.asyncIterator, {
+   value: ReadableStream.prototype.getIterator,
+   enumerable: false,
+   writable: true,
+   configurable: true
+  });
+ }
+ function CreateReadableStream(startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm) {
+  if (highWaterMark === void 0) {
+   highWaterMark = 1;
+  }
+  if (sizeAlgorithm === void 0) {
+   sizeAlgorithm = function () {
+    return 1;
+   };
+  }
+  var stream = Object.create(ReadableStream.prototype);
+  InitializeReadableStream(stream);
+  var controller = Object.create(ReadableStreamDefaultController.prototype);
+  SetUpReadableStreamDefaultController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm);
+  return stream;
+ }
+ function InitializeReadableStream(stream) {
+  stream._state = 'readable';
+  stream._reader = undefined;
+  stream._storedError = undefined;
+  stream._disturbed = false;
+ }
+ function IsReadableStream(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_readableStreamController')) {
+   return false;
+  }
+  return true;
+ }
+ function IsReadableStreamLocked(stream) {
+  if (stream._reader === undefined) {
+   return false;
+  }
+  return true;
+ }
+ function ReadableStreamCancel(stream, reason) {
+  stream._disturbed = true;
+  if (stream._state === 'closed') {
+   return promiseResolvedWith(undefined);
+  }
+  if (stream._state === 'errored') {
+   return promiseRejectedWith(stream._storedError);
+  }
+  ReadableStreamClose(stream);
+  var sourceCancelPromise = stream._readableStreamController[CancelSteps](reason);
+  return transformPromiseWith(sourceCancelPromise, noop);
+ }
+ function ReadableStreamClose(stream) {
+  stream._state = 'closed';
+  var reader = stream._reader;
+  if (reader === undefined) {
+   return;
+  }
+  if (IsReadableStreamDefaultReader(reader)) {
+   reader._readRequests.forEach(function (readRequest) {
+    readRequest._resolve(ReadableStreamCreateReadResult(undefined, true, reader._forAuthorCode));
+   });
+   reader._readRequests = new SimpleQueue();
+  }
+  defaultReaderClosedPromiseResolve(reader);
+ }
+ function ReadableStreamError(stream, e) {
+  stream._state = 'errored';
+  stream._storedError = e;
+  var reader = stream._reader;
+  if (reader === undefined) {
+   return;
+  }
+  if (IsReadableStreamDefaultReader(reader)) {
+   reader._readRequests.forEach(function (readRequest) {
+    readRequest._reject(e);
+   });
+   reader._readRequests = new SimpleQueue();
+  } else {
+   reader._readIntoRequests.forEach(function (readIntoRequest) {
+    readIntoRequest._reject(e);
+   });
+   reader._readIntoRequests = new SimpleQueue();
+  }
+  defaultReaderClosedPromiseReject(reader, e);
+ }
+ function streamBrandCheckException$1(name) {
+  return new TypeError("ReadableStream.prototype." + name + " can only be used on a ReadableStream");
+ }
+ var ByteLengthQueuingStrategy = function () {
+  function ByteLengthQueuingStrategy(_a) {
+   var highWaterMark = _a.highWaterMark;
+   this.highWaterMark = highWaterMark;
+  }
+  ByteLengthQueuingStrategy.prototype.size = function (chunk) {
+   return chunk.byteLength;
+  };
+  return ByteLengthQueuingStrategy;
+ }();
+ var CountQueuingStrategy = function () {
+  function CountQueuingStrategy(_a) {
+   var highWaterMark = _a.highWaterMark;
+   this.highWaterMark = highWaterMark;
+  }
+  CountQueuingStrategy.prototype.size = function () {
    return 1;
   };
- }
- var stream = Object.create(ReadableStream.prototype);
- InitializeReadableStream(stream);
- var controller = Object.create(ReadableStreamDefaultController.prototype);
- SetUpReadableStreamDefaultController(stream, controller, startAlgorithm, pullAlgorithm, cancelAlgorithm, highWaterMark, sizeAlgorithm);
- return stream;
-}
-function InitializeReadableStream(stream) {
- stream._state = 'readable';
- stream._reader = undefined;
- stream._storedError = undefined;
- stream._disturbed = false;
-}
-function IsReadableStream(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_readableStreamController')) {
-  return false;
- }
- return true;
-}
-function IsReadableStreamLocked(stream) {
- if (stream._reader === undefined) {
-  return false;
- }
- return true;
-}
-function ReadableStreamCancel(stream, reason) {
- stream._disturbed = true;
- if (stream._state === 'closed') {
-  return promiseResolvedWith(undefined);
- }
- if (stream._state === 'errored') {
-  return promiseRejectedWith(stream._storedError);
- }
- ReadableStreamClose(stream);
- var sourceCancelPromise = stream._readableStreamController[CancelSteps](reason);
- return transformPromiseWith(sourceCancelPromise, noop);
-}
-function ReadableStreamClose(stream) {
- stream._state = 'closed';
- var reader = stream._reader;
- if (reader === undefined) {
-  return;
- }
- if (IsReadableStreamDefaultReader(reader)) {
-  reader._readRequests.forEach(function (readRequest) {
-   readRequest._resolve(ReadableStreamCreateReadResult(undefined, true, reader._forAuthorCode));
-  });
-  reader._readRequests = new SimpleQueue();
- }
- defaultReaderClosedPromiseResolve(reader);
-}
-function ReadableStreamError(stream, e) {
- stream._state = 'errored';
- stream._storedError = e;
- var reader = stream._reader;
- if (reader === undefined) {
-  return;
- }
- if (IsReadableStreamDefaultReader(reader)) {
-  reader._readRequests.forEach(function (readRequest) {
-   readRequest._reject(e);
-  });
-  reader._readRequests = new SimpleQueue();
- } else {
-  reader._readIntoRequests.forEach(function (readIntoRequest) {
-   readIntoRequest._reject(e);
-  });
-  reader._readIntoRequests = new SimpleQueue();
- }
- defaultReaderClosedPromiseReject(reader, e);
-}
-function streamBrandCheckException$1(name) {
- return new TypeError("ReadableStream.prototype." + name + " can only be used on a ReadableStream");
-}
-var ByteLengthQueuingStrategy = function () {
- function ByteLengthQueuingStrategy(_a) {
-  var highWaterMark = _a.highWaterMark;
-  this.highWaterMark = highWaterMark;
- }
- ByteLengthQueuingStrategy.prototype.size = function (chunk) {
-  return chunk.byteLength;
- };
- return ByteLengthQueuingStrategy;
-}();
-var CountQueuingStrategy = function () {
- function CountQueuingStrategy(_a) {
-  var highWaterMark = _a.highWaterMark;
-  this.highWaterMark = highWaterMark;
- }
- CountQueuingStrategy.prototype.size = function () {
-  return 1;
- };
- return CountQueuingStrategy;
-}();
-var TransformStream = function () {
- function TransformStream(transformer, writableStrategy, readableStrategy) {
-  if (transformer === void 0) {
-   transformer = {};
-  }
-  if (writableStrategy === void 0) {
-   writableStrategy = {};
-  }
-  if (readableStrategy === void 0) {
-   readableStrategy = {};
-  }
-  var writableSizeFunction = writableStrategy.size;
-  var writableHighWaterMark = writableStrategy.highWaterMark;
-  var readableSizeFunction = readableStrategy.size;
-  var readableHighWaterMark = readableStrategy.highWaterMark;
-  var writableType = transformer.writableType;
-  if (writableType !== undefined) {
-   throw new RangeError('Invalid writable type specified');
-  }
-  var writableSizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(writableSizeFunction);
-  if (writableHighWaterMark === undefined) {
-   writableHighWaterMark = 1;
-  }
-  writableHighWaterMark = ValidateAndNormalizeHighWaterMark(writableHighWaterMark);
-  var readableType = transformer.readableType;
-  if (readableType !== undefined) {
-   throw new RangeError('Invalid readable type specified');
-  }
-  var readableSizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(readableSizeFunction);
-  if (readableHighWaterMark === undefined) {
-   readableHighWaterMark = 0;
-  }
-  readableHighWaterMark = ValidateAndNormalizeHighWaterMark(readableHighWaterMark);
-  var startPromise_resolve;
-  var startPromise = newPromise(function (resolve) {
-   startPromise_resolve = resolve;
-  });
-  InitializeTransformStream(this, startPromise, writableHighWaterMark, writableSizeAlgorithm, readableHighWaterMark, readableSizeAlgorithm);
-  SetUpTransformStreamDefaultControllerFromTransformer(this, transformer);
-  var startResult = InvokeOrNoop(transformer, 'start', [this._transformStreamController]);
-  startPromise_resolve(startResult);
- }
- Object.defineProperty(TransformStream.prototype, "readable", {
-  get: function () {
-   if (IsTransformStream(this) === false) {
-    throw streamBrandCheckException$2('readable');
+  return CountQueuingStrategy;
+ }();
+ var TransformStream = function () {
+  function TransformStream(transformer, writableStrategy, readableStrategy) {
+   if (transformer === void 0) {
+    transformer = {};
    }
-   return this._readable;
-  },
-  enumerable: true,
-  configurable: true
- });
- Object.defineProperty(TransformStream.prototype, "writable", {
-  get: function () {
-   if (IsTransformStream(this) === false) {
-    throw streamBrandCheckException$2('writable');
+   if (writableStrategy === void 0) {
+    writableStrategy = {};
    }
-   return this._writable;
-  },
-  enumerable: true,
-  configurable: true
- });
- return TransformStream;
-}();
-function InitializeTransformStream(stream, startPromise, writableHighWaterMark, writableSizeAlgorithm, readableHighWaterMark, readableSizeAlgorithm) {
- function startAlgorithm() {
-  return startPromise;
- }
- function writeAlgorithm(chunk) {
-  return TransformStreamDefaultSinkWriteAlgorithm(stream, chunk);
- }
- function abortAlgorithm(reason) {
-  return TransformStreamDefaultSinkAbortAlgorithm(stream, reason);
- }
- function closeAlgorithm() {
-  return TransformStreamDefaultSinkCloseAlgorithm(stream);
- }
- stream._writable = CreateWritableStream(startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, writableHighWaterMark, writableSizeAlgorithm);
- function pullAlgorithm() {
-  return TransformStreamDefaultSourcePullAlgorithm(stream);
- }
- function cancelAlgorithm(reason) {
-  TransformStreamErrorWritableAndUnblockWrite(stream, reason);
-  return promiseResolvedWith(undefined);
- }
- stream._readable = CreateReadableStream(startAlgorithm, pullAlgorithm, cancelAlgorithm, readableHighWaterMark, readableSizeAlgorithm);
- stream._backpressure = undefined;
- stream._backpressureChangePromise = undefined;
- stream._backpressureChangePromise_resolve = undefined;
- TransformStreamSetBackpressure(stream, true);
- stream._transformStreamController = undefined;
-}
-function IsTransformStream(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_transformStreamController')) {
-  return false;
- }
- return true;
-}
-function TransformStreamError(stream, e) {
- ReadableStreamDefaultControllerError(stream._readable._readableStreamController, e);
- TransformStreamErrorWritableAndUnblockWrite(stream, e);
-}
-function TransformStreamErrorWritableAndUnblockWrite(stream, e) {
- TransformStreamDefaultControllerClearAlgorithms(stream._transformStreamController);
- WritableStreamDefaultControllerErrorIfNeeded(stream._writable._writableStreamController, e);
- if (stream._backpressure === true) {
-  TransformStreamSetBackpressure(stream, false);
- }
-}
-function TransformStreamSetBackpressure(stream, backpressure) {
- if (stream._backpressureChangePromise !== undefined) {
-  stream._backpressureChangePromise_resolve();
- }
- stream._backpressureChangePromise = newPromise(function (resolve) {
-  stream._backpressureChangePromise_resolve = resolve;
- });
- stream._backpressure = backpressure;
-}
-var TransformStreamDefaultController = function () {
- function TransformStreamDefaultController() {
-  throw new TypeError('TransformStreamDefaultController instances cannot be created directly');
- }
- Object.defineProperty(TransformStreamDefaultController.prototype, "desiredSize", {
-  get: function () {
-   if (IsTransformStreamDefaultController(this) === false) {
-    throw defaultControllerBrandCheckException$1('desiredSize');
+   if (readableStrategy === void 0) {
+    readableStrategy = {};
    }
-   var readableController = this._controlledTransformStream._readable._readableStreamController;
-   return ReadableStreamDefaultControllerGetDesiredSize(readableController);
-  },
-  enumerable: true,
-  configurable: true
- });
- TransformStreamDefaultController.prototype.enqueue = function (chunk) {
-  if (IsTransformStreamDefaultController(this) === false) {
-   throw defaultControllerBrandCheckException$1('enqueue');
+   var writableSizeFunction = writableStrategy.size;
+   var writableHighWaterMark = writableStrategy.highWaterMark;
+   var readableSizeFunction = readableStrategy.size;
+   var readableHighWaterMark = readableStrategy.highWaterMark;
+   var writableType = transformer.writableType;
+   if (writableType !== undefined) {
+    throw new RangeError('Invalid writable type specified');
+   }
+   var writableSizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(writableSizeFunction);
+   if (writableHighWaterMark === undefined) {
+    writableHighWaterMark = 1;
+   }
+   writableHighWaterMark = ValidateAndNormalizeHighWaterMark(writableHighWaterMark);
+   var readableType = transformer.readableType;
+   if (readableType !== undefined) {
+    throw new RangeError('Invalid readable type specified');
+   }
+   var readableSizeAlgorithm = MakeSizeAlgorithmFromSizeFunction(readableSizeFunction);
+   if (readableHighWaterMark === undefined) {
+    readableHighWaterMark = 0;
+   }
+   readableHighWaterMark = ValidateAndNormalizeHighWaterMark(readableHighWaterMark);
+   var startPromise_resolve;
+   var startPromise = newPromise(function (resolve) {
+    startPromise_resolve = resolve;
+   });
+   InitializeTransformStream(this, startPromise, writableHighWaterMark, writableSizeAlgorithm, readableHighWaterMark, readableSizeAlgorithm);
+   SetUpTransformStreamDefaultControllerFromTransformer(this, transformer);
+   var startResult = InvokeOrNoop(transformer, 'start', [this._transformStreamController]);
+   startPromise_resolve(startResult);
   }
-  TransformStreamDefaultControllerEnqueue(this, chunk);
- };
- TransformStreamDefaultController.prototype.error = function (reason) {
-  if (IsTransformStreamDefaultController(this) === false) {
-   throw defaultControllerBrandCheckException$1('error');
+  Object.defineProperty(TransformStream.prototype, "readable", {
+   get: function () {
+    if (IsTransformStream(this) === false) {
+     throw streamBrandCheckException$2('readable');
+    }
+    return this._readable;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  Object.defineProperty(TransformStream.prototype, "writable", {
+   get: function () {
+    if (IsTransformStream(this) === false) {
+     throw streamBrandCheckException$2('writable');
+    }
+    return this._writable;
+   },
+   enumerable: true,
+   configurable: true
+  });
+  return TransformStream;
+ }();
+ function InitializeTransformStream(stream, startPromise, writableHighWaterMark, writableSizeAlgorithm, readableHighWaterMark, readableSizeAlgorithm) {
+  function startAlgorithm() {
+   return startPromise;
   }
-  TransformStreamDefaultControllerError(this, reason);
- };
- TransformStreamDefaultController.prototype.terminate = function () {
-  if (IsTransformStreamDefaultController(this) === false) {
-   throw defaultControllerBrandCheckException$1('terminate');
+  function writeAlgorithm(chunk) {
+   return TransformStreamDefaultSinkWriteAlgorithm(stream, chunk);
   }
-  TransformStreamDefaultControllerTerminate(this);
- };
- return TransformStreamDefaultController;
-}();
-function IsTransformStreamDefaultController(x) {
- if (!typeIsObject(x)) {
-  return false;
- }
- if (!Object.prototype.hasOwnProperty.call(x, '_controlledTransformStream')) {
-  return false;
- }
- return true;
-}
-function SetUpTransformStreamDefaultController(stream, controller, transformAlgorithm, flushAlgorithm) {
- controller._controlledTransformStream = stream;
- stream._transformStreamController = controller;
- controller._transformAlgorithm = transformAlgorithm;
- controller._flushAlgorithm = flushAlgorithm;
-}
-function SetUpTransformStreamDefaultControllerFromTransformer(stream, transformer) {
- var controller = Object.create(TransformStreamDefaultController.prototype);
- var transformAlgorithm = function (chunk) {
-  try {
-   TransformStreamDefaultControllerEnqueue(controller, chunk);
+  function abortAlgorithm(reason) {
+   return TransformStreamDefaultSinkAbortAlgorithm(stream, reason);
+  }
+  function closeAlgorithm() {
+   return TransformStreamDefaultSinkCloseAlgorithm(stream);
+  }
+  stream._writable = CreateWritableStream(startAlgorithm, writeAlgorithm, closeAlgorithm, abortAlgorithm, writableHighWaterMark, writableSizeAlgorithm);
+  function pullAlgorithm() {
+   return TransformStreamDefaultSourcePullAlgorithm(stream);
+  }
+  function cancelAlgorithm(reason) {
+   TransformStreamErrorWritableAndUnblockWrite(stream, reason);
    return promiseResolvedWith(undefined);
-  } catch (transformResultE) {
-   return promiseRejectedWith(transformResultE);
   }
- };
- var transformMethod = transformer.transform;
- if (transformMethod !== undefined) {
-  if (typeof transformMethod !== 'function') {
-   throw new TypeError('transform is not a method');
-  }
-  transformAlgorithm = function (chunk) {
-   return PromiseCall(transformMethod, transformer, [
-    chunk,
-    controller
-   ]);
-  };
- }
- var flushAlgorithm = CreateAlgorithmFromUnderlyingMethod(transformer, 'flush', 0, [controller]);
- SetUpTransformStreamDefaultController(stream, controller, transformAlgorithm, flushAlgorithm);
-}
-function TransformStreamDefaultControllerClearAlgorithms(controller) {
- controller._transformAlgorithm = undefined;
- controller._flushAlgorithm = undefined;
-}
-function TransformStreamDefaultControllerEnqueue(controller, chunk) {
- var stream = controller._controlledTransformStream;
- var readableController = stream._readable._readableStreamController;
- if (ReadableStreamDefaultControllerCanCloseOrEnqueue(readableController) === false) {
-  throw new TypeError('Readable side is not in a state that permits enqueue');
- }
- try {
-  ReadableStreamDefaultControllerEnqueue(readableController, chunk);
- } catch (e) {
-  TransformStreamErrorWritableAndUnblockWrite(stream, e);
-  throw stream._readable._storedError;
- }
- var backpressure = ReadableStreamDefaultControllerHasBackpressure(readableController);
- if (backpressure !== stream._backpressure) {
+  stream._readable = CreateReadableStream(startAlgorithm, pullAlgorithm, cancelAlgorithm, readableHighWaterMark, readableSizeAlgorithm);
+  stream._backpressure = undefined;
+  stream._backpressureChangePromise = undefined;
+  stream._backpressureChangePromise_resolve = undefined;
   TransformStreamSetBackpressure(stream, true);
+  stream._transformStreamController = undefined;
  }
-}
-function TransformStreamDefaultControllerError(controller, e) {
- TransformStreamError(controller._controlledTransformStream, e);
-}
-function TransformStreamDefaultControllerPerformTransform(controller, chunk) {
- var transformPromise = controller._transformAlgorithm(chunk);
- return transformPromiseWith(transformPromise, undefined, function (r) {
-  TransformStreamError(controller._controlledTransformStream, r);
-  throw r;
- });
-}
-function TransformStreamDefaultControllerTerminate(controller) {
- var stream = controller._controlledTransformStream;
- var readableController = stream._readable._readableStreamController;
- if (ReadableStreamDefaultControllerCanCloseOrEnqueue(readableController) === true) {
-  ReadableStreamDefaultControllerClose(readableController);
+ function IsTransformStream(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_transformStreamController')) {
+   return false;
+  }
+  return true;
  }
- var error = new TypeError('TransformStream terminated');
- TransformStreamErrorWritableAndUnblockWrite(stream, error);
-}
-function TransformStreamDefaultSinkWriteAlgorithm(stream, chunk) {
- var controller = stream._transformStreamController;
- if (stream._backpressure === true) {
-  var backpressureChangePromise = stream._backpressureChangePromise;
-  return transformPromiseWith(backpressureChangePromise, function () {
-   var writable = stream._writable;
-   var state = writable._state;
-   if (state === 'erroring') {
-    throw writable._storedError;
+ function TransformStreamError(stream, e) {
+  ReadableStreamDefaultControllerError(stream._readable._readableStreamController, e);
+  TransformStreamErrorWritableAndUnblockWrite(stream, e);
+ }
+ function TransformStreamErrorWritableAndUnblockWrite(stream, e) {
+  TransformStreamDefaultControllerClearAlgorithms(stream._transformStreamController);
+  WritableStreamDefaultControllerErrorIfNeeded(stream._writable._writableStreamController, e);
+  if (stream._backpressure === true) {
+   TransformStreamSetBackpressure(stream, false);
+  }
+ }
+ function TransformStreamSetBackpressure(stream, backpressure) {
+  if (stream._backpressureChangePromise !== undefined) {
+   stream._backpressureChangePromise_resolve();
+  }
+  stream._backpressureChangePromise = newPromise(function (resolve) {
+   stream._backpressureChangePromise_resolve = resolve;
+  });
+  stream._backpressure = backpressure;
+ }
+ var TransformStreamDefaultController = function () {
+  function TransformStreamDefaultController() {
+   throw new TypeError('TransformStreamDefaultController instances cannot be created directly');
+  }
+  Object.defineProperty(TransformStreamDefaultController.prototype, "desiredSize", {
+   get: function () {
+    if (IsTransformStreamDefaultController(this) === false) {
+     throw defaultControllerBrandCheckException$1('desiredSize');
+    }
+    var readableController = this._controlledTransformStream._readable._readableStreamController;
+    return ReadableStreamDefaultControllerGetDesiredSize(readableController);
+   },
+   enumerable: true,
+   configurable: true
+  });
+  TransformStreamDefaultController.prototype.enqueue = function (chunk) {
+   if (IsTransformStreamDefaultController(this) === false) {
+    throw defaultControllerBrandCheckException$1('enqueue');
    }
-   return TransformStreamDefaultControllerPerformTransform(controller, chunk);
+   TransformStreamDefaultControllerEnqueue(this, chunk);
+  };
+  TransformStreamDefaultController.prototype.error = function (reason) {
+   if (IsTransformStreamDefaultController(this) === false) {
+    throw defaultControllerBrandCheckException$1('error');
+   }
+   TransformStreamDefaultControllerError(this, reason);
+  };
+  TransformStreamDefaultController.prototype.terminate = function () {
+   if (IsTransformStreamDefaultController(this) === false) {
+    throw defaultControllerBrandCheckException$1('terminate');
+   }
+   TransformStreamDefaultControllerTerminate(this);
+  };
+  return TransformStreamDefaultController;
+ }();
+ function IsTransformStreamDefaultController(x) {
+  if (!typeIsObject(x)) {
+   return false;
+  }
+  if (!Object.prototype.hasOwnProperty.call(x, '_controlledTransformStream')) {
+   return false;
+  }
+  return true;
+ }
+ function SetUpTransformStreamDefaultController(stream, controller, transformAlgorithm, flushAlgorithm) {
+  controller._controlledTransformStream = stream;
+  stream._transformStreamController = controller;
+  controller._transformAlgorithm = transformAlgorithm;
+  controller._flushAlgorithm = flushAlgorithm;
+ }
+ function SetUpTransformStreamDefaultControllerFromTransformer(stream, transformer) {
+  var controller = Object.create(TransformStreamDefaultController.prototype);
+  var transformAlgorithm = function (chunk) {
+   try {
+    TransformStreamDefaultControllerEnqueue(controller, chunk);
+    return promiseResolvedWith(undefined);
+   } catch (transformResultE) {
+    return promiseRejectedWith(transformResultE);
+   }
+  };
+  var transformMethod = transformer.transform;
+  if (transformMethod !== undefined) {
+   if (typeof transformMethod !== 'function') {
+    throw new TypeError('transform is not a method');
+   }
+   transformAlgorithm = function (chunk) {
+    return PromiseCall(transformMethod, transformer, [
+     chunk,
+     controller
+    ]);
+   };
+  }
+  var flushAlgorithm = CreateAlgorithmFromUnderlyingMethod(transformer, 'flush', 0, [controller]);
+  SetUpTransformStreamDefaultController(stream, controller, transformAlgorithm, flushAlgorithm);
+ }
+ function TransformStreamDefaultControllerClearAlgorithms(controller) {
+  controller._transformAlgorithm = undefined;
+  controller._flushAlgorithm = undefined;
+ }
+ function TransformStreamDefaultControllerEnqueue(controller, chunk) {
+  var stream = controller._controlledTransformStream;
+  var readableController = stream._readable._readableStreamController;
+  if (ReadableStreamDefaultControllerCanCloseOrEnqueue(readableController) === false) {
+   throw new TypeError('Readable side is not in a state that permits enqueue');
+  }
+  try {
+   ReadableStreamDefaultControllerEnqueue(readableController, chunk);
+  } catch (e) {
+   TransformStreamErrorWritableAndUnblockWrite(stream, e);
+   throw stream._readable._storedError;
+  }
+  var backpressure = ReadableStreamDefaultControllerHasBackpressure(readableController);
+  if (backpressure !== stream._backpressure) {
+   TransformStreamSetBackpressure(stream, true);
+  }
+ }
+ function TransformStreamDefaultControllerError(controller, e) {
+  TransformStreamError(controller._controlledTransformStream, e);
+ }
+ function TransformStreamDefaultControllerPerformTransform(controller, chunk) {
+  var transformPromise = controller._transformAlgorithm(chunk);
+  return transformPromiseWith(transformPromise, undefined, function (r) {
+   TransformStreamError(controller._controlledTransformStream, r);
+   throw r;
   });
  }
- return TransformStreamDefaultControllerPerformTransform(controller, chunk);
-}
-function TransformStreamDefaultSinkAbortAlgorithm(stream, reason) {
- TransformStreamError(stream, reason);
- return promiseResolvedWith(undefined);
-}
-function TransformStreamDefaultSinkCloseAlgorithm(stream) {
- var readable = stream._readable;
- var controller = stream._transformStreamController;
- var flushPromise = controller._flushAlgorithm();
- TransformStreamDefaultControllerClearAlgorithms(controller);
- return transformPromiseWith(flushPromise, function () {
-  if (readable._state === 'errored') {
-   throw readable._storedError;
-  }
-  var readableController = readable._readableStreamController;
+ function TransformStreamDefaultControllerTerminate(controller) {
+  var stream = controller._controlledTransformStream;
+  var readableController = stream._readable._readableStreamController;
   if (ReadableStreamDefaultControllerCanCloseOrEnqueue(readableController) === true) {
    ReadableStreamDefaultControllerClose(readableController);
   }
- }, function (r) {
-  TransformStreamError(stream, r);
-  throw readable._storedError;
- });
-}
-function TransformStreamDefaultSourcePullAlgorithm(stream) {
- TransformStreamSetBackpressure(stream, false);
- return stream._backpressureChangePromise;
-}
-function defaultControllerBrandCheckException$1(name) {
- return new TypeError("TransformStreamDefaultController.prototype." + name + " can only be used on a TransformStreamDefaultController");
-}
-function streamBrandCheckException$2(name) {
- return new TypeError("TransformStream.prototype." + name + " can only be used on a TransformStream");
-}
-
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __w_pdfjs_require__) {
-
-__w_pdfjs_require__(104);
-__w_pdfjs_require__(136);
-__w_pdfjs_require__(106);
-var path = __w_pdfjs_require__(38);
-module.exports = path.WeakMap;
+  var error = new TypeError('TransformStream terminated');
+  TransformStreamErrorWritableAndUnblockWrite(stream, error);
+ }
+ function TransformStreamDefaultSinkWriteAlgorithm(stream, chunk) {
+  var controller = stream._transformStreamController;
+  if (stream._backpressure === true) {
+   var backpressureChangePromise = stream._backpressureChangePromise;
+   return transformPromiseWith(backpressureChangePromise, function () {
+    var writable = stream._writable;
+    var state = writable._state;
+    if (state === 'erroring') {
+     throw writable._storedError;
+    }
+    return TransformStreamDefaultControllerPerformTransform(controller, chunk);
+   });
+  }
+  return TransformStreamDefaultControllerPerformTransform(controller, chunk);
+ }
+ function TransformStreamDefaultSinkAbortAlgorithm(stream, reason) {
+  TransformStreamError(stream, reason);
+  return promiseResolvedWith(undefined);
+ }
+ function TransformStreamDefaultSinkCloseAlgorithm(stream) {
+  var readable = stream._readable;
+  var controller = stream._transformStreamController;
+  var flushPromise = controller._flushAlgorithm();
+  TransformStreamDefaultControllerClearAlgorithms(controller);
+  return transformPromiseWith(flushPromise, function () {
+   if (readable._state === 'errored') {
+    throw readable._storedError;
+   }
+   var readableController = readable._readableStreamController;
+   if (ReadableStreamDefaultControllerCanCloseOrEnqueue(readableController) === true) {
+    ReadableStreamDefaultControllerClose(readableController);
+   }
+  }, function (r) {
+   TransformStreamError(stream, r);
+   throw readable._storedError;
+  });
+ }
+ function TransformStreamDefaultSourcePullAlgorithm(stream) {
+  TransformStreamSetBackpressure(stream, false);
+  return stream._backpressureChangePromise;
+ }
+ function defaultControllerBrandCheckException$1(name) {
+  return new TypeError("TransformStreamDefaultController.prototype." + name + " can only be used on a TransformStreamDefaultController");
+ }
+ function streamBrandCheckException$2(name) {
+  return new TypeError("TransformStream.prototype." + name + " can only be used on a TransformStream");
+ }
+ exports.ByteLengthQueuingStrategy = ByteLengthQueuingStrategy;
+ exports.CountQueuingStrategy = CountQueuingStrategy;
+ exports.ReadableStream = ReadableStream;
+ exports.TransformStream = TransformStream;
+ exports.WritableStream = WritableStream;
+ Object.defineProperty(exports, '__esModule', { value: true });
+}));
 
 /***/ }),
 /* 136 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(137);
+__w_pdfjs_require__(107);
+var path = __w_pdfjs_require__(38);
+module.exports = path.WeakMap;
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
+
 "use strict";
 
 var global = __w_pdfjs_require__(6);
-var redefineAll = __w_pdfjs_require__(111);
-var InternalMetadataModule = __w_pdfjs_require__(137);
-var collection = __w_pdfjs_require__(139);
-var collectionWeak = __w_pdfjs_require__(141);
+var redefineAll = __w_pdfjs_require__(112);
+var InternalMetadataModule = __w_pdfjs_require__(138);
+var collection = __w_pdfjs_require__(140);
+var collectionWeak = __w_pdfjs_require__(142);
 var isObject = __w_pdfjs_require__(17);
 var enforceIternalState = __w_pdfjs_require__(28).enforce;
 var NATIVE_WEAK_MAP = __w_pdfjs_require__(29);
@@ -8787,7 +8805,7 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
 }
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var hiddenKeys = __w_pdfjs_require__(34);
@@ -8795,7 +8813,7 @@ var isObject = __w_pdfjs_require__(17);
 var has = __w_pdfjs_require__(18);
 var defineProperty = __w_pdfjs_require__(22).f;
 var uid = __w_pdfjs_require__(33);
-var FREEZING = __w_pdfjs_require__(138);
+var FREEZING = __w_pdfjs_require__(139);
 var METADATA = uid('meta');
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
@@ -8845,7 +8863,7 @@ var meta = module.exports = {
 hiddenKeys[METADATA] = true;
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var fails = __w_pdfjs_require__(9);
@@ -8854,7 +8872,7 @@ module.exports = !fails(function () {
 });
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -8863,14 +8881,14 @@ var $ = __w_pdfjs_require__(5);
 var global = __w_pdfjs_require__(6);
 var isForced = __w_pdfjs_require__(47);
 var redefine = __w_pdfjs_require__(24);
-var InternalMetadataModule = __w_pdfjs_require__(137);
-var iterate = __w_pdfjs_require__(114);
-var anInstance = __w_pdfjs_require__(113);
+var InternalMetadataModule = __w_pdfjs_require__(138);
+var iterate = __w_pdfjs_require__(115);
+var anInstance = __w_pdfjs_require__(114);
 var isObject = __w_pdfjs_require__(17);
 var fails = __w_pdfjs_require__(9);
-var checkCorrectnessOfIteration = __w_pdfjs_require__(92);
-var setToStringTag = __w_pdfjs_require__(80);
-var inheritIfRequired = __w_pdfjs_require__(140);
+var checkCorrectnessOfIteration = __w_pdfjs_require__(93);
+var setToStringTag = __w_pdfjs_require__(81);
+var inheritIfRequired = __w_pdfjs_require__(141);
 module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
  var IS_MAP = CONSTRUCTOR_NAME.indexOf('Map') !== -1;
  var IS_WEAK = CONSTRUCTOR_NAME.indexOf('Weak') !== -1;
@@ -8949,11 +8967,11 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
 };
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var isObject = __w_pdfjs_require__(17);
-var setPrototypeOf = __w_pdfjs_require__(82);
+var setPrototypeOf = __w_pdfjs_require__(83);
 module.exports = function ($this, dummy, Wrapper) {
  var NewTarget, NewTargetPrototype;
  if (setPrototypeOf && typeof (NewTarget = dummy.constructor) == 'function' && NewTarget !== Wrapper && isObject(NewTargetPrototype = NewTarget.prototype) && NewTargetPrototype !== Wrapper.prototype)
@@ -8962,18 +8980,18 @@ module.exports = function ($this, dummy, Wrapper) {
 };
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
-var redefineAll = __w_pdfjs_require__(111);
-var getWeakData = __w_pdfjs_require__(137).getWeakData;
+var redefineAll = __w_pdfjs_require__(112);
+var getWeakData = __w_pdfjs_require__(138).getWeakData;
 var anObject = __w_pdfjs_require__(23);
 var isObject = __w_pdfjs_require__(17);
-var anInstance = __w_pdfjs_require__(113);
-var iterate = __w_pdfjs_require__(114);
-var ArrayIterationModule = __w_pdfjs_require__(142);
+var anInstance = __w_pdfjs_require__(114);
+var iterate = __w_pdfjs_require__(115);
+var ArrayIterationModule = __w_pdfjs_require__(143);
 var $has = __w_pdfjs_require__(18);
 var InternalStateModule = __w_pdfjs_require__(28);
 var setInternalState = InternalStateModule.set;
@@ -9085,14 +9103,14 @@ module.exports = {
 };
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var bind = __w_pdfjs_require__(58);
 var IndexedObject = __w_pdfjs_require__(13);
-var toObject = __w_pdfjs_require__(78);
+var toObject = __w_pdfjs_require__(79);
 var toLength = __w_pdfjs_require__(42);
-var arraySpeciesCreate = __w_pdfjs_require__(143);
+var arraySpeciesCreate = __w_pdfjs_require__(144);
 var push = [].push;
 var createMethod = function (TYPE) {
  var IS_MAP = TYPE == 1;
@@ -9146,11 +9164,11 @@ module.exports = {
 };
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var isObject = __w_pdfjs_require__(17);
-var isArray = __w_pdfjs_require__(144);
+var isArray = __w_pdfjs_require__(145);
 var wellKnownSymbol = __w_pdfjs_require__(53);
 var SPECIES = wellKnownSymbol('species');
 module.exports = function (originalArray, length) {
@@ -9169,7 +9187,7 @@ module.exports = function (originalArray, length) {
 };
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var classof = __w_pdfjs_require__(14);
@@ -9178,23 +9196,23 @@ module.exports = Array.isArray || function isArray(arg) {
 };
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(104);
-__w_pdfjs_require__(146);
-__w_pdfjs_require__(106);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(147);
+__w_pdfjs_require__(107);
 var path = __w_pdfjs_require__(38);
 module.exports = path.WeakSet;
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
-var collection = __w_pdfjs_require__(139);
-var collectionWeak = __w_pdfjs_require__(141);
+var collection = __w_pdfjs_require__(140);
+var collectionWeak = __w_pdfjs_require__(142);
 collection('WeakSet', function (init) {
  return function WeakSet() {
   return init(this, arguments.length ? arguments[0] : undefined);
@@ -9202,21 +9220,21 @@ collection('WeakSet', function (init) {
 }, collectionWeak);
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(148);
+__w_pdfjs_require__(149);
 var entryUnbind = __w_pdfjs_require__(57);
 module.exports = entryUnbind('String', 'codePointAt');
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
-var codeAt = __w_pdfjs_require__(73).codeAt;
+var codeAt = __w_pdfjs_require__(74).codeAt;
 $({
  target: 'String',
  proto: true
@@ -9227,15 +9245,15 @@ $({
 });
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(150);
+__w_pdfjs_require__(151);
 var path = __w_pdfjs_require__(38);
 module.exports = path.String.fromCodePoint;
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
@@ -9264,13 +9282,12 @@ $({
 });
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(152);
-__w_pdfjs_require__(104);
-__w_pdfjs_require__(154);
-__w_pdfjs_require__(158);
+__w_pdfjs_require__(153);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(155);
 __w_pdfjs_require__(159);
 __w_pdfjs_require__(160);
 __w_pdfjs_require__(161);
@@ -9286,26 +9303,27 @@ __w_pdfjs_require__(170);
 __w_pdfjs_require__(171);
 __w_pdfjs_require__(172);
 __w_pdfjs_require__(173);
+__w_pdfjs_require__(174);
 var path = __w_pdfjs_require__(38);
 module.exports = path.Symbol;
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
 var fails = __w_pdfjs_require__(9);
-var isArray = __w_pdfjs_require__(144);
+var isArray = __w_pdfjs_require__(145);
 var isObject = __w_pdfjs_require__(17);
-var toObject = __w_pdfjs_require__(78);
+var toObject = __w_pdfjs_require__(79);
 var toLength = __w_pdfjs_require__(42);
-var createProperty = __w_pdfjs_require__(88);
-var arraySpeciesCreate = __w_pdfjs_require__(143);
-var arrayMethodHasSpeciesSupport = __w_pdfjs_require__(153);
+var createProperty = __w_pdfjs_require__(89);
+var arraySpeciesCreate = __w_pdfjs_require__(144);
+var arrayMethodHasSpeciesSupport = __w_pdfjs_require__(154);
 var wellKnownSymbol = __w_pdfjs_require__(53);
-var V8_VERSION = __w_pdfjs_require__(124);
+var V8_VERSION = __w_pdfjs_require__(125);
 var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
 var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
 var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
@@ -9353,12 +9371,12 @@ $({
 });
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var fails = __w_pdfjs_require__(9);
 var wellKnownSymbol = __w_pdfjs_require__(53);
-var V8_VERSION = __w_pdfjs_require__(124);
+var V8_VERSION = __w_pdfjs_require__(125);
 var SPECIES = wellKnownSymbol('species');
 module.exports = function (METHOD_NAME) {
  return V8_VERSION >= 51 || !fails(function () {
@@ -9372,7 +9390,7 @@ module.exports = function (METHOD_NAME) {
 };
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -9386,17 +9404,17 @@ var NATIVE_SYMBOL = __w_pdfjs_require__(54);
 var USE_SYMBOL_AS_UID = __w_pdfjs_require__(55);
 var fails = __w_pdfjs_require__(9);
 var has = __w_pdfjs_require__(18);
-var isArray = __w_pdfjs_require__(144);
+var isArray = __w_pdfjs_require__(145);
 var isObject = __w_pdfjs_require__(17);
 var anObject = __w_pdfjs_require__(23);
-var toObject = __w_pdfjs_require__(78);
+var toObject = __w_pdfjs_require__(79);
 var toIndexedObject = __w_pdfjs_require__(12);
 var toPrimitive = __w_pdfjs_require__(16);
 var createPropertyDescriptor = __w_pdfjs_require__(11);
 var nativeObjectCreate = __w_pdfjs_require__(67);
 var objectKeys = __w_pdfjs_require__(69);
 var getOwnPropertyNamesModule = __w_pdfjs_require__(39);
-var getOwnPropertyNamesExternal = __w_pdfjs_require__(155);
+var getOwnPropertyNamesExternal = __w_pdfjs_require__(156);
 var getOwnPropertySymbolsModule = __w_pdfjs_require__(46);
 var getOwnPropertyDescriptorModule = __w_pdfjs_require__(7);
 var definePropertyModule = __w_pdfjs_require__(22);
@@ -9408,11 +9426,11 @@ var sharedKey = __w_pdfjs_require__(30);
 var hiddenKeys = __w_pdfjs_require__(34);
 var uid = __w_pdfjs_require__(33);
 var wellKnownSymbol = __w_pdfjs_require__(53);
-var wrappedWellKnownSymbolModule = __w_pdfjs_require__(156);
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-var setToStringTag = __w_pdfjs_require__(80);
+var wrappedWellKnownSymbolModule = __w_pdfjs_require__(157);
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+var setToStringTag = __w_pdfjs_require__(81);
 var InternalStateModule = __w_pdfjs_require__(28);
-var $forEach = __w_pdfjs_require__(142).forEach;
+var $forEach = __w_pdfjs_require__(143).forEach;
 var HIDDEN = sharedKey('hidden');
 var SYMBOL = 'Symbol';
 var PROTOTYPE = 'prototype';
@@ -9685,7 +9703,7 @@ setToStringTag($Symbol, SYMBOL);
 hiddenKeys[HIDDEN] = true;
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var toIndexedObject = __w_pdfjs_require__(12);
@@ -9704,19 +9722,19 @@ module.exports.f = function getOwnPropertyNames(it) {
 };
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var wellKnownSymbol = __w_pdfjs_require__(53);
 exports.f = wellKnownSymbol;
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var path = __w_pdfjs_require__(38);
 var has = __w_pdfjs_require__(18);
-var wrappedWellKnownSymbolModule = __w_pdfjs_require__(156);
+var wrappedWellKnownSymbolModule = __w_pdfjs_require__(157);
 var defineProperty = __w_pdfjs_require__(22).f;
 module.exports = function (NAME) {
  var Symbol = path.Symbol || (path.Symbol = {});
@@ -9725,14 +9743,14 @@ module.exports = function (NAME) {
 };
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
 defineWellKnownSymbol('asyncIterator');
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -9778,121 +9796,121 @@ if (DESCRIPTORS && typeof NativeSymbol == 'function' && (!('description' in Nati
 }
 
 /***/ }),
-/* 160 */
-/***/ (function(module, exports, __w_pdfjs_require__) {
-
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('hasInstance');
-
-/***/ }),
 /* 161 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('isConcatSpreadable');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('hasInstance');
 
 /***/ }),
 /* 162 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('iterator');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('isConcatSpreadable');
 
 /***/ }),
 /* 163 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('match');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('iterator');
 
 /***/ }),
 /* 164 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('matchAll');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('match');
 
 /***/ }),
 /* 165 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('replace');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('matchAll');
 
 /***/ }),
 /* 166 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('search');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('replace');
 
 /***/ }),
 /* 167 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('species');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('search');
 
 /***/ }),
 /* 168 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('split');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('species');
 
 /***/ }),
 /* 169 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('toPrimitive');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('split');
 
 /***/ }),
 /* 170 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('toStringTag');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('toPrimitive');
 
 /***/ }),
 /* 171 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var defineWellKnownSymbol = __w_pdfjs_require__(157);
-defineWellKnownSymbol('unscopables');
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('toStringTag');
 
 /***/ }),
 /* 172 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var setToStringTag = __w_pdfjs_require__(80);
-setToStringTag(Math, 'Math', true);
+var defineWellKnownSymbol = __w_pdfjs_require__(158);
+defineWellKnownSymbol('unscopables');
 
 /***/ }),
 /* 173 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-var global = __w_pdfjs_require__(6);
-var setToStringTag = __w_pdfjs_require__(80);
-setToStringTag(global.JSON, 'JSON', true);
+var setToStringTag = __w_pdfjs_require__(81);
+setToStringTag(Math, 'Math', true);
 
 /***/ }),
 /* 174 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(175);
-var entryUnbind = __w_pdfjs_require__(57);
-module.exports = entryUnbind('String', 'padStart');
+var global = __w_pdfjs_require__(6);
+var setToStringTag = __w_pdfjs_require__(81);
+setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 /* 175 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
+__w_pdfjs_require__(176);
+var entryUnbind = __w_pdfjs_require__(57);
+module.exports = entryUnbind('String', 'padStart');
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
+
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
-var $padStart = __w_pdfjs_require__(176).start;
-var WEBKIT_BUG = __w_pdfjs_require__(178);
+var $padStart = __w_pdfjs_require__(177).start;
+var WEBKIT_BUG = __w_pdfjs_require__(179);
 $({
  target: 'String',
  proto: true,
@@ -9904,11 +9922,11 @@ $({
 });
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var toLength = __w_pdfjs_require__(42);
-var repeat = __w_pdfjs_require__(177);
+var repeat = __w_pdfjs_require__(178);
 var requireObjectCoercible = __w_pdfjs_require__(15);
 var ceil = Math.ceil;
 var createMethod = function (IS_END) {
@@ -9933,7 +9951,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -9953,29 +9971,29 @@ module.exports = ''.repeat || function repeat(count) {
 };
 
 /***/ }),
-/* 178 */
-/***/ (function(module, exports, __w_pdfjs_require__) {
-
-var userAgent = __w_pdfjs_require__(118);
-module.exports = /Version\/10\.\d+(\.\d+)?( Mobile\/\w+)? Safari\//.test(userAgent);
-
-/***/ }),
 /* 179 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(180);
-var entryUnbind = __w_pdfjs_require__(57);
-module.exports = entryUnbind('String', 'padEnd');
+var userAgent = __w_pdfjs_require__(119);
+module.exports = /Version\/10\.\d+(\.\d+)?( Mobile\/\w+)? Safari\//.test(userAgent);
 
 /***/ }),
 /* 180 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
+__w_pdfjs_require__(181);
+var entryUnbind = __w_pdfjs_require__(57);
+module.exports = entryUnbind('String', 'padEnd');
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
+
 "use strict";
 
 var $ = __w_pdfjs_require__(5);
-var $padEnd = __w_pdfjs_require__(176).end;
-var WEBKIT_BUG = __w_pdfjs_require__(178);
+var $padEnd = __w_pdfjs_require__(177).end;
+var WEBKIT_BUG = __w_pdfjs_require__(179);
 $({
  target: 'String',
  proto: true,
@@ -9987,19 +10005,19 @@ $({
 });
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
-__w_pdfjs_require__(182);
+__w_pdfjs_require__(183);
 var path = __w_pdfjs_require__(38);
 module.exports = path.Object.values;
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var $ = __w_pdfjs_require__(5);
-var $values = __w_pdfjs_require__(183).values;
+var $values = __w_pdfjs_require__(184).values;
 $({
  target: 'Object',
  stat: true
@@ -10010,7 +10028,7 @@ $({
 });
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 var DESCRIPTORS = __w_pdfjs_require__(8);
@@ -10043,7 +10061,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -10056,29 +10074,29 @@ exports.getDocument = getDocument;
 exports.setPDFNetworkStreamFactory = setPDFNetworkStreamFactory;
 exports.build = exports.version = exports.PDFPageProxy = exports.PDFDocumentProxy = exports.PDFWorker = exports.PDFDataRangeTransport = exports.LoopbackPort = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
-var _display_utils = __w_pdfjs_require__(188);
+var _display_utils = __w_pdfjs_require__(189);
 
-var _font_loader = __w_pdfjs_require__(189);
+var _font_loader = __w_pdfjs_require__(190);
 
-var _api_compatibility = __w_pdfjs_require__(190);
+var _api_compatibility = __w_pdfjs_require__(191);
 
-var _canvas = __w_pdfjs_require__(191);
+var _canvas = __w_pdfjs_require__(192);
 
-var _worker_options = __w_pdfjs_require__(193);
+var _worker_options = __w_pdfjs_require__(194);
 
 var _is_node = __w_pdfjs_require__(48);
 
-var _message_handler = __w_pdfjs_require__(194);
+var _message_handler = __w_pdfjs_require__(195);
 
-var _metadata = __w_pdfjs_require__(195);
+var _metadata = __w_pdfjs_require__(196);
 
-var _transport_stream = __w_pdfjs_require__(197);
+var _transport_stream = __w_pdfjs_require__(198);
 
-var _webgl = __w_pdfjs_require__(198);
+var _webgl = __w_pdfjs_require__(199);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -10108,7 +10126,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var DEFAULT_RANGE_CHUNK_SIZE = 65536;
 var RENDERING_CANCELLED_TIMEOUT = 100;
@@ -10284,7 +10302,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
 
   return worker.messageHandler.sendWithPromise("GetDocRequest", {
     docId: docId,
-    apiVersion: '2.4.267',
+    apiVersion: '2.4.341',
     source: {
       data: source.data,
       url: source.url,
@@ -11626,6 +11644,10 @@ var PDFWorker = function PDFWorkerClosure() {
           _this12._messageHandler = messageHandler;
 
           _this12._readyCapability.resolve();
+
+          messageHandler.send("configure", {
+            verbosity: _this12.verbosity
+          });
         })["catch"](function (reason) {
           _this12._readyCapability.reject(new Error("Setting up fake worker failed: \"".concat(reason.message, "\".")));
         });
@@ -12651,28 +12673,28 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
   return InternalRenderTask;
 }();
 
-var version = '2.4.267';
+var version = '2.4.341';
 exports.version = version;
-var build = 'bd3eae33';
+var build = 'df10a867';
 exports.build = build;
-
-/***/ }),
-/* 185 */
-/***/ (function(module, exports, __w_pdfjs_require__) {
-
-"use strict";
-
-
-module.exports = __w_pdfjs_require__(186);
 
 /***/ }),
 /* 186 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
+
+
+module.exports = __w_pdfjs_require__(187);
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __w_pdfjs_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(module) {
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var runtime = function (exports) {
   "use strict";
@@ -13244,10 +13266,10 @@ try {
 } catch (accidentalStrictMode) {
   Function("r", "regeneratorRuntime = r")(runtime);
 }
-/* WEBPACK VAR INJECTION */}.call(this, __w_pdfjs_require__(187)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __w_pdfjs_require__(188)(module)))
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -13278,7 +13300,7 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -13296,13 +13318,13 @@ exports.deprecated = deprecated;
 exports.releaseImageResources = releaseImageResources;
 exports.PDFDateString = exports.StatTimer = exports.DOMSVGFactory = exports.DOMCMapReaderFactory = exports.DOMCanvasFactory = exports.DEFAULT_LINK_REL = exports.LinkTarget = exports.RenderingCancelledException = exports.PageViewport = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -13414,9 +13436,9 @@ function () {
     }(
     /*#__PURE__*/
     function () {
-      var _ref3 = _asyncToGenerator(
+      var _ref2 = _asyncToGenerator(
       /*#__PURE__*/
-      _regenerator["default"].mark(function _callee2(_ref2) {
+      _regenerator["default"].mark(function _callee2(_ref3) {
         var _this = this;
 
         var name, url, compressionType;
@@ -13424,7 +13446,7 @@ function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                name = _ref2.name;
+                name = _ref3.name;
 
                 if (this.baseUrl) {
                   _context2.next = 3;
@@ -13563,7 +13585,7 @@ function () {
       }));
 
       return function (_x2) {
-        return _ref3.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }())
   }]);
@@ -13857,8 +13879,8 @@ function () {
   }, {
     key: "toString",
     value: function toString() {
-      var outBuf = [],
-          longest = 0;
+      var outBuf = [];
+      var longest = 0;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -14026,7 +14048,7 @@ function () {
 exports.PDFDateString = PDFDateString;
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -14037,13 +14059,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FontLoader = exports.FontFaceObject = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -14556,7 +14578,7 @@ function () {
 exports.FontFaceObject = FontFaceObject;
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -14587,7 +14609,7 @@ var compatibilityParams = Object.create(null);
 exports.apiCompatibilityParams = Object.freeze(compatibilityParams);
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -14600,7 +14622,7 @@ exports.CanvasGraphicsFactory = exports.CanvasGraphics = void 0;
 
 var _util = __w_pdfjs_require__(1);
 
-var _pattern_helper = __w_pdfjs_require__(192);
+var _pattern_helper = __w_pdfjs_require__(193);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -15833,10 +15855,24 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
       }
 
       var name = fontObj.loadedName || "sans-serif";
-      var bold = fontObj.black ? "900" : fontObj.bold ? "bold" : "normal";
+      var bold = "normal";
+
+      if (fontObj.black) {
+        bold = "900";
+      } else if (fontObj.bold) {
+        bold = "bold";
+      }
+
       var italic = fontObj.italic ? "italic" : "normal";
       var typeface = "\"".concat(name, "\", ").concat(fontObj.fallbackName);
-      var browserFontSize = size < MIN_FONT_SIZE ? MIN_FONT_SIZE : size > MAX_FONT_SIZE ? MAX_FONT_SIZE : size;
+      var browserFontSize = size;
+
+      if (size < MIN_FONT_SIZE) {
+        browserFontSize = MIN_FONT_SIZE;
+      } else if (size > MAX_FONT_SIZE) {
+        browserFontSize = MAX_FONT_SIZE;
+      }
+
       this.current.fontSizeScale = size / browserFontSize;
       this.ctx.font = "".concat(italic, " ").concat(bold, " ").concat(browserFontSize, "px ").concat(typeface);
     },
@@ -16684,7 +16720,7 @@ function () {
 exports.CanvasGraphicsFactory = CanvasGraphicsFactory;
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -16803,24 +16839,50 @@ var createMeshCanvas = function createMeshCanvasClosure() {
         maxY = Math.round(y3);
     var xa, car, cag, cab;
     var xb, cbr, cbg, cbb;
-    var k;
 
     for (var y = minY; y <= maxY; y++) {
       if (y < y2) {
-        k = y < y1 ? 0 : y1 === y2 ? 1 : (y1 - y) / (y1 - y2);
-        xa = x1 - (x1 - x2) * k;
-        car = c1r - (c1r - c2r) * k;
-        cag = c1g - (c1g - c2g) * k;
-        cab = c1b - (c1b - c2b) * k;
+        var _k = void 0;
+
+        if (y < y1) {
+          _k = 0;
+        } else if (y1 === y2) {
+          _k = 1;
+        } else {
+          _k = (y1 - y) / (y1 - y2);
+        }
+
+        xa = x1 - (x1 - x2) * _k;
+        car = c1r - (c1r - c2r) * _k;
+        cag = c1g - (c1g - c2g) * _k;
+        cab = c1b - (c1b - c2b) * _k;
       } else {
-        k = y > y3 ? 1 : y2 === y3 ? 0 : (y2 - y) / (y2 - y3);
-        xa = x2 - (x2 - x3) * k;
-        car = c2r - (c2r - c3r) * k;
-        cag = c2g - (c2g - c3g) * k;
-        cab = c2b - (c2b - c3b) * k;
+        var _k2 = void 0;
+
+        if (y > y3) {
+          _k2 = 1;
+        } else if (y2 === y3) {
+          _k2 = 0;
+        } else {
+          _k2 = (y2 - y) / (y2 - y3);
+        }
+
+        xa = x2 - (x2 - x3) * _k2;
+        car = c2r - (c2r - c3r) * _k2;
+        cag = c2g - (c2g - c3g) * _k2;
+        cab = c2b - (c2b - c3b) * _k2;
       }
 
-      k = y < y1 ? 0 : y > y3 ? 1 : (y1 - y) / (y1 - y3);
+      var k = void 0;
+
+      if (y < y1) {
+        k = 0;
+      } else if (y > y3) {
+        k = 1;
+      } else {
+        k = (y1 - y) / (y1 - y3);
+      }
+
       xb = x1 - (x1 - x3) * k;
       cbr = c1r - (c1r - c3r) * k;
       cbg = c1g - (c1g - c3g) * k;
@@ -16830,11 +16892,17 @@ var createMeshCanvas = function createMeshCanvasClosure() {
       var j = rowSize * y + x1_ * 4;
 
       for (var x = x1_; x <= x2_; x++) {
-        k = (xa - x) / (xa - xb);
-        k = k < 0 ? 0 : k > 1 ? 1 : k;
-        bytes[j++] = car - (car - cbr) * k | 0;
-        bytes[j++] = cag - (cag - cbg) * k | 0;
-        bytes[j++] = cab - (cab - cbb) * k | 0;
+        var _k3 = (xa - x) / (xa - xb);
+
+        if (_k3 < 0) {
+          _k3 = 0;
+        } else if (_k3 > 1) {
+          _k3 = 1;
+        }
+
+        bytes[j++] = car - (car - cbr) * _k3 | 0;
+        bytes[j++] = cag - (cag - cbg) * _k3 | 0;
+        bytes[j++] = cab - (cab - cbb) * _k3 | 0;
         bytes[j++] = 255;
       }
     }
@@ -17133,7 +17201,7 @@ var TilingPattern = function TilingPatternClosure() {
 exports.TilingPattern = TilingPattern;
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -17149,7 +17217,7 @@ GlobalWorkerOptions.workerPort = GlobalWorkerOptions.workerPort === undefined ? 
 GlobalWorkerOptions.workerSrc = GlobalWorkerOptions.workerSrc === undefined ? "" : GlobalWorkerOptions.workerSrc;
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -17160,7 +17228,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MessageHandler = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
@@ -17176,7 +17244,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var CallbackKind = {
   UNKNOWN: 0,
@@ -17663,8 +17731,8 @@ function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Promise.all([this.streamControllers[streamId].startCall, this.streamControllers[streamId].pullCall, this.streamControllers[streamId].cancelCall].map(function (capability) {
-                  return capability && capability.promise["catch"](function () {});
+                return Promise.allSettled([this.streamControllers[streamId].startCall, this.streamControllers[streamId].pullCall, this.streamControllers[streamId].cancelCall].map(function (capability) {
+                  return capability && capability.promise;
                 }));
 
               case 2:
@@ -17706,7 +17774,7 @@ function () {
 exports.MessageHandler = MessageHandler;
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -17719,7 +17787,7 @@ exports.Metadata = void 0;
 
 var _util = __w_pdfjs_require__(1);
 
-var _xml_parser = __w_pdfjs_require__(196);
+var _xml_parser = __w_pdfjs_require__(197);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -17846,7 +17914,7 @@ function () {
 exports.Metadata = Metadata;
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -17857,7 +17925,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SimpleXMLParser = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -17955,9 +18023,8 @@ function () {
   }, {
     key: "_parseContent",
     value: function _parseContent(s, start) {
-      var pos = start,
-          name,
-          attributes = [];
+      var attributes = [];
+      var pos = start;
 
       function skipWs() {
         while (pos < s.length && isWhitespace(s, pos)) {
@@ -17969,7 +18036,7 @@ function () {
         ++pos;
       }
 
-      name = s.substring(start, pos);
+      var name = s.substring(start, pos);
       skipWs();
 
       while (pos < s.length && s[pos] !== ">" && s[pos] !== "/" && s[pos] !== "?") {
@@ -18020,9 +18087,7 @@ function () {
   }, {
     key: "_parseProcessingInstruction",
     value: function _parseProcessingInstruction(s, start) {
-      var pos = start,
-          name,
-          value;
+      var pos = start;
 
       function skipWs() {
         while (pos < s.length && isWhitespace(s, pos)) {
@@ -18034,7 +18099,7 @@ function () {
         ++pos;
       }
 
-      name = s.substring(start, pos);
+      var name = s.substring(start, pos);
       skipWs();
       var attrStart = pos;
 
@@ -18042,7 +18107,7 @@ function () {
         ++pos;
       }
 
-      value = s.substring(attrStart, pos);
+      var value = s.substring(attrStart, pos);
       return {
         name: name,
         value: value,
@@ -18378,7 +18443,7 @@ function (_XMLParserBase) {
 exports.SimpleXMLParser = SimpleXMLParser;
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -18389,7 +18454,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PDFDataTransportStream = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
@@ -18871,7 +18936,7 @@ function () {
 }();
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -19331,7 +19396,7 @@ var WebGLUtils = function WebGLUtilsClosure() {
 }();
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -20017,7 +20082,7 @@ var renderTextLayer = function renderTextLayerClosure() {
 exports.renderTextLayer = renderTextLayer;
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -20028,7 +20093,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AnnotationLayer = void 0;
 
-var _display_utils = __w_pdfjs_require__(188);
+var _display_utils = __w_pdfjs_require__(189);
 
 var _util = __w_pdfjs_require__(1);
 
@@ -20036,7 +20101,7 @@ function _get(target, property, receiver) { if (typeof Reflect !== "undefined" &
 
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -20485,7 +20550,15 @@ function (_WidgetAnnotationElem) {
         return;
       }
 
-      style.fontWeight = font.black ? font.bold ? "900" : "bold" : font.bold ? "bold" : "normal";
+      var bold = "normal";
+
+      if (font.black) {
+        bold = "900";
+      } else if (font.bold) {
+        bold = "bold";
+      }
+
+      style.fontWeight = bold;
       style.fontStyle = font.italic ? "italic" : "normal";
       var fontFamily = font.loadedName ? "\"".concat(font.loadedName, "\", ") : "";
       var fallbackName = font.fallbackName || "Helvetica, sans-serif";
@@ -21388,6 +21461,8 @@ function () {
   _createClass(AnnotationLayer, null, [{
     key: "render",
     value: function render(parameters) {
+      var sortedAnnotations = [],
+          popupAnnotations = [];
       var _iteratorNormalCompletion5 = true;
       var _didIteratorError5 = false;
       var _iteratorError5 = undefined;
@@ -21400,21 +21475,12 @@ function () {
             continue;
           }
 
-          var element = AnnotationElementFactory.create({
-            data: data,
-            layer: parameters.div,
-            page: parameters.page,
-            viewport: parameters.viewport,
-            linkService: parameters.linkService,
-            downloadManager: parameters.downloadManager,
-            imageResourcesPath: parameters.imageResourcesPath || "",
-            renderInteractiveForms: parameters.renderInteractiveForms || false,
-            svgFactory: new _display_utils.DOMSVGFactory()
-          });
-
-          if (element.isRenderable) {
-            parameters.div.appendChild(element.render());
+          if (data.annotationType === _util.AnnotationType.POPUP) {
+            popupAnnotations.push(data);
+            continue;
           }
+
+          sortedAnnotations.push(data);
         }
       } catch (err) {
         _didIteratorError5 = true;
@@ -21428,6 +21494,29 @@ function () {
           if (_didIteratorError5) {
             throw _iteratorError5;
           }
+        }
+      }
+
+      if (popupAnnotations.length) {
+        sortedAnnotations.push.apply(sortedAnnotations, popupAnnotations);
+      }
+
+      for (var _i = 0, _sortedAnnotations = sortedAnnotations; _i < _sortedAnnotations.length; _i++) {
+        var _data = _sortedAnnotations[_i];
+        var element = AnnotationElementFactory.create({
+          data: _data,
+          layer: parameters.div,
+          page: parameters.page,
+          viewport: parameters.viewport,
+          linkService: parameters.linkService,
+          downloadManager: parameters.downloadManager,
+          imageResourcesPath: parameters.imageResourcesPath || "",
+          renderInteractiveForms: parameters.renderInteractiveForms || false,
+          svgFactory: new _display_utils.DOMSVGFactory()
+        });
+
+        if (element.isRenderable) {
+          parameters.div.appendChild(element.render());
         }
       }
     }
@@ -21472,7 +21561,7 @@ function () {
 exports.AnnotationLayer = AnnotationLayer;
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -21485,7 +21574,7 @@ exports.SVGGraphics = void 0;
 
 var _util = __w_pdfjs_require__(1);
 
-var _display_utils = __w_pdfjs_require__(188);
+var _display_utils = __w_pdfjs_require__(189);
 
 var _is_node = __w_pdfjs_require__(48);
 
@@ -22460,7 +22549,14 @@ exports.SVGGraphics = SVGGraphics;
         }
 
         current.fontMatrix = fontObj.fontMatrix ? fontObj.fontMatrix : _util.FONT_IDENTITY_MATRIX;
-        var bold = fontObj.black ? fontObj.bold ? "bolder" : "bold" : fontObj.bold ? "bold" : "normal";
+        var bold = "normal";
+
+        if (fontObj.black) {
+          bold = "900";
+        } else if (fontObj.bold) {
+          bold = "bold";
+        }
+
         var italic = fontObj.italic ? "italic" : "normal";
 
         if (size < 0) {
@@ -22653,13 +22749,13 @@ exports.SVGGraphics = SVGGraphics;
         switch (args[0]) {
           case "RadialAxial":
             var shadingId = "shading".concat(shadingCount++);
-            var colorStops = args[2];
+            var colorStops = args[3];
             var gradient;
 
             switch (args[1]) {
               case "axial":
-                var point0 = args[3];
-                var point1 = args[4];
+                var point0 = args[4];
+                var point1 = args[5];
                 gradient = this.svgFactory.createElement("svg:linearGradient");
                 gradient.setAttributeNS(null, "id", shadingId);
                 gradient.setAttributeNS(null, "gradientUnits", "userSpaceOnUse");
@@ -22670,10 +22766,10 @@ exports.SVGGraphics = SVGGraphics;
                 break;
 
               case "radial":
-                var focalPoint = args[3];
-                var circlePoint = args[4];
-                var focalRadius = args[5];
-                var circleRadius = args[6];
+                var focalPoint = args[4];
+                var circlePoint = args[5];
+                var focalRadius = args[6];
+                var circleRadius = args[7];
                 gradient = this.svgFactory.createElement("svg:radialGradient");
                 gradient.setAttributeNS(null, "id", shadingId);
                 gradient.setAttributeNS(null, "gradientUnits", "userSpaceOnUse");
@@ -23234,7 +23330,7 @@ exports.SVGGraphics = SVGGraphics;
 }
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -23245,15 +23341,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PDFNodeStream = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
-var _network_utils = __w_pdfjs_require__(203);
+var _network_utils = __w_pdfjs_require__(204);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -23885,7 +23981,7 @@ function (_BaseRangeReader2) {
 }(BaseRangeReader);
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -23901,7 +23997,7 @@ exports.validateResponseStatus = validateResponseStatus;
 
 var _util = __w_pdfjs_require__(1);
 
-var _content_disposition = __w_pdfjs_require__(204);
+var _content_disposition = __w_pdfjs_require__(205);
 
 function validateRangeRequestCapabilities(_ref) {
   var getResponseHeader = _ref.getResponseHeader,
@@ -23976,7 +24072,7 @@ function validateResponseStatus(status) {
 }
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -24072,8 +24168,8 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
   }
 
   function rfc2231getparam(contentDisposition) {
-    var matches = [],
-        match;
+    var matches = [];
+    var match;
     var iter = toParamRegExp("filename\\*((?!0\\d)\\d+)(\\*?)", "ig");
 
     while ((match = iter.exec(contentDisposition)) !== null) {
@@ -24183,7 +24279,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
 }
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -24194,11 +24290,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PDFNetworkStream = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
-var _network_utils = __w_pdfjs_require__(203);
+var _network_utils = __w_pdfjs_require__(204);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24875,7 +24971,7 @@ function () {
 }();
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __w_pdfjs_require__) {
 
 "use strict";
@@ -24886,11 +24982,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PDFFetchStream = void 0;
 
-var _regenerator = _interopRequireDefault(__w_pdfjs_require__(185));
+var _regenerator = _interopRequireDefault(__w_pdfjs_require__(186));
 
 var _util = __w_pdfjs_require__(1);
 
-var _network_utils = __w_pdfjs_require__(203);
+var _network_utils = __w_pdfjs_require__(204);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

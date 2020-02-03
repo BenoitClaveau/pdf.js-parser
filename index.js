@@ -85,9 +85,10 @@ class PDFParser {
         const res = await PDFParser.render(page);
         const data = { ...res, page };
         await PDFParser._extractTexts(data);
-        await PDFParser._mergeTexts(data);
         await PDFParser._extractLines(data);
         await PDFParser._generateBoxes(data);
+        await PDFParser._mergeTexts(data);
+
         return {
             canvas: res.canvas,
             context: res.context,
@@ -189,6 +190,14 @@ class PDFParser {
                 }).sort((a, b) => a.x - b.x); // important, je retrie pour supprimer le tri par Y et ne prendre en compte que le x.
 
                 for (let child of childrenAdjacent) {
+                    // je recherche des ligne entre les 2 blocks.
+                    const x = text.centroid.x;
+                    const y = Math.min(text.y, child.y);
+                    const w = child.centroid.x - x;
+                    const h = Math.min(text.y + text.h, child.y + child.h) - y;
+                    
+                    const b = store.boxes.filter(e => Rect.collideRectRect(e.x, e.y, e.w, e.h, x, y, w, h));
+                    if (b.length) break; // j'ai trouvé des lignes, je préfère ne pas merger.
                     text.text += child.text;
                     text.w = child.x + child.w - text.x;
                     const bottom = Math.max(text.y + text.h, child.y + child.h);
@@ -196,10 +205,7 @@ class PDFParser {
                     text.h = bottom - text.y;
                     text.centroid = centroid(text);
                     child.merged = true;
-                }
-
-                if (childrenAdjacent.length) {
-                    adjacents += childrenAdjacent.length;
+                    adjacents++;
                 }
             }
             store.texts = store.texts.filter(e => !e.merged);
