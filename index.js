@@ -153,7 +153,7 @@ class PDFParser {
                 console.error(inspect(error));
             }
 
-            store.texts.push({
+            const item = {
                 ...createBox({
                     x: tx[4],
                     y: tx[5],
@@ -166,7 +166,9 @@ class PDFParser {
                 fontSize,
                 font,
                 fontName
-            });
+            }
+            if (store.texts.some(e => e.text == item.text && e.x == item.x && e.y == item.y)) continue;
+            store.texts.push(item);
         }
 
         store.texts.sort(PDFParser.compareBlockPos);
