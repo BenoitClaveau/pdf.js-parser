@@ -40,11 +40,11 @@ class PDFParser {
         const canvasFactory = new NodeCanvasFactory(store);
         const canvasGraphicsFactory = new CanvasGraphicsFactory(store);
 
-        const viewport = page.getViewport({ scale:1.0 });
+        const viewport = page.getViewport({ scale: 1.0 });
         if (Number.isNaN(viewport.width)) viewport.width = viewport.viewBox[2];
         if (Number.isNaN(viewport.height)) viewport.height = viewport.viewBox[3];
 
-        const { 
+        const {
             context,
             canvas
         } = canvasFactory.create(viewport.width, viewport.height);
@@ -93,7 +93,7 @@ class PDFParser {
             canvas: res.canvas,
             context: res.context,
             viewport: res.viewport,
-            page,
+            page: Object.assign(page, { pageIndex: page._pageIndex }), // Cause by change in pdf.js pageIndex was rename _pageIndex
             hlines: res.store.hlines,
             vlines: res.store.vlines,
             boxes: res.store.boxes,
@@ -115,7 +115,7 @@ class PDFParser {
 
             const style = textContent.styles[textItem.fontName];
             const fontFamily = style.fontFamily;
-            
+
             // adjust for font ascent/descent
             const fontSize = Math.sqrt((tx[2] * tx[2]) + (tx[3] * tx[3]));
 
@@ -127,7 +127,7 @@ class PDFParser {
 
             // context.font = tx[0] + 'px ' + style.fontFamily;
             // const { width: sw } = context.measureText(" ");
-            
+
             // measureText crash de façon aleatoire.
             // je le remplace par un calcul de sw faux mais qui s'approche du résultat
             // il faudra le modifier;
@@ -137,19 +137,21 @@ class PDFParser {
             try {
                 font = page.commonObjs._objs[textItem.fontName];
                 if (font && font.data) {
-                    let spaceWidth = font.data.widths[32]; // largeur de l'espace // sinon prendre la premiète lettre;
-                    if (spaceWidth == undefined) {
-                        // je recherche le premier caractère
-                        spaceWidth = font.data.widths.find((e, i) => i >= 48 && i < 90 && e > 0);
+                    if (font.data.widths) {
+                        let spaceWidth = font.data.widths[32]; // largeur de l'espace // sinon prendre la premiète lettre;
+                        if (spaceWidth == undefined) {
+                            // je recherche le premier caractère
+                            spaceWidth = font.data.widths.find((e, i) => i >= 48 && i < 90 && e > 0);
+                        }
+                        sw = Math.round((fontSize * spaceWidth) / viewport.width);
                     }
-                    sw = Math.round((fontSize * spaceWidth) / viewport.width);
                     const fonts = font.data.name.split("+");
                     if (fonts.length == 2)
                         fontName = fonts[1];
                 }
-                
-            } 
-            catch(error) {
+
+            }
+            catch (error) {
                 console.error(inspect(error));
             }
 
@@ -197,7 +199,7 @@ class PDFParser {
                     const y = Math.min(text.y, child.y);
                     const w = child.centroid.x - x;
                     const h = Math.min(text.y + text.h, child.y + child.h) - y;
-                    
+
                     const b = store.boxes.filter(e => Rect.collideRectRect(e.x, e.y, e.w, e.h, x, y, w, h));
                     if (b.length) break; // j'ai trouvé des lignes, je préfère ne pas merger.
                     text.text += child.text;
@@ -516,39 +518,39 @@ https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2svg.js
 */
 function ReadableSVGStream(options) {
     if (!(this instanceof ReadableSVGStream)) {
-      return new ReadableSVGStream(options);
+        return new ReadableSVGStream(options);
     }
     stream.Readable.call(this, options);
     this.serializer = options.svgElement.getSerializer();
-  }
-  util.inherits(ReadableSVGStream, stream.Readable);
-  // Implements https://nodejs.org/api/stream.html#stream_readable_read_size_1
-  ReadableSVGStream.prototype._read = function() {
+}
+util.inherits(ReadableSVGStream, stream.Readable);
+// Implements https://nodejs.org/api/stream.html#stream_readable_read_size_1
+ReadableSVGStream.prototype._read = function () {
     var chunk;
     while ((chunk = this.serializer.getNext()) !== null) {
-      if (!this.push(chunk)) {
-        return;
-      }
+        if (!this.push(chunk)) {
+            return;
+        }
     }
     this.push(null);
-  };
+};
 
 const writeSvgToFile = (svgElement, filePath) => {
     var readableSvgStream = new ReadableSVGStream({
-      svgElement: svgElement,
+        svgElement: svgElement,
     });
     var writableStream = fs.createWriteStream(filePath);
-    return new Promise(function(resolve, reject) {
-      readableSvgStream.once("error", reject);
-      writableStream.once("error", reject);
-      writableStream.once("finish", resolve);
-      readableSvgStream.pipe(writableStream);
-    }).catch(function(err) {
-      readableSvgStream = null; // Explicitly null because of v8 bug 6512.
-      writableStream.end();
-      throw err;
+    return new Promise(function (resolve, reject) {
+        readableSvgStream.once("error", reject);
+        writableStream.once("error", reject);
+        writableStream.once("finish", resolve);
+        readableSvgStream.pipe(writableStream);
+    }).catch(function (err) {
+        readableSvgStream = null; // Explicitly null because of v8 bug 6512.
+        writableStream.end();
+        throw err;
     });
-  }
+}
 
 module.exports = PDFJS;
 module.exports.render = PDFParser.render;

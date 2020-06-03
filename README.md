@@ -16,6 +16,6 @@ git merge upstream/master
 
 ```shell
 cd pdf.js
-gulp dist-pre
-copy ./build/dist/build/* ../pdf.js-parser/dist
+gulp dist-install
+copy ./build/dist/build/es5/build/* ../pdf.js-parser/dist
 ```
