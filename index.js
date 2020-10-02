@@ -2,7 +2,6 @@
 // https://github.com/mozilla/pdf.js/blob/master/examples/node/pdf2svg.js
 require("./domstubs.js").setStubs(global);
 
-const PDFJS = require('./dist/pdf');
 const { promisify, inspect } = require("util");
 const util = require("util");
 const fs = require("fs");
@@ -20,11 +19,31 @@ const pipelineAsync = promisify(pipeline);
 const execAsync = promisify(exec);
 const randomName = () => randomBytes(4).readUInt32LE(0);
 
-//PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker");
+const PDFJS = require('./dist/pdf');
 PDFJS.GlobalWorkerOptions.disableWorker = true;
 PDFJS.GlobalWorkerOptions.workerSrc = undefined;
+//PDFJS.GlobalWorkerOptions.workerSrc = require("./dist/pdf.worker");
+
+// Some PDFs need external cmaps.
+const CMAP_URL = path.join(__dirname, "cmaps");
+const CMAP_PACKED = true;
+
+NodeCanvasFactory.registerFont(path.join(__dirname, "fonts"));
 
 class PDFParser {
+
+    static async read(data) {
+        const document = await PDFJS.getDocument({ 
+            data, 
+            //disableFontFace: false, 
+            cMapUrl: CMAP_URL,
+            cMapPacked: CMAP_PACKED,
+            fontExtraProperties: true,
+            verbosity: PDFJS.VerbosityLevel.Error,
+        }).promise;
+
+        return document;
+    }
     /**
      * 
      * @param {*} page const page = await document.getPage(1);
@@ -558,7 +577,7 @@ module.exports.renderAsSVG = PDFParser.renderAsSVG;
 module.exports.parse = PDFParser.parse;
 module.exports.writeFile = PDFParser.writeFile;
 module.exports.show = PDFParser.show;
-module.exports.registerFont = NodeCanvasFactory.registerFont;
+// module.exports.registerFont = NodeCanvasFactory.registerFont;
 module.exports.Rect = Rect;
 module.exports.ReadableSVGStream = ReadableSVGStream;
 module.exports.writeSvgToFile = writeSvgToFile;

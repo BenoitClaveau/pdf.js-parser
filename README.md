@@ -18,4 +18,5 @@ git merge upstream/master
 cd pdf.js
 gulp dist-install
 copy ./build/dist/build/es5/build/* ../pdf.js-parser/dist
+copy ./build/dist/cmaps/* ../pdf.js-parser/cmaps
 ```
