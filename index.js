@@ -572,6 +572,7 @@ const writeSvgToFile = (svgElement, filePath) => {
 }
 
 module.exports = PDFJS;
+module.exports.read = PDFParser.read;
 module.exports.render = PDFParser.render;
 module.exports.renderAsSVG = PDFParser.renderAsSVG;
 module.exports.parse = PDFParser.parse;
