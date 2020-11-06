@@ -33,9 +33,9 @@ NodeCanvasFactory.registerFont(path.join(__dirname, "fonts"));
 class PDFParser {
 
     static async read(data) {
-        const document = await PDFJS.getDocument({ 
-            data, 
-            //disableFontFace: false, 
+        const document = await PDFJS.getDocument({
+            data,
+            //disableFontFace: false,
             cMapUrl: CMAP_URL,
             cMapPacked: CMAP_PACKED,
             fontExtraProperties: true,
@@ -45,7 +45,7 @@ class PDFParser {
         return document;
     }
     /**
-     * 
+     *
      * @param {*} page const page = await document.getPage(1);
      */
     static async render(page) {
@@ -103,10 +103,13 @@ class PDFParser {
     static async parse(page) {
         const res = await PDFParser.render(page);
         const data = { ...res, page };
+
         await PDFParser._extractTexts(data);
         await PDFParser._extractLines(data);
         await PDFParser._generateBoxes(data);
         await PDFParser._mergeTexts(data);
+
+        await PDFParser._extractAnnotations(data);
 
         return {
             canvas: res.canvas,
@@ -125,9 +128,9 @@ class PDFParser {
 
         const textContent = await page.getTextContent({ normalizeWhitespace: true });
 
-        for (let textItem of textContent.items) {
+        for (const textItem of textContent.items) {
 
-            var tx = PDFJS.Util.transform(
+            const tx = PDFJS.Util.transform(
                 PDFJS.Util.transform(viewport.transform, textItem.transform),
                 [1, 0, 0, -1, 0, 0]
             );
@@ -194,9 +197,38 @@ class PDFParser {
 
         store.texts.sort(PDFParser.compareBlockPos);
 
-        return {
-            context,
-            ...store
+    }
+
+    /**
+     * Des champs de saisies peuvent contenir du texte.
+     */
+    static async _extractAnnotations(data) {
+        const { context, canvas, viewport, store, page } = data;
+
+        const annotations = await page.getAnnotations();
+
+        for (const annotation of annotations) {
+            const text = Array.isArray(annotation.fieldValue) ? 
+                            annotation.fieldValue.join(" ").trim() : 
+                            annotation.fieldValue?.trim();
+            if (!text) continue;
+            const bbox = viewport.convertToViewportRectangle(annotation.rect);
+            const item = {
+                ...createBox({
+                    x: bbox[0],
+                    y: bbox[3],
+                    w: bbox[2] - bbox[0],
+                    h: bbox[1] - bbox[3]
+                }),
+                text,
+                // fontFamily,
+                // fontSize,
+                // font,
+                // fontName
+            }
+
+            if (store.texts.some(e => e.text == item.text && e.x == item.x && e.y == item.y)) continue;
+            store.texts.push(item);
         }
     }
 
